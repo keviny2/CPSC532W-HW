@@ -74,11 +74,9 @@ while i < num_samples:
     if w != 1:
         rejections += 1
         continue
-    if c == 1:
-        samples[i] = 1
     else:
-        rejections += 1
-    i += 1
+        samples[i] = c
+        i += 1
 
 print('The chance of it being cloudy given the grass is wet is {:.2f}%'.format(samples.mean() * 100))
 print('{:.2f}% of the total samples were rejected'.format(100 * rejections / (samples.shape[0] + rejections)))
