@@ -64,4 +64,22 @@ So
 \frac{\pi(s')P(s',s)}{\pi(s)P(s,s')} = \frac{\pi(s')\pi(s)}{\pi(s)\pi(s')} = 1
 \end{align*}
 
+
+\exercise
+Hello World
+
+
+\exercise 
+\textbf{MH within Gibbs on blocks $w$ and $\hat{t}$}:\\
+\\
+\underline{$w$ block}
+
+\begin{align*}
+\pi(w) &\propto p(t,x,\sigma^2,w,\alpha)\\
+	   &= \prod_{n=1}^N \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{t_n-w^Tx_n}{\sigma})^2}\prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}}e^{-\frac{1}{2}(\frac{w_d}{\sqrt{\alpha}})^2}
+\\
+q(w,w') &\sim N(w,I)
+\\
+r &= \frac{\pi(w')q(w',w)}{\pi(w)q(w,w')}
+\end{align*}
 \end{document}

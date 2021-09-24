@@ -5,12 +5,12 @@ import matplotlib.pyplot as plt
 from joint_log_lik import joint_log_lik
 from sample_topic_assignment import sample_topic_assignment
 
-bagofwords = loadmat('bagofwords_nips.mat')
+bagofwords = loadmat('../data/bagofwords_nips.mat')
 WS = bagofwords['WS'][0] - 1  # go to 0 indexed
 DS = bagofwords['DS'][0] - 1
 
-WO = loadmat('words_nips.mat')['WO'][:, 0]
-titles = loadmat('titles_nips.mat')['titles'][:, 0]
+WO = loadmat('../data/words_nips.mat')['WO'][:, 0]
+titles = loadmat('../data/titles_nips.mat')['titles'][:, 0]
 
 # This script outlines how you might create a MCMC sampler for the LDA model
 
@@ -29,10 +29,11 @@ n_docs = document_assignment.max() + 1
 # number of topics
 n_topics = 20
 
-# initial topic assigments
+# initial topic assignments
 topic_assignment = np.random.randint(n_topics, size=document_assignment.size)
 
 # within document count of topics
+# N_kj = N_td = # times a word in document d is assigned to topic t
 doc_counts = np.zeros((n_docs, n_topics))
 
 for d in range(n_docs):
@@ -44,6 +45,7 @@ for d in range(n_docs):
 doc_N = doc_counts.sum(axis=1) - 1
 
 # within topic count of words
+# N_wk = N_nt = # times a word n is assigned to topic t
 topic_counts = np.zeros((n_topics, alphabet_size))
 
 for k in range(n_topics):
@@ -60,9 +62,10 @@ topic_N = topic_counts.sum(axis=1)
 # These parameters are both scalars and really we use alpha * ones() to
 # parameterize each dirichlet distribution. Iters will set the number of
 # times your sampler will iterate.
-alpha = None
-gamma = None
-iters = None
+alpha = 0.1
+gamma = 0.1
+iters = 10000
+# https://www.cs.cmu.edu/~wcohen/10-605/papers/fastlda.pdf
 
 jll = []
 for i in range(iters):
