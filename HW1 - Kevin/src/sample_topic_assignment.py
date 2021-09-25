@@ -19,9 +19,9 @@ def sample_topic_assignment(topic_assignment,
         doc_N: array of size n_docs count of total words in each document, minus 1
 
         alpha: prior dirichlet parameter on document specific distributions over topics
-        gamma: prior dirichlet parameter on topic specific distribuitons over words.
+        gamma: prior dirichlet parameter on topic specific distributions over words.
 
-        words: size n array of wors
+        words: size n array of words
         document_assignment: size n array of assignments of words to documents
     Returns:
         topic_assignment: updated topic_assignment array
