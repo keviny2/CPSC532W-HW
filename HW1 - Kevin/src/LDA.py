@@ -69,15 +69,19 @@ iters = 10000
 
 jll = []
 for i in range(iters):
+    print("=" * 5, "Iteration:", i, "=" * 5)
     jll.append(joint_log_lik(doc_counts, topic_counts, alpha, gamma))
 
     prm = np.random.permutation(words.shape[0])
 
+    # mix up data
     words = words[prm]
     document_assignment = document_assignment[prm]
     topic_assignment = topic_assignment[prm]
 
-    topic_assignment, topic_counts, doc_counts, topic_N = sample_topic_assignment(
+
+    # BUG: Really need to make this code run faster
+    topic_assignment = sample_topic_assignment(
         topic_assignment,
         topic_counts,
         doc_counts,
@@ -87,6 +91,17 @@ for i in range(iters):
         gamma,
         words,
         document_assignment)
+
+    # topic_assignment, topic_counts, doc_counts, topic_N = sample_topic_assignment(
+    #     topic_assignment,
+    #     topic_counts,
+    #     doc_counts,
+    #     topic_N,
+    #     doc_N,
+    #     alpha,
+    #     gamma,
+    #     words,
+    #     document_assignment)
 
 jll.append(joint_log_lik(doc_counts, topic_counts, alpha, gamma))
 
