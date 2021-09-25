@@ -1,6 +1,6 @@
-import numpy as np
+from scipy.special import loggamma
+import numba_scipy
 from numba import jit
-
 
 @jit(nopython=True)
 def joint_log_lik(doc_counts, topic_counts, alpha, gamma):
@@ -19,22 +19,21 @@ def joint_log_lik(doc_counts, topic_counts, alpha, gamma):
     ll = 0
 
     for j in range(doc_counts.shape[0]):
-        for k in range(doc_counts.shape[1]):
-            theta_jk = (doc_counts[j][k] + alpha) / (np.sum(doc_counts[j]) + topic_counts.shape[0]*alpha)
-            ll += (alpha - 1) * np.log(theta_jk)
+        for i in range(doc_counts.shape[1]):
+            term_1 = loggamma(doc_counts[j][i] + alpha)
+            term_2 = 0
+            for k in range(doc_counts.shape[1]):
+                term_2 += doc_counts[j][k] + alpha
+            term_2 = loggamma(term_2)
+            ll += (term_1 - term_2)
 
-    for j in range(doc_counts.shape[0]):
-        for w in range(topic_counts.shape[1]):
-            # TODO
-            ll += 0
-
-    for j in range(doc_counts.shape[0]):
-        for w in range(topic_counts.shape[1]):
-            # TODO
-            ll += 0
-
-    for k in range(doc_counts.shape[1]):
-        for w in range(topic_counts.shape[1]):
-            phi_kw = (topic_counts[k][w] + gamma) / (np.sum(topic_counts[k]) + topic_counts.shape[1] * gamma)
+    for i in range(doc_counts.shape[1]):
+        for v in range(topic_counts.shape[1]):
+            term_1 = loggamma(topic_counts[i][v] + gamma)
+            term_2 = 0
+            for w in range(topic_counts.shape[1]):
+                term_2 += topic_counts[i][v] + gamma
+            term_2 = loggamma(term_2)
+            ll += (term_1 - term_2)
 
     return ll
