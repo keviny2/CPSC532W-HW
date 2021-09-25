@@ -16,24 +16,32 @@ def joint_log_lik(doc_counts, topic_counts, alpha, gamma):
         ll: the joint log likelihood of the model
     """
 
+    n_docs = doc_counts.shape[0]
+    n_topics = doc_counts.shape[1]
+    alphabet_size = topic_counts.shape[1]
+
     ll = 0
 
-    for j in range(doc_counts.shape[0]):
-        for i in range(doc_counts.shape[1]):
-            term_1 = loggamma(doc_counts[j][i] + alpha)
-            term_2 = 0
-            for k in range(doc_counts.shape[1]):
-                term_2 += doc_counts[j][k] + alpha
-            term_2 = loggamma(term_2)
-            ll += (term_1 - term_2)
+    for j in range(n_docs):
+        term_1 = 0
+        for i in range(n_topics):
+            term_1 += loggamma(doc_counts[j][i] + alpha)
 
-    for i in range(doc_counts.shape[1]):
-        for v in range(topic_counts.shape[1]):
-            term_1 = loggamma(topic_counts[i][v] + gamma)
-            term_2 = 0
-            for w in range(topic_counts.shape[1]):
-                term_2 += topic_counts[i][v] + gamma
-            term_2 = loggamma(term_2)
-            ll += (term_1 - term_2)
+        term_2 = 0
+        for i in range(n_topics):
+            term_2 += doc_counts[j][i] + alpha
+        term_2 = loggamma(term_2)
+        ll += (term_1 - term_2)
+
+    for i in range(n_topics):
+        term_1 = 0
+        for r in range(alphabet_size):
+            term_1 += loggamma(topic_counts[i][r] + gamma)
+
+        term_2 = 0
+        for r in range(alphabet_size):
+            term_2 += topic_counts[i][r] + gamma
+        term_2 = loggamma(term_2)
+        ll += (term_1 - term_2)
 
     return ll
