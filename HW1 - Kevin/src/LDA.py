@@ -21,8 +21,8 @@ words = WS
 
 # subset data, EDIT THIS PART ONCE YOU ARE CONFIDENT THE MODEL IS WORKING
 # PROPERLY IN ORDER TO USE THE ENTIRE DATA SET
-words = words[document_assignment < 100]
-document_assignment = document_assignment[document_assignment < 100]
+# words = words[document_assignment < 100]
+# document_assignment = document_assignment[document_assignment < 100]
 
 n_docs = document_assignment.max() + 1
 
@@ -64,7 +64,7 @@ topic_N = topic_counts.sum(axis=1)
 # times your sampler will iterate.
 alpha = 0.1
 gamma = 0.1
-iters = 10000
+iters = 1000
 # https://www.cs.cmu.edu/~wcohen/10-605/papers/fastlda.pdf
 
 jll = []
@@ -80,8 +80,7 @@ for i in range(iters):
     topic_assignment = topic_assignment[prm]
 
 
-    # BUG: Really need to make this code run faster
-    topic_assignment = sample_topic_assignment(
+    topic_assignment, topic_counts, doc_counts, topic_N = sample_topic_assignment(
         topic_assignment,
         topic_counts,
         doc_counts,
@@ -92,16 +91,6 @@ for i in range(iters):
         words,
         document_assignment)
 
-    # topic_assignment, topic_counts, doc_counts, topic_N = sample_topic_assignment(
-    #     topic_assignment,
-    #     topic_counts,
-    #     doc_counts,
-    #     topic_N,
-    #     doc_N,
-    #     alpha,
-    #     gamma,
-    #     words,
-    #     document_assignment)
 
 jll.append(joint_log_lik(doc_counts, topic_counts, alpha, gamma))
 
