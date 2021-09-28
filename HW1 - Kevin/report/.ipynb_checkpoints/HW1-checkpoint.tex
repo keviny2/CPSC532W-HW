@@ -1,0 +1,96 @@
+\documentclass[10pt]{homeworg}
+
+\title{Homework 1}
+\author{Kevin Yang}
+
+
+\begin{document}
+
+\maketitle
+
+\exercise
+Let $X = (x_1, x_2, \ldots, x_n)$ \\
+\vspace{0.5cm}
+$x_i \sim Pois(\lambda)$  \hspace{2cm} $\lambda \sim \Gamma(\alpha, \beta)$
+\\
+We have that:
+\begin{align*}
+P(\lambda \mid X) &= \frac{P(X \mid \lambda)P(\lambda)}{P(X)}\\
+				  &\propto P(X \mid \lambda)P(\lambda)\\
+				  &\propto \lambda^{n\bar{x}}e^{-n\lambda}\lambda^{\alpha-1}e^{-\beta\lambda}\\
+				  &= \lambda^{n\bar{x}+\alpha-1}e^{-(n+\beta)\lambda}
+\end{align*}
+
+Therefore, $P(\lambda \mid X) \sim \Gamma(n\bar{x}+\alpha, \beta+n)$ and the Gamma distribution is conjugate to the Poisson distribution.
+
+\exercise
+Let $s = (s_1, s_2, \ldots, s_n)$, $s' = (s_1', s_2', \ldots, s_n')$ and $s_{-i} = (s_1, \ldots, s_{i-1}, s_{i+1}, \ldots, s_n)$\\
+Detailed balance equation: $\pi(s)P(s,s')=\pi(s')P(s',s)$\\
+
+w.l.g consider an update for $s_1$\\
+\vspace{0.5cm}
+
+\textit{Case 1:} $s_{-1} \neq s_{-1}'$
+\begin{align*}
+\pi(s)P(s,s') = \pi(s')P(s',s) = 0
+\end{align*}
+
+
+\textit{Case 2:} $s_{-1} = s_{-1}'$
+\begin{align*}
+\pi(s)P(s,s') &= \pi(s)P(s_1' \mid s_{-1}')\\
+			  &= \pi(s)\frac{\pi(s')}{\sum_z \pi(z, s_{-1}')}\\
+			  &= \pi(s')\frac{\pi(s)}{\sum_z \pi(z, s_{-1})}\\
+			  &= \pi(s')P(s_1 \mid s_{-1})\\
+			  &= \pi(s')P(s',s)
+\end{align*}
+
+Consider the move from $s$ to $s'$. The acceptance probability for MH will be
+
+\begin{align*}
+\frac{\pi(s')P(s',s)}{\pi(s)P(s,s')}
+\end{align*}
+
+We have that
+
+\begin{align*}
+\frac{P(s',s)}{P(s,s')} &= \frac{\frac{\pi(s)}{\sum_z \pi(z,s_{-1})}}{\frac{\pi(s')}{\sum_z \pi(z, s_{-1}')}}\\
+					   &= \frac{\pi(s)}{\pi(s')}
+\end{align*}
+
+So
+
+\begin{align*}
+\frac{\pi(s')P(s',s)}{\pi(s)P(s,s')} = \frac{\pi(s')\pi(s)}{\pi(s)\pi(s')} = 1
+\end{align*}
+
+
+
+\exercise 
+\textbf{MH within Gibbs on blocks $w$ and $\hat{t}$}:\\
+\\
+\underline{$w$ block}
+
+Let our proposal distribution $q(w,w') \sim N(w,I)$. We also have that,
+
+\begin{align*}
+\pi(w) &\propto p(t,x,\sigma^2,w,\alpha)\\
+	   &= \prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{t_n-w^Tx_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{w_d}{\sqrt{\alpha}})^2}
+\end{align*}
+
+So the update probability is,
+
+\begin{align*}
+r &= \frac{\pi(w')q(w',w)}{\pi(w)q(w,w')}\\
+\vspace{0.5cm}
+  &= \frac{\prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{t_n-w'^Tx_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{w'_d}{\sqrt{\alpha}})^2} q(w',w)}{\prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{t_n-w^Tx_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{w_d}{\sqrt{\alpha}})^2} q(w,w')}\\
+  \vspace{0.5cm}
+  &\propto e^{-\frac{1}{2}\sum_{n=1}^N (\frac{t_n-w'^Tx_n}{\sigma})^2 - (\frac{t_n-w^Tx_n}{\sigma})^2} e^{-\frac{1}{2}\sum_{d=1}^D (\frac{w'_d}{\sqrt{\alpha}})^2 - (\frac{w_d}{\sqrt{\alpha}})^2}
+\end{align*}
+
+
+\\
+\underline{$\hat{t}$ block}
+
+
+\end{document}

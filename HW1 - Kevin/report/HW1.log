@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  27 SEP 2021 10:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  28 SEP 2021 14:58
 entering extended mode
 **./HW1.tex
 (HW1.tex
@@ -645,6 +645,17 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 LaTeX Font Info:    Redeclaring math symbol \circ on input line 134.
 LaTeX Font Info:    Redeclaring math symbol \epsilon on input line 135.
 LaTeX Font Info:    Redeclaring math symbol \eqcolon on input line 142.
+) (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/tools\bm.sty
+Package: bm 2021/04/25 v1.2e Bold Symbol Support (DPC/FMi)
+\symboldoperators=\mathgroup9
+\symboldletters=\mathgroup10
+Package bm Info: No bold for \LS2/libertinust1mathsym/m/n, using \pmb.
+Package bm Info: No bold for \LS2/libertinust1mathex/m/n, using \pmb.
+Package bm Info: No bold for \LS1/libertinust1mathbb/m/n, using \pmb.
+Package bm Info: No bold for \LS1/libertinust1math/b/n, using \pmb.
+Package bm Info: No bold for \LS1/libertinust1math/b/it, using \pmb.
+Package bm Info: No bold for \U/msa/m/n, using \pmb.
+Package bm Info: No bold for \U/msb/m/n, using \pmb.
 )
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
@@ -654,46 +665,46 @@ File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
 ) (HW1.aux)
 \openout1 = `HW1.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for LS1/libertinust1math/m/n on input lin
-e 7.
+e 8.
 LaTeX Font Info:    Trying to load font information for LS1+libertinust1math on
- input line 7.
+ input line 8.
 
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/libertinust1math\ls1lib
 ertinust1math.fd
 File: ls1libertinust1math.fd 2016/03/23 Fontinst v1.933 font definitions for LS
 1/libertinust1math.
 )
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for LS2/libertinust1mathsym/m/n on input 
-line 7.
+line 8.
 LaTeX Font Info:    Trying to load font information for LS2+libertinust1mathsym
- on input line 7.
+ on input line 8.
 
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/libertinust1math\ls2lib
 ertinust1mathsym.fd
 File: ls2libertinust1mathsym.fd 2015/04/17 v1.1.2-latex LibertinusT1Mathsym LS2
  font definitions
 )
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 7.
-LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 8.
+LaTeX Font Info:    ... okay on input line 8.
 \c@mv@tabular=\count292
 \c@mv@boldtabular=\count293
 
@@ -743,14 +754,14 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 \Gin@req@height=\dimen174
 \Gin@req@width=\dimen175
 )
-LaTeX Info: Redefining \microtypecontext on input line 7.
+LaTeX Info: Redefining \microtypecontext on input line 8.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 7.
+LaTeX Info: Redefining \showhyphens on input line 8.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -758,7 +769,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LibertinusSerif-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package hyperref Info: Link coloring OFF on input line 7.
+Package hyperref Info: Link coloring OFF on input line 8.
 
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -772,9 +783,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count300
 )
-LaTeX Info: Redefining \ref on input line 7.
-LaTeX Info: Redefining \pageref on input line 7.
-LaTeX Info: Redefining \nameref on input line 7.
+LaTeX Info: Redefining \ref on input line 8.
+LaTeX Info: Redefining \pageref on input line 8.
+LaTeX Info: Redefining \nameref on input line 8.
  (HW1.out) (HW1.out)
 \@outlinefile=\write3
 \openout3 = `HW1.out'.
@@ -815,29 +826,29 @@ LaTeX Info: Redefining \nameref on input line 7.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 20.74pt on input line 10.
+(Font)              scaled to size 20.74pt on input line 11.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 10.
+(Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 14.4pt on input line 10.
+(Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 10.0pt on input line 10.
+(Font)              scaled to size 10.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 7.0pt on input line 10.
+(Font)              scaled to size 7.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 14.4pt on input line 10.
+(Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 10.0pt on input line 10.
+(Font)              scaled to size 10.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 7.0pt on input line 10.
+(Font)              scaled to size 7.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 14.4pt on input line 10.
+(Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 10.0pt on input line 10.
+(Font)              scaled to size 10.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 7.0pt on input line 10.
+(Font)              scaled to size 7.0pt on input line 11.
 LaTeX Font Info:    Trying to load font information for LS2+libertinust1mathex 
-on input line 10.
+on input line 11.
 
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/libertinust1math\ls2lib
 ertinust1mathex.fd
@@ -845,13 +856,13 @@ File: ls2libertinust1mathex.fd 2016/03/15 v1.0.0-latex LibertinusMath extension
 s LS2 font definitions
 )
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 14.4pt on input line 10.
+(Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 10.0pt on input line 10.
+(Font)              scaled to size 10.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 7.0pt on input line 10.
+(Font)              scaled to size 7.0pt on input line 11.
 LaTeX Font Info:    Trying to load font information for LS1+libertinust1mathbb 
-on input line 10.
+on input line 11.
 
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/libertinust1math\ls1lib
 ertinust1mathbb.fd
@@ -859,24 +870,24 @@ File: ls1libertinust1mathbb.fd 2016/08/22 latex LibertinusT1Mathbb LS1 font def
 initions
 )
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 14.4pt on input line 10.
+(Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 10.0pt on input line 10.
+(Font)              scaled to size 10.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 7.0pt on input line 10.
+(Font)              scaled to size 7.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 14.4pt on input line 10.
+(Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 10.0pt on input line 10.
+(Font)              scaled to size 10.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 7.0pt on input line 10.
+(Font)              scaled to size 7.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 14.4pt on input line 10.
+(Font)              scaled to size 14.4pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 10.0pt on input line 10.
+(Font)              scaled to size 10.0pt on input line 11.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 7.0pt on input line 10.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 10.
+(Font)              scaled to size 7.0pt on input line 11.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 11.
 
 
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -885,7 +896,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 10.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 11.
 
 
 (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -895,98 +906,148 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/n' will be
-(Font)              scaled to size 17.28pt on input line 12.
+(Font)              scaled to size 17.28pt on input line 13.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 12.
+(Font)              scaled to size 17.28pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 12.0pt on input line 12.
+(Font)              scaled to size 12.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 8.0pt on input line 12.
+(Font)              scaled to size 8.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 6.0pt on input line 12.
+(Font)              scaled to size 6.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 12.0pt on input line 12.
+(Font)              scaled to size 12.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 8.0pt on input line 12.
+(Font)              scaled to size 8.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 6.0pt on input line 12.
+(Font)              scaled to size 6.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 12.0pt on input line 12.
+(Font)              scaled to size 12.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 8.0pt on input line 12.
+(Font)              scaled to size 8.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 6.0pt on input line 12.
+(Font)              scaled to size 6.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 12.0pt on input line 12.
+(Font)              scaled to size 12.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 8.0pt on input line 12.
+(Font)              scaled to size 8.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 6.0pt on input line 12.
+(Font)              scaled to size 6.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 12.0pt on input line 12.
+(Font)              scaled to size 12.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 8.0pt on input line 12.
+(Font)              scaled to size 8.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 6.0pt on input line 12.
+(Font)              scaled to size 6.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 12.0pt on input line 12.
+(Font)              scaled to size 12.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 8.0pt on input line 12.
+(Font)              scaled to size 8.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 6.0pt on input line 12.
+(Font)              scaled to size 6.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 12.0pt on input line 12.
+(Font)              scaled to size 12.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 8.0pt on input line 12.
+(Font)              scaled to size 8.0pt on input line 13.
 LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 6.0pt on input line 12.
+(Font)              scaled to size 6.0pt on input line 13.
 
 [1
 
 {C:/Users/kevin/AppData/Local/MiKTeX/pdftex/config/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 27--29
+Underfull \hbox (badness 10000) in paragraph at lines 28--30
 
  []
 
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 33.
+(Font)              scaled to size 12.0pt on input line 34.
 [2]
-LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 70.
+<figures/q3_a.PNG, id=42, 728.7225pt x 385.44pt>
+File: figures/q3_a.PNG Graphic file (type png)
+<use figures/q3_a.PNG>
+Package pdftex.def Info: figures/q3_a.PNG  used on input line 73.
+(pdftex.def)             Requested size: 510.10226pt x 269.80615pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 70--73
+Overfull \hbox (57.13437pt too wide) in paragraph at lines 73--74
+ [] 
+ []
+
+<figures/q3_b.PNG, id=44, 728.7225pt x 372.1905pt>
+File: figures/q3_b.PNG Graphic file (type png)
+<use figures/q3_b.PNG>
+Package pdftex.def Info: figures/q3_b.PNG  used on input line 79.
+(pdftex.def)             Requested size: 510.10226pt x 260.53157pt.
+
+Overfull \hbox (57.13437pt too wide) in paragraph at lines 79--80
+ [] 
+ []
+
+<figures/q3_c.PNG, id=45, 728.7225pt x 339.669pt>
+File: figures/q3_c.PNG Graphic file (type png)
+<use figures/q3_c.PNG>
+Package pdftex.def Info: figures/q3_c.PNG  used on input line 85.
+(pdftex.def)             Requested size: 510.10226pt x 237.76668pt.
+
+Overfull \hbox (57.13437pt too wide) in paragraph at lines 85--86
+ [] 
+ []
+
+[3 <./figures/q3_a.PNG> <./figures/q3_b.PNG>]
+<figures/q3_results.PNG, id=53, 731.1315pt x 92.14426pt>
+File: figures/q3_results.PNG Graphic file (type png)
+<use figures/q3_results.PNG>
+Package pdftex.def Info: figures/q3_results.PNG  used on input line 90.
+(pdftex.def)             Requested size: 511.78856pt x 64.50052pt.
+
+Overfull \hbox (58.82066pt too wide) in paragraph at lines 90--91
+ [] 
+ []
+
+[4 <./figures/q3_c.PNG> <./figures/q3_results.PNG>]
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
+(Font)              scaled to size 12.0pt on input line 96.
+
+Underfull \hbox (badness 10000) in paragraph at lines 96--99
 
  []
 
-[3] (HW1.aux)
+
+Underfull \hbox (badness 10000) in paragraph at lines 135--138
+
+ []
+
+[5] [6] [7] (HW1.aux)
 Package rerunfilecheck Info: File `HW1.out' has not changed.
-(rerunfilecheck)             Checksum: 82CA916F3B72DE79F62DC892F8CD82C2;291.
+(rerunfilecheck)             Checksum: FBEDE070C194C32742C8C2574D9DEB0A;485.
  ) 
 Here is how much of TeX's memory you used:
- 14745 strings out of 478868
- 233367 string characters out of 2848809
- 571636 words of memory out of 3000000
- 32351 multiletter control sequences out of 15000+600000
+ 14861 strings out of 478868
+ 234917 string characters out of 2848809
+ 584500 words of memory out of 3000000
+ 32450 multiletter control sequences out of 15000+600000
  485178 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,11n,94p,499b,376s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,12n,94p,546b,444s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinust1mat
-h/libusEX.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lib
-ertinust1math/libusSYM.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/
-enc/dvips/libertinus-type1/lbts_nufysp.enc}{C:/Users/kevin/AppData/Local/Progra
-ms/MiKTeX/fonts/enc/dvips/libertinust1math/libusMR.enc}{C:/Users/kevin/AppData/
-Local/Programs/MiKTeX/fonts/enc/dvips/libertinust1math/libusMI.enc}{C:/Users/ke
-vin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinus-type1/lbts_sfissr.
-enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinus-ty
-pe1/lbts_75t36g.enc}<C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/p
-ublic/libertinus-type1/LibertinusSerif-Bold.pfb><C:/Users/kevin/AppData/Local/P
-rograms/MiKTeX/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><
-C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertinus-type
-1/LibertinusSerif-Regular.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fon
-ts/type1/public/libertinust1math/LibertinusT1Math.pfb>
-Output written on HW1.pdf (3 pages, 410954 bytes).
+h/libusBMR.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/li
+bertinust1math/libusEX.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/
+enc/dvips/libertinust1math/libusSYM.enc}{C:/Users/kevin/AppData/Local/Programs/
+MiKTeX/fonts/enc/dvips/libertinus-type1/lbts_nufysp.enc}{C:/Users/kevin/AppData
+/Local/Programs/MiKTeX/fonts/enc/dvips/libertinust1math/libusBMI.enc}{C:/Users/
+kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinust1math/libusMR.en
+c}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinust1mat
+h/libusMI.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lib
+ertinus-type1/lbts_sfissr.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fon
+ts/enc/dvips/libertinus-type1/lbts_75t36g.enc}<C:/Users/kevin/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><C:/U
+sers/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertinus-type1/Li
+bertinusSerif-Italic.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/libertinus-type1/LibertinusSerif-Regular.pfb><C:/Users/kevin/AppData
+/Local/Programs/MiKTeX/fonts/type1/public/libertinust1math/LibertinusT1Math.pfb
+>
+Output written on HW1.pdf (7 pages, 605402 bytes).
 PDF statistics:
- 73 PDF objects out of 1000 (max. 8388607)
- 10 named destinations out of 1000 (max. 500000)
- 26649 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 119 PDF objects out of 1000 (max. 8388607)
+ 18 named destinations out of 1000 (max. 500000)
+ 26685 words of extra memory for PDF output out of 29859 (max. 10000000)
 

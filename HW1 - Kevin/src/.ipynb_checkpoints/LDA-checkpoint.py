@@ -64,7 +64,7 @@ topic_N = topic_counts.sum(axis=1)
 # times your sampler will iterate.
 alpha = 0.1
 gamma = 0.1
-iters = 100
+iters = 50
 # https://www.cs.cmu.edu/~wcohen/10-605/papers/fastlda.pdf
 
 jll = []

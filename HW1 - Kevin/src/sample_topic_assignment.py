@@ -35,6 +35,7 @@ def sample_topic_assignment(topic_assignment,
         topic_N: updated count of words assigned to each topic
     """
     n_words = len(words)
+    n_topics = len(topic_N)
     alphabet_size = topic_counts.shape[1]
 
     topic_assignment_updated = topic_assignment
