@@ -64,7 +64,7 @@ topic_N = topic_counts.sum(axis=1)
 # times your sampler will iterate.
 alpha = 0.1
 gamma = 0.1
-iters = 1000
+iters = 50
 # https://www.cs.cmu.edu/~wcohen/10-605/papers/fastlda.pdf
 
 jll = []
@@ -97,20 +97,37 @@ jll.append(joint_log_lik(doc_counts, topic_counts, alpha, gamma))
 plt.plot(jll)
 
 ### find the 10 most probable words of the 20 topics:
-# TODO:
-fstr = ''
 
-with open('most_probable_words_per_topic', 'w') as f:
-    f.write(fstr)
+# distribution of words in each topic
+topic_word_probabilities = (topic_counts + gamma) / (topic_N + alphabet_size * gamma)[:, np.newaxis]
+
+find_top_10 = lambda arr: np.argpartition(arr, -10)[-10:]
+most_probable_words_per_topic = np.apply_along_axis(find_top_10, 1, topic_word_probabilities)
+
+convert_int_to_word = lambda arr: WO[arr]
+most_probable_words_per_topic = np.apply_along_axis(convert_int_to_word, 1, most_probable_words_per_topic)
+
+np.savetxt('../results/most_probable_words_per_topic.txt', most_probable_words_per_topic, delimiter=" ", fmt="%s")
+
+# fstr = ''
+# with open('most_probable_words_per_topic', 'w') as f:
+#    f.write(fstr)
 
 # most similar documents to document 0 by cosine similarity over topic distribution:
 # normalize topics per document and dot product:
-# TODO:
+topic_document_probabilities = (doc_counts + alpha) / (doc_N + n_topics * alpha)[:, np.newaxis]
 
-fstr = ''
+connectivity_versus_entropy = topic_document_probabilities[0]
+find_similarity = lambda arr: np.dot(connectivity_versus_entropy, arr)\
+                              / (np.linalg.norm(connectivity_versus_entropy)*np.linalg.norm(arr))
+similarities = np.apply_along_axis(find_similarity, 1, topic_document_probabilities)
+similarities[0] = 0
 
-with open('most_similar_titles_to_0', 'w') as f:
-    f.write(fstr)
+most_similar_documents = titles[find_top_10(similarities)]
+np.savetxt('../results/most_similar_titles_to_0.txt', most_similar_documents, delimiter=' ', fmt="%s")
 
+# fstr = ''
+# with open('most_similar_titles_to_0', 'w') as f:
+#     f.write(fstr)
 
 

@@ -65,21 +65,32 @@ So
 \end{align*}
 
 
-\exercise
-Hello World
-
 
 \exercise 
 \textbf{MH within Gibbs on blocks $w$ and $\hat{t}$}:\\
 \\
 \underline{$w$ block}
 
+Let our proposal distribution $q(w,w') \sim N(w,I)$. We also have that,
+
 \begin{align*}
 \pi(w) &\propto p(t,x,\sigma^2,w,\alpha)\\
-	   &= \prod_{n=1}^N \frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{t_n-w^Tx_n}{\sigma})^2}\prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}}e^{-\frac{1}{2}(\frac{w_d}{\sqrt{\alpha}})^2}
-\\
-q(w,w') &\sim N(w,I)
-\\
-r &= \frac{\pi(w')q(w',w)}{\pi(w)q(w,w')}
+	   &= \prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{t_n-w^Tx_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{w_d}{\sqrt{\alpha}})^2}
 \end{align*}
+
+So the update probability is,
+
+\begin{align*}
+r &= \frac{\pi(w')q(w',w)}{\pi(w)q(w,w')}\\
+\vspace{0.5cm}
+  &= \frac{\prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{t_n-w'^Tx_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{w'_d}{\sqrt{\alpha}})^2} q(w',w)}{\prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{t_n-w^Tx_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{w_d}{\sqrt{\alpha}})^2} q(w,w')}\\
+  \vspace{0.5cm}
+  &\propto e^{-\frac{1}{2}\sum_{n=1}^N (\frac{t_n-w'^Tx_n}{\sigma})^2 - (\frac{t_n-w^Tx_n}{\sigma})^2} e^{-\frac{1}{2}\sum_{d=1}^D (\frac{w'_d}{\sqrt{\alpha}})^2 - (\frac{w_d}{\sqrt{\alpha}})^2}
+\end{align*}
+
+
+\\
+\underline{$\hat{t}$ block}
+
+
 \end{document}

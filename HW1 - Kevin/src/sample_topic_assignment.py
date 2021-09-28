@@ -35,6 +35,7 @@ def sample_topic_assignment(topic_assignment,
         topic_N: updated count of words assigned to each topic
     """
     n_words = len(words)
+    alphabet_size = topic_counts.shape[1]
 
     topic_assignment_updated = topic_assignment
     topic_counts_updated = topic_counts
@@ -55,7 +56,7 @@ def sample_topic_assignment(topic_assignment,
 
 
         a = doc_counts_updated[doc_idx] + alpha
-        b = (topic_counts_updated[:, word_idx] + gamma) / (topic_N_updated + n_words * gamma)
+        b = (topic_counts_updated[:, word_idx] + gamma) / (topic_N_updated + alphabet_size * gamma)
         probabilities = a * b
         probabilities /= np.sum(probabilities)
 

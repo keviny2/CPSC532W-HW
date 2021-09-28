@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  23 SEP 2021 15:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  27 SEP 2021 10:24
 entering extended mode
 **./HW1.tex
 (HW1.tex
@@ -950,26 +950,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 27--29
 
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/it' will be
 (Font)              scaled to size 12.0pt on input line 33.
-[2] [3]
+[2]
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
-(Font)              scaled to size 12.0pt on input line 73.
+(Font)              scaled to size 12.0pt on input line 70.
 
-Underfull \hbox (badness 10000) in paragraph at lines 73--76
+Underfull \hbox (badness 10000) in paragraph at lines 70--73
 
  []
 
-[4] (HW1.aux)
+[3] (HW1.aux)
 Package rerunfilecheck Info: File `HW1.out' has not changed.
-(rerunfilecheck)             Checksum: 308872134223968AB8F98021D8EC013A;388.
+(rerunfilecheck)             Checksum: 82CA916F3B72DE79F62DC892F8CD82C2;291.
  ) 
 Here is how much of TeX's memory you used:
- 14749 strings out of 478868
- 233405 string characters out of 2848809
+ 14745 strings out of 478868
+ 233367 string characters out of 2848809
  571636 words of memory out of 3000000
- 32352 multiletter control sequences out of 15000+600000
+ 32351 multiletter control sequences out of 15000+600000
  485178 words of font info for 123 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,10n,94p,499b,376s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,11n,94p,499b,376s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinust1mat
 h/libusEX.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/lib
 ertinust1math/libusSYM.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/
@@ -984,9 +984,9 @@ rograms/MiKTeX/fonts/type1/public/libertinus-type1/LibertinusSerif-Italic.pfb><
 C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertinus-type
 1/LibertinusSerif-Regular.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fon
 ts/type1/public/libertinust1math/LibertinusT1Math.pfb>
-Output written on HW1.pdf (4 pages, 411301 bytes).
+Output written on HW1.pdf (3 pages, 410954 bytes).
 PDF statistics:
- 83 PDF objects out of 1000 (max. 8388607)
- 13 named destinations out of 1000 (max. 500000)
- 26657 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 73 PDF objects out of 1000 (max. 8388607)
+ 10 named destinations out of 1000 (max. 500000)
+ 26649 words of extra memory for PDF output out of 29859 (max. 10000000)
 
