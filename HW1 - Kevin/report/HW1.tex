@@ -26,7 +26,7 @@ Therefore, $P(\lambda \mid X) \sim \Gamma(n\bar{x}+\alpha, \beta+n)$ and the Gam
 
 \exercise
 Let $s = (s_1, s_2, \ldots, s_n)$, $s' = (s_1', s_2', \ldots, s_n')$ and $s_{-i} = (s_1, \ldots, s_{i-1}, s_{i+1}, \ldots, s_n)$\\
-Detailed balance equation: $\pi(s)P(s,s')=\pi(s')P(s',s)$\\
+We will show that Gibbs sampling satisfies the detailed balance equation: $\pi(s)P(s,s')=\pi(s')P(s',s)$\\
 
 w.l.g consider an update for $s_1$\\
 \vspace{0.5cm}
@@ -49,21 +49,9 @@ w.l.g consider an update for $s_1$\\
 Consider the move from $s$ to $s'$. The acceptance probability for MH will be
 
 \begin{align*}
-\frac{\pi(s')P(s',s)}{\pi(s)P(s,s')}
+\frac{\pi(s')P(s',s)}{\pi(s)P(s,s')} = 1
 \end{align*}
 
-We have that
-
-\begin{align*}
-\frac{P(s',s)}{P(s,s')} &= \frac{\frac{\pi(s)}{\sum_z \pi(z,s_{-1})}}{\frac{\pi(s')}{\sum_z \pi(z, s_{-1}')}}\\
-					   &= \frac{\pi(s)}{\pi(s')}
-\end{align*}
-
-So
-
-\begin{align*}
-\frac{\pi(s')P(s',s)}{\pi(s)P(s,s')} = \frac{\pi(s')\pi(s)}{\pi(s)\pi(s')} = 1
-\end{align*}
 
 
 
