@@ -131,6 +131,7 @@ r &= \frac{\pi(\hat{\boldsymbol t}')q(\hat{\boldsymbol t}',\hat{\boldsymbol t})}
   &= e^{-\frac{1}{2}(\frac{\hat{\boldsymbol t}'^2-\hat{\boldsymbol t}^2+2\hat{\boldsymbol t}\boldsymbol w^T\hat{\boldsymbol x}-2\hat{\boldsymbol t}'\boldsymbol w^T\hat{\boldsymbol x}}{\sigma^2})}\frac{q(\hat{\boldsymbol t}', \hat{\boldsymbol t})}{q(\hat{\boldsymbol t}, \hat{\boldsymbol t}')}
 \end{align*}
 
+\newpage
 
 \textbf{Pure Gibbs on blocks $w$ and $\hat{\boldsymbol t}$}:\\
 \\
@@ -155,6 +156,28 @@ r &= \frac{\pi(\hat{\boldsymbol t}')q(\hat{\boldsymbol t}',\hat{\boldsymbol t})}
 \underline{$\hat{\boldsymbol t}$ block}
 \begin{align*}
 p(\hat{\boldsymbol t} \mid \boldsymbol t, \boldsymbol x, \sigma^2, \boldsymbol w, \alpha) &\propto e^{-\frac{1}{2}(\frac{\hat{\boldsymbol t}-\boldsymbol w^T\hat{\boldsymbol x}}{\sigma})^2} \sim Normal(\boldsymbol w^T\hat{\boldsymbol x}, \sigma^2)
+\end{align*}
+\\
+
+
+\textbf{Posterior Predictive}:
+
+\begin{align*}
+p(\hat{\boldsymbol t} \mid \hat{\boldsymbol x}, \boldsymbol t) &= \int p(\hat{\boldsymbol t} \mid \hat{\boldsymbol x}, \boldsymbol w)p(\boldsymbol w \mid \boldsymbol t)dw\\
+&= \int N(\boldsymbol w^T \hat{\boldsymbol x}, \sigma^2)N(\boldsymbol w \mid \boldsymbol \mu, \Sigma)dw
+\end{align*}
+
+Bye the linear combination rules for Gaussian random variables, we have that,
+
+\begin{align*}
+p(\hat{\boldsymbol t} \mid \hat{\boldsymbol x}, \boldsymbol t) \sim N(\boldsymbol \mu', \sigma'^2)
+\end{align*}
+
+\vspace{-1cm}
+
+\begin{align*}
+\boldsymbol \mu' &= \boldsymbol \mu^T\hat{\boldsymbol x}\\
+\sigma'^2 &= \hat{\boldsymbol x}^T \Sigma \hat{\boldsymbol x} + \sigma^2
 \end{align*}
 
 \exercise
