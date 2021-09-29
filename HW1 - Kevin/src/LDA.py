@@ -21,8 +21,8 @@ words = WS
 
 # subset data, EDIT THIS PART ONCE YOU ARE CONFIDENT THE MODEL IS WORKING
 # PROPERLY IN ORDER TO USE THE ENTIRE DATA SET
-# words = words[document_assignment < 100]
-# document_assignment = document_assignment[document_assignment < 100]
+words = words[document_assignment < 100]
+document_assignment = document_assignment[document_assignment < 100]
 
 n_docs = document_assignment.max() + 1
 
@@ -63,7 +63,7 @@ topic_N = topic_counts.sum(axis=1)
 # parameterize each dirichlet distribution. Iters will set the number of
 # times your sampler will iterate.
 alpha = 0.1
-gamma = 0.1
+gamma = 0.001
 iters = 100
 # https://www.cs.cmu.edu/~wcohen/10-605/papers/fastlda.pdf
 
