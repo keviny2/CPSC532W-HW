@@ -71,7 +71,7 @@ topic_N = topic_counts.sum(axis=1)
 alpha = 0.1
 gamma = 0.001
 num_burnin = 1000
-iters = 5000
+iters = 10000
 # https://www.cs.cmu.edu/~wcohen/10-605/papers/fastlda.pdf
 
 jll = []

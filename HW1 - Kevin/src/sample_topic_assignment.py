@@ -17,7 +17,7 @@ def sample_topic_assignment(topic_assignment,
 
     Args:
         topic_assignment: size n array of topic assignments
-        topic_counts: n_topics x alphabet_size array of counts per topic of unique words
+        topic_counts: n_topics x alphabet_size array of counts per topic of unique words            @
         doc_counts: n_docs x n_topics array of counts per document of unique topics
 
         topic_N: array of size n_topics count of total words assigned to each topic
