@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  28 SEP 2021 20:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  29 SEP 2021 13:19
 entering extended mode
 **./HW1.tex
 (HW1.tex
@@ -1012,12 +1012,12 @@ Underfull \hbox (badness 10000) in paragraph at lines 84--87
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 124--127
+Underfull \hbox (badness 10000) in paragraph at lines 125--128
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 147--149
+Underfull \hbox (badness 10000) in paragraph at lines 148--150
 
  []
 
@@ -1028,7 +1028,7 @@ Package rerunfilecheck Info: File `HW1.out' has not changed.
 Here is how much of TeX's memory you used:
  14862 strings out of 478868
  234956 string characters out of 2848809
- 580500 words of memory out of 3000000
+ 583500 words of memory out of 3000000
  32450 multiletter control sequences out of 15000+600000
  485292 words of font info for 124 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1050,7 +1050,7 @@ bertinusSerif-Italic.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/ty
 pe1/public/libertinus-type1/LibertinusSerif-Regular.pfb><C:/Users/kevin/AppData
 /Local/Programs/MiKTeX/fonts/type1/public/libertinust1math/LibertinusT1Math.pfb
 >
-Output written on HW1.pdf (7 pages, 606652 bytes).
+Output written on HW1.pdf (7 pages, 607241 bytes).
 PDF statistics:
  119 PDF objects out of 1000 (max. 8388607)
  18 named destinations out of 1000 (max. 500000)

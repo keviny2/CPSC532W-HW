@@ -99,6 +99,7 @@ r &= \frac{\pi(\boldsymbol w')q(\boldsymbol w',\boldsymbol w)}{\pi(\boldsymbol w
 \vspace{0.5cm}
   &= \frac{\prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{\boldsymbol t_n-\boldsymbol w'^T\boldsymbol x_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{\boldsymbol w'_d}{\sqrt{\alpha}})^2} q(\boldsymbol w',\boldsymbol w)}{\prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{\boldsymbol t_n-\boldsymbol w^T\boldsymbol x_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{\boldsymbol w_d}{\sqrt{\alpha}})^2} q(\boldsymbol w, \boldsymbol w')}\\
   \vspace{0.5cm}
+  &\propto  \frac{\prod_{n=1}^N e^{-\frac{1}{2}(\frac{\boldsymbol t_n-\boldsymbol w'^T\boldsymbol x_n}{\sigma})^2} e^{-\frac{1}{2}(\boldsymbol w'^T(\alpha I)^{-1}\boldsymbol w')} q(\boldsymbol w',\boldsymbol w)}{\prod_{n=1}^N e^{-\frac{1}{2}(\frac{\boldsymbol t_n-\boldsymbol w^T\boldsymbol x_n}{\sigma})^2} e^{-\frac{1}{2}(\boldsymbol w^T(\alpha I)^{-1}\boldsymbol w)} q(\boldsymbol w, \boldsymbol w')}\\
   &\propto e^{-\frac{1}{2}\sum_{n=1}^N (\frac{\boldsymbol t_n-\boldsymbol w'^T\boldsymbol x_n}{\sigma})^2 - (\frac{\boldsymbol t_n-\boldsymbol w^T\boldsymbol x_n}{\sigma})^2} e^{-\frac{1}{2}\sum_{d=1}^D (\frac{\boldsymbol w'_d}{\sqrt{\alpha}})^2 - (\frac{\boldsymbol w_d}{\sqrt{\alpha}})^2}\frac{q(\boldsymbol w',\boldsymbol w)}{q(\boldsymbol w, \boldsymbol w')}
 \end{align*}
 
