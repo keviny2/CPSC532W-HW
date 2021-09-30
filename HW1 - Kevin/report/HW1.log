@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  29 SEP 2021 13:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  29 SEP 2021 18:14
 entering extended mode
 **./HW1.tex
 (HW1.tex
@@ -1012,27 +1012,51 @@ Underfull \hbox (badness 10000) in paragraph at lines 84--87
  []
 
 [5]
-Underfull \hbox (badness 10000) in paragraph at lines 125--128
+Underfull \hbox (badness 10000) in paragraph at lines 124--127
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 148--150
+Underfull \hbox (badness 10000) in paragraph at lines 147--149
 
  []
 
-[6] [7] (HW1.aux)
+[6]
+<figures/jll.png, id=70, 462.528pt x 346.896pt>
+File: figures/jll.png Graphic file (type png)
+<use figures/jll.png>
+Package pdftex.def Info: figures/jll.png  used on input line 198.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+<figures/most_probable_words_per_topic.png, id=71, 788.34525pt x 268.00125pt>
+File: figures/most_probable_words_per_topic.png Graphic file (type png)
+<use figures/most_probable_words_per_topic.png>
+Package pdftex.def Info: figures/most_probable_words_per_topic.png  used on inp
+ut line 205.
+(pdftex.def)             Requested size: 394.17166pt x 134.00029pt.
+<figures/most_similar_titles_to_0.png, id=72, 957.5775pt x 159.59625pt>
+File: figures/most_similar_titles_to_0.png Graphic file (type png)
+<use figures/most_similar_titles_to_0.png>
+Package pdftex.def Info: figures/most_similar_titles_to_0.png  used on input li
+ne 211.
+(pdftex.def)             Requested size: 478.78758pt x 79.79791pt.
+
+Overfull \hbox (25.81969pt too wide) in paragraph at lines 211--212
+ [] 
+ []
+
+[7 <./figures/jll.png> <./figures/most_probable_words_per_topic.png>] [8 <./fig
+ures/most_similar_titles_to_0.png>] (HW1.aux)
 Package rerunfilecheck Info: File `HW1.out' has not changed.
 (rerunfilecheck)             Checksum: FBEDE070C194C32742C8C2574D9DEB0A;485.
  ) 
 Here is how much of TeX's memory you used:
- 14862 strings out of 478868
- 234956 string characters out of 2848809
- 583500 words of memory out of 3000000
- 32450 multiletter control sequences out of 15000+600000
+ 14889 strings out of 478868
+ 235839 string characters out of 2848809
+ 579500 words of memory out of 3000000
+ 32472 multiletter control sequences out of 15000+600000
  485292 words of font info for 124 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,12n,94p,546b,444s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,12n,94p,546b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinust1mat
 h/libusBMR.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/li
 bertinust1math/libusEX.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/
@@ -1050,9 +1074,9 @@ bertinusSerif-Italic.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/ty
 pe1/public/libertinus-type1/LibertinusSerif-Regular.pfb><C:/Users/kevin/AppData
 /Local/Programs/MiKTeX/fonts/type1/public/libertinust1math/LibertinusT1Math.pfb
 >
-Output written on HW1.pdf (7 pages, 607241 bytes).
+Output written on HW1.pdf (8 pages, 682221 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 18 named destinations out of 1000 (max. 500000)
- 26685 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 130 PDF objects out of 1000 (max. 8388607)
+ 19 named destinations out of 1000 (max. 500000)
+ 26700 words of extra memory for PDF output out of 29859 (max. 10000000)
 

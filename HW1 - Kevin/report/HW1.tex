@@ -100,7 +100,7 @@ r &= \frac{\pi(\boldsymbol w')q(\boldsymbol w',\boldsymbol w)}{\pi(\boldsymbol w
   &= \frac{\prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{\boldsymbol t_n-\boldsymbol w'^T\boldsymbol x_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{\boldsymbol w'_d}{\sqrt{\alpha}})^2} q(\boldsymbol w',\boldsymbol w)}{\prod_{n=1}^N \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{1}{2}(\frac{\boldsymbol t_n-\boldsymbol w^T\boldsymbol x_n}{\sigma})^2} \prod_{d=1}^D \frac{1}{\sqrt{2\pi\alpha}} e^{-\frac{1}{2} (\frac{\boldsymbol w_d}{\sqrt{\alpha}})^2} q(\boldsymbol w, \boldsymbol w')}\\
   \vspace{0.5cm}
   &\propto  \frac{\prod_{n=1}^N e^{-\frac{1}{2}(\frac{\boldsymbol t_n-\boldsymbol w'^T\boldsymbol x_n}{\sigma})^2} e^{-\frac{1}{2}(\boldsymbol w'^T(\alpha I)^{-1}\boldsymbol w')} q(\boldsymbol w',\boldsymbol w)}{\prod_{n=1}^N e^{-\frac{1}{2}(\frac{\boldsymbol t_n-\boldsymbol w^T\boldsymbol x_n}{\sigma})^2} e^{-\frac{1}{2}(\boldsymbol w^T(\alpha I)^{-1}\boldsymbol w)} q(\boldsymbol w, \boldsymbol w')}\\
-  &\propto e^{-\frac{1}{2}\sum_{n=1}^N (\frac{\boldsymbol t_n-\boldsymbol w'^T\boldsymbol x_n}{\sigma})^2 - (\frac{\boldsymbol t_n-\boldsymbol w^T\boldsymbol x_n}{\sigma})^2} e^{-\frac{1}{2}\sum_{d=1}^D (\frac{\boldsymbol w'_d}{\sqrt{\alpha}})^2 - (\frac{\boldsymbol w_d}{\sqrt{\alpha}})^2}\frac{q(\boldsymbol w',\boldsymbol w)}{q(\boldsymbol w, \boldsymbol w')}
+  &= \frac{e^{-\frac{1}{2}(\boldsymbol t - \boldsymbol x\boldsymbol w')^T(\sigma^2 I)^{-1}(\boldsymbol t-\boldsymbol x\boldsymbol w')-\boldsymbol w'^T(\alpha I)^{-1}\boldsymbol w'}q(\boldsymbol w \mid \boldsymbol w')}{e^{-\frac{1}{2}(\boldsymbol t - \boldsymbol x\boldsymbol w)^T(\alpha I)^{-1} (\boldsymbol t - \boldsymbol x\boldsymbol w)-\boldsymbol w^T(\alpha I)^{-1}\boldsymbol w}q(\boldsymbol w' \mid \boldsymbol w)}
 \end{align*}
 
 
@@ -116,8 +116,7 @@ The update probability is,
 
 \begin{align*}
 r &= \frac{\pi(\hat{\boldsymbol t}')q(\hat{\boldsymbol t}',\hat{\boldsymbol t})}{\pi(\hat{\boldsymbol t})q(\hat{\boldsymbol t}, \hat{\boldsymbol t}')}\\
-  &\propto \frac{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{\hat{\boldsymbol t}'-\boldsymbol w^T\hat{\boldsymbol x}}{\sigma})^2}q(\hat{\boldsymbol t}', \hat{\boldsymbol t})}{\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{1}{2}(\frac{\hat{\boldsymbol t}-\boldsymbol w^T\hat{\boldsymbol x}}{\sigma})^2}q(\hat{\boldsymbol t}, \hat{\boldsymbol t}')}\\
-  &= e^{-\frac{1}{2}(\frac{\hat{\boldsymbol t}'^2-\hat{\boldsymbol t}^2+2\hat{\boldsymbol t}\boldsymbol w^T\hat{\boldsymbol x}-2\hat{\boldsymbol t}'\boldsymbol w^T\hat{\boldsymbol x}}{\sigma^2})}\frac{q(\hat{\boldsymbol t}', \hat{\boldsymbol t})}{q(\hat{\boldsymbol t}, \hat{\boldsymbol t}')}
+  &\propto \frac{e^{-\frac{1}{2}(\frac{\hat{\boldsymbol t}'-\boldsymbol w^T\hat{\boldsymbol x}}{\sigma})^2}q(\hat{\boldsymbol t}', \hat{\boldsymbol t})}{e^{-\frac{1}{2}(\frac{\hat{\boldsymbol t}-\boldsymbol w^T\hat{\boldsymbol x}}{\sigma})^2}q(\hat{\boldsymbol t}, \hat{\boldsymbol t}')}
 \end{align*}
 
 \newpage
@@ -192,5 +191,24 @@ p(z_{l,j} = k \mid z^{-lj}, x, \alpha, \beta) = \frac{1}{Z} a_{ji} b_{wi}
 \begin{align*}
 a_{ji} = N_{ji}^{-lj} + \alpha   \hspace{2cm}  b_{wi} = \frac{N_{wi}^{-lj} + \beta}{N_i^{-lj} + V\beta}  \hspace{2cm} Z = \sum_i^K a_{ji}b_{wi}
 \end{align*}
+
+The joint log likelihood plot,
+
+\begin{center}
+\includegraphics[scale=0.5]{figures/jll.png}
+\end{center}
+
+
+The most probable words per topic are organized such that each row corresponds to a topic,
+
+\begin{center}
+\includegraphics[scale=0.5]{figures/most_probable_words_per_topic.png}
+\end{center}
+
+The most similar titles to document 0 are,
+
+\begin{center}
+\includegraphics[scale=0.5]{figures/most_similar_titles_to_0}
+\end{center}
 
 \end{document}
