@@ -25,7 +25,7 @@ def p_R_given_C(r, c):
 
 def p_W_given_S_R(w, s, r):
     p = np.array([
-        [[1.0, 0.1], [0.1, 0.001]],  # w = False
+        [[1.0, 0.1], [0.1, 0.01]],  # w = False
         [[0.0, 0.9], [0.9, 0.99]],  # w = True
     ])
     return p[w, s, r]
@@ -43,21 +43,16 @@ for c in range(2):
             for w in range(2):
                 p[c, s, r, w] = p_C(c) * p_S_given_C(s, c) * p_R_given_C(r, c) * p_W_given_S_R(w, s, r)
 
-joint = 0
-for s in range(2):
-    for r in range(2):
-        joint += p[1, s, r, 1]
 
-normalizing_const = 0
+p_C_given_W = np.zeros(2)
 for c in range(2):
     for s in range(2):
         for r in range(2):
-            normalizing_const += p[c, s, r, 1]
+            p_C_given_W[c] += p[c, s, r, 1]
 
-p_C_given_W = joint / normalizing_const
+p_C_given_W /= np.sum(p_C_given_W)
 
-# print('There is a {:.2f}% chance it is cloudy given the grass is wet'.format(p_C_given_W[1] * 100))
-print('There is a {:.2f}% chance it is cloudy given the grass is wet'.format(p_C_given_W * 100))
+print('There is a {:.2f}% chance it is cloudy given the grass is wet'.format(p_C_given_W[1] * 100))
 
 ##2. ancestral sampling and rejection:
 # https://www.cs.ubc.ca/~fwood/CS532W-539W/lectures/mcmc.pdf
@@ -74,11 +69,9 @@ while i < num_samples:
     if w != 1:
         rejections += 1
         continue
-    if c == 1:
-        samples[i] = 1
     else:
-        rejections += 1
-    i += 1
+        samples[i] = c
+        i += 1
 
 print('The chance of it being cloudy given the grass is wet is {:.2f}%'.format(samples.mean() * 100))
 print('{:.2f}% of the total samples were rejected'.format(100 * rejections / (samples.shape[0] + rejections)))
@@ -113,6 +106,16 @@ samples = np.zeros(num_samples)
 state = np.zeros(4, dtype='int')
 # c,s,r,w, set w = True
 
-# TODO
+c, s, r, w = 0, 1, 2, 3
+i = 0
+state[w] = 1
+while i < num_samples:
+    state[c] = np.argmax(np.random.multinomial(1, p_C_given_S_R[:, state[s], state[r]]))
+    state[s] = np.argmax(np.random.multinomial(1, p_S_given_C_R_W[state[c], :, state[r], state[w]]))
+    state[r] = np.argmax(np.random.multinomial(1, p_R_given_C_S_W[state[c], state[s], :, state[w]]))
+
+    samples[i] = state[c]
+    i += 1
+
 
 print('The chance of it being cloudy given the grass is wet is {:.2f}%'.format(samples.mean() * 100))
