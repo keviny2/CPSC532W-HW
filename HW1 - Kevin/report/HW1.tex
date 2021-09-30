@@ -2,7 +2,7 @@
 
 \usepackage{bm}
 \title{Homework 1}
-\author{Kevin Yang}
+\author{Kevin Yang - 50244152}
 
 
 \begin{document}
@@ -170,11 +170,13 @@ p(\hat{\boldsymbol t} \mid \hat{\boldsymbol x}, \boldsymbol t) \sim N(\boldsymbo
 
 \exercise
 $M = $ number of documents, $K = $ number of topics, $V = $ vocabulary size\\
-$N_{w,i} = $ number of times word $w$ is assigned to topic $i$\\
+$N_{wi} = $ number of times word $w$ is assigned to topic $i$\\
 $N_i = $ number of words assigned to topic $i$\\
-$N_{j,i} = $ number of words in document $j$ assigned to topic $i$\\
+$N_{ji} = $ number of words in document $j$ assigned to topic $i$\\
 $x_{lj} = l^{th}$ word in document $j$ (observed)\\
-$z_{lj} = $ topic assignment for the $l^{th}$ word in document $j$
+$z_{lj} = $ topic assignment for the $l^{th}$ word in document $j$\\
+$\hat{\phi_{i}} = $ distribution of words for topic $i$\\
+$\hat{\theta_j} = $ distribution of topics for document $j$\\
 
  
 Joint log likelihood:
@@ -192,23 +194,59 @@ p(z_{l,j} = k \mid z^{-lj}, x, \alpha, \beta) = \frac{1}{Z} a_{ji} b_{wi}
 a_{ji} = N_{ji}^{-lj} + \alpha   \hspace{2cm}  b_{wi} = \frac{N_{wi}^{-lj} + \beta}{N_i^{-lj} + V\beta}  \hspace{2cm} Z = \sum_i^K a_{ji}b_{wi}
 \end{align*}
 
+Estimates:
+\begin{align*}
+&\hat{\phi_{wi}} = \frac{N_{wi} + \beta}{N_i + V*\beta}\\
+&\hat{\theta_{ji}} = \frac{N_{ji}+\alpha}{N_j+K*\alpha}
+\end{align*}
+
+
+\newpage
+
 The joint log likelihood plot,
 
 \begin{center}
-\includegraphics[scale=0.5]{figures/jll.png}
+\includegraphics[scale=0.3]{figures/jll_remove_burnin.png}
 \end{center}
 
 
-The most probable words per topic are organized such that each row corresponds to a topic,
+The 10 most probable words per topic (rows correspond topics)
 
-\begin{center}
-\includegraphics[scale=0.5]{figures/most_probable_words_per_topic.png}
-\end{center}
+\begin{flushleft}
+\includegraphics[scale=0.6]{figures/most_probable_words_per_topic.png}
+\end{flushleft}
+
+
 
 The most similar titles to document 0 are,
 
+\begin{flushleft}
+\includegraphics[scale=0.6]{figures/most_similar_titles_to_0}
+\end{flushleft}
+
+\newpage
+
+Joint log likelihood code,
+
 \begin{center}
-\includegraphics[scale=0.5]{figures/most_similar_titles_to_0}
+\includegraphics[scale=0.6]{figures/jll_code_1.png}
+\end{center}
+
+\begin{center}
+\includegraphics[scale=0.65]{figures/jll_code_2.png}
+\end{center}
+
+
+\newpage
+
+Sampler code,
+
+\begin{center}
+\includegraphics[scale=0.6]{figures/sampler_code_1.png}
+\end{center}
+
+\begin{center}
+\includegraphics[scale=0.6]{figures/sampler_code_2.png}
 \end{center}
 
 \end{document}
