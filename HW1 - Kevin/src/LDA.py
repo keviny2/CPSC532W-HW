@@ -68,9 +68,10 @@ topic_N = topic_counts.sum(axis=1)
 # alpha=0.1, gamma=0.1
 # alpha=0.1, gamma=0.001
 # alpha=2, gamma=2
-alpha = 2
-gamma = 2
-iters = 100
+alpha = 0.1
+gamma = 0.001
+num_burnin = 1000
+iters = 5000
 # https://www.cs.cmu.edu/~wcohen/10-605/papers/fastlda.pdf
 
 jll = []
@@ -99,8 +100,10 @@ for i in range(iters):
 
 
 jll.append(joint_log_lik(doc_counts, topic_counts, alpha, gamma))
+del jll[:num_burnin]
 
 plt.plot(jll)
+plt.savefig('../results/jll_plot.png')
 
 ### find the 10 most probable words of the 20 topics:
 
