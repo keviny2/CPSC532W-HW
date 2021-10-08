@@ -27,6 +27,10 @@
 \usepackage{microtype}      % microtypography
 \usepackage{xcolor}         % colors
 
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+
 \title{Variational Inference for Dirichlet Process to Stratify Cancer
 Patients Using DNA Methylation}
 
@@ -81,89 +85,48 @@ Patients Using DNA Methylation}
   must be limited to one paragraph.
 \end{abstract}
 
-\section{Submission of papers to NeurIPS 2021}
+\section{Introduction}
 
-Please read the instructions below carefully and follow them faithfully.
 
-\subsection{Style}
+\subsection{DNA Methylation}
 
-Papers to be submitted to NeurIPS 2021 must be prepared according to the
-instructions presented here. Papers may only be up to {\bf nine} pages long,
-including figures. Additional pages \emph{containing only acknowledgments and
-references} are allowed. Papers that exceed the page limit will not be
-reviewed, or in any other way considered for presentation at the conference.
+Cancers develop via the acquisition of genomic changes. These changes in turn alter the cells harbouring them, leading to changes in cell state (phenotype). One common effect of these mutations is to induce a series of modifications to the genome, which do not alter the encoded DNA but rather the ability of the DNA to be read and processed into protein. These heritable non-genetic changes are broadly referred to as epigenetic changes. According to Baylin and Jones (2011), "Epigenetic alterations are leading candidates for the development of specific markers for cancer detection, diagnosis and prognosis". One such epigenetic change is DNA methylation, which is unambiguously linked with transcriptional repression. When present in promoter regions, DNA methylation correlates negatively with gene expression; furthermore, characteristic changes in DNA methylation have been reported for cancer. Research indicates that gene promoter CpG islands acquire abnormal hypermethylation resulting in transcriptional silencing in cancer (Bock, 2012). It is important to note that 70-80\% of CpGs in the human genome are affected by DNA methylation. Therefore, understanding the effects of DNA methylation in cancer can provide valuable information for finding an effective remedy for cancer in humans. The potential relationship between DNA methylation and cancer opens up a new avenue of exploration. Advances in next-generation sequencing and microarray technology allow for analysis on DNA methylation in large samples and genome-wide; currently, DNA methylation is the only epigenetic mark that can be measured reliably. As a result, DNA methylation can be profiled accurately using high throughput sequencing and is a potential feature for categorizing cancer patients into functionally similar groups. 
 
-The margins in 2021 are the same as those in 2007, which allow for $\sim$$15\%$
-more words in the paper compared to earlier years.
+\subsection{Variational Inference}
 
-Authors are required to use the NeurIPS \LaTeX{} style files obtainable at the
-NeurIPS website as indicated below. Please make sure you use the current files
-and not previous versions. Tweaking the style files may be grounds for
-rejection.
+Variational inference is an alternative strategy to MCMC sampling which tends to be faster and easier to scale to larger datasets. The key characteristic of variational inference is that it casts Bayesian inference as an optimization problem (Salimans et al., 2015). Variational inference attempts to approximate the posterior with a distribution $q_theta(z|x)$ by choosing its parameters theta to optimize the evidence lower bound (ELBO) on the marginal likelihood.
 
-\subsection{Retrieval of style files}
+%% I had to add the package amsmath, don't know if this is allowed...
+\begin{align*}
+\log{p(x)} &\geq \log p(x) - D_{KL}(q_\theta(z\mid x)||p(z\mid x))\\
+		   &= E_{q_\theta(z\mid x)}(\log p(x,z)-\log q_\theta (z\mid x))
+\end{align*}
 
-The style files for NeurIPS and other conference information are available on
-the World Wide Web at
-\begin{center}
-  \url{http://www.neurips.cc/}
-\end{center}
-The file \verb+neurips_2021.pdf+ contains these instructions and illustrates the
-various formatting requirements your NeurIPS paper must satisfy.
+Coordinate Ascent Mean-Field VI (CAVI) is one of the most common algorithms for solving this optimization problem, and is very similar to the EM algorithm and Gibbs sampling. In short, the main difference between MCMC and VI is that MCMC is a sampling algorithm, while VI is an optimization algorithm; MCMC constructs an ergodic markov chain, while VI approximates the posterior with another distribution.
 
-The only supported style file for NeurIPS 2021 is \verb+neurips_2021.sty+,
-rewritten for \LaTeXe{}.  \textbf{Previous style files for \LaTeX{} 2.09,
-  Microsoft Word, and RTF are no longer supported!}
 
-The \LaTeX{} style file contains three optional arguments: \verb+final+, which
-creates a camera-ready copy, \verb+preprint+, which creates a preprint for
-submission to, e.g., arXiv, and \verb+nonatbib+, which will not load the
-\verb+natbib+ package for you in case of package clash.
-
-\paragraph{Preprint option}
-If you wish to post a preprint of your work online, e.g., on arXiv, using the
-NeurIPS style, please use the \verb+preprint+ option. This will create a
-nonanonymized version of your work with the text ``Preprint. Work in progress.''
-in the footer. This version may be distributed as you see fit. Please \textbf{do
-  not} use the \verb+final+ option, which should \textbf{only} be used for
-papers accepted to NeurIPS.
-
-At submission time, please omit the \verb+final+ and \verb+preprint+
-options. This will anonymize your submission and add line numbers to aid
-review. Please do \emph{not} refer to these line numbers in your paper as they
-will be removed during generation of camera-ready copies.
-
-The file \verb+neurips_2021.tex+ may be used as a ``shell'' for writing your
-paper. All you have to do is replace the author, title, abstract, and text of
-the paper with your own.
-
-The formatting instructions contained in these style files are summarized in
-Sections \ref{gen_inst}, \ref{headings}, and \ref{others} below.
-
-\section{General formatting instructions}
+\section{Methods}
 \label{gen_inst}
 
-The text must be confined within a rectangle 5.5~inches (33~picas) wide and
-9~inches (54~picas) long. The left margin is 1.5~inch (9~picas).  Use 10~point
-type with a vertical spacing (leading) of 11~points.  Times New Roman is the
-preferred typeface throughout, and will be selected for you by default.
-Paragraphs are separated by \nicefrac{1}{2}~line space (5.5 points), with no
-indentation.
+\subsection{Model}
 
-The paper title should be 17~point, initial caps/lower case, bold, centered
-between two horizontal rules. The top rule should be 4~points thick and the
-bottom rule should be 1~point thick. Allow \nicefrac{1}{4}~inch space above and
-below the title to rules. All pages should start at 1~inch (6~picas) from the
-top of the page.
+We propose a Variational Inference Dirichlet Process Gaussian Mixture Model based on the Chinese Restaurant Process, to stratify cancer patients based on DNA methylation values. This paper will build upon Blei and Jordan's work on Variational Inference for Dirichlet Process Mixtures. Our proposed method differs on the basis that we base our model on the Chinese Restaurant Process whereas Blei and Jordan base theirs on the Stick-breaking process. TODO
 
-For the final version, authors' names are set in boldface, and each name is
-centered above the corresponding address. The lead author's name is to be listed
-first (left-most), and the co-authors' names (if different address) are set to
-follow. If there is only one co-author, list both author and co-author side by
-side.
+\subsection{Plots}
+Here are some of the plots we expect to obtain. 
 
-Please pay special attention to the instructions in Section \ref{others}
-regarding figures, tables, acknowledgments, and references.
+
+\begin{figure}[!htp]
+\centering
+\begin{minipage}{.5\linewidth}
+	\includegraphics[scale=0.3]{figures/example_clustermap.pdf}
+\end{minipage}%
+\begin{minipage}{.5\linewidth}
+	\includegraphics[scale=0.3]{figures/ovarian_breast_colorectal_clustermap_pca_tissue_on.pdf}
+\end{minipage}
+	\caption{Example clustermap. Color labels indicate cancer types: \color{red}{Type I}, \color{blue}{Type II}, \color{cyan}{Type III}}
+\end{figure}
+
 
 \section{Headings: first level}
 \label{headings}
