@@ -30,6 +30,8 @@
 
 \usepackage{amsmath}
 \usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{bayesnet}
 
 \title{Variational Inference for Dirichlet Process to Stratify Cancer
 Patients Using DNA Methylation}
@@ -110,10 +112,36 @@ Coordinate Ascent Mean-Field VI (CAVI) is one of the most common algorithms for 
 
 \subsection{Model}
 
-We propose a Variational Inference Dirichlet Process Gaussian Mixture Model based on the Chinese Restaurant Process, to stratify cancer patients based on DNA methylation values. This paper will build upon Blei and Jordan's work on Variational Inference for Dirichlet Process Mixtures. Our proposed method differs on the basis that we base our model on the Chinese Restaurant Process whereas Blei and Jordan base theirs on the Stick-breaking process. TODO
+We propose a Variational Inference Dirichlet Process Gaussian Mixture Model based on the Chinese Restaurant Process, to stratify cancer patients based on DNA methylation values. This paper will build upon Blei and Jordan's work on Variational Inference for Dirichlet Process Mixtures. Our proposed method differs on the basis that we base our model on the Chinese Restaurant Process whereas Blei and Jordan base theirs on the Stick-breaking process. See Figure 1 for the graphical model.
+
+\begin{figure}[!htp]
+\centering
+\begin{tikzpicture}[scale=0.5]
+  \node[obs] (y) {$y_{ij}$} ; % 
+  \node[latent, above=of y](theta){$\theta_i$} ; %
+  \node[latent, above=of theta] (G) {$G$} ; %
+  \node[const, above=of G] (G0) {$G_0$} ; %
+  \node[const, left=of G] (alpha) {$\alpha$} ; %
+
+  
+
+  \edge{G0}{G}
+  \edge{alpha}{G}
+  \edge{G}{theta}
+  \edge{theta}{y}
+  
+  
+  \plate {patients} { %
+    (y)(theta) %
+  } {$i=1,\ldots,N$} ; %
+
+\end{tikzpicture}
+\caption{Graphical model of a Dirichlet Process based on the Chinese Restaurant Process} 
+\end{figure}
+
 
 \subsection{Plots}
-Here are some of the plots we expect to obtain. 
+See Figure 2 for clustermaps that we intend to obtain in this study. 
 
 
 \begin{figure}[!htp]
@@ -127,7 +155,8 @@ Here are some of the plots we expect to obtain.
 	\caption{Example clustermap. Color labels indicate cancer types: \color{red}{Type I}, \color{blue}{Type II}, \color{cyan}{Type III}}
 \end{figure}
 
-
+%% **************Remove this after***************
+\newpage
 \section{Headings: first level}
 \label{headings}
 
