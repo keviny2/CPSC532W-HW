@@ -33,6 +33,7 @@
 \usepackage{tikz}
 \usetikzlibrary{bayesnet}
 \newcommand{\prob}[1]{\operatorname{Pr}\left[\,#1\,\right]}   
+\newcommand{\expect}[1]{\operatorname{E}\left[\,#1\,\right]}   
 \def\cond{\; | \;}
 
 \title{Variational Inference for Dirichlet Process to Stratify Cancer
@@ -108,13 +109,9 @@ Variational inference is an alternative strategy to Markov Chain Monte Carlo (MC
 
 In recent years, there have been many advances in the field of VI, which are summarized in a review by Zhang et al., (2019).
 
-\subsection{Dirichlet Process}
+\subsection{Dirichlet Process and Chinese Restaurant Process}
 
-The Dirichlet process is a stochastic process used for Bayesian nonparametric regression; in particular, for constructing Dirichlet process mixture models (Neal, 2000). A Dirichlet process $G$ is a distribution of distributions consisting of a base distribution $G_0$ and a positive real number $\alpha$, and can be written as,
-\begin{align*}
-G \sim \text{DP}(G_0, \alpha)
-\end{align*}
-where $G_0$ is a continuous distribution such that the probability of any two samples generated from this distribution being equal is zero, whereas $G$ is a discrete distribution consisting of infinitely many number of point masses,  so the probability of two samples colliding is non-zero.  For any measurable finite k partitions $\{B_i\}_{i=1}^k$,
+The Dirichlet process is a stochastic process used for Bayesian nonparametric regression; in particular, for constructing Dirichlet process mixture models (Neal, 2000). A Dirichlet process $G$ is a distribution of distributions consisting of a base distribution $G_0$ and a positive real number $\alpha$, and can be written as, $G \sim \text{DP}(G_0, \alpha)$, where $G_0$ is a continuous distribution such that the probability of any two samples generated from this distribution being equal is zero, whereas $G$ is a discrete distribution consisting of infinitely many number of point masses,  so the probability of two samples colliding is non-zero.  For any measurable finite k partitions $\{B_i\}_{i=1}^k$,
 \begin{align*}
 G(B_1), \cdots, G(B_k))\sim \text{Dir}(\alpha G(B_1), \cdots, \alpha G(B_k))
 \end{align*}
@@ -122,11 +119,13 @@ then
 \begin{align*}
 \prob{X_1, \cdots, X_k} = \int \prob{G} \prod_{i=1}^k \prob{X_i\cond G}\,dG
 \end{align*}
-which represents the dependencies among $\{X_i\}_{i=1}^k$ by marginalizing out $G$. The Chinese restaurant process, stick-breaking process and Polya urn scheme are three common perspectives regarding the Dirichlet Process, and only the first method will be focused on in this project.  Assuming a restaurant has infinitely many tables,  and let $\{X_i\}_{i=1}^k$ be the customers of the restaurant.  Then $\{X_i\}_{i=1}^k$ are partitioned determined by the same table the represented customers sitting at.  Considering the behavior of $X_n$ given the previous $n-1$ observations:
+which represents the dependencies among $\{X_i\}_{i=1}^k$ by marginalizing out $G$. \\
+
+The Chinese restaurant process, stick-breaking process and Polya urn scheme are three common perspectives regarding the Dirichlet Process, and only the first method will be focused on in this project.  Assuming a restaurant has infinitely many tables,  and let $\{X_i\}_{i=1}^k$ be the customers of the restaurant.  Then $\{X_i\}_{i=1}^k$ are partitioned determined by the same table the represented customers sitting at.  Considering the behavior of $X_n$ given the previous $n-1$ observations:
 \begin{align*}
 X_n\cond (X_1 = x_1, X_2 = x_2, \cdots,  X_{n-1} = x_{n-1}) = \left\{
 \begin{array}{rl}
-x_n \, &\text{with probability}\ \frac{\cond\{j : x_j = n\}\cond}{n - 1 + \alpha}\\
+x_n^* \, &\text{with probability}\ \frac{\cond\{j : x_j = n\}\cond}{n - 1 + \alpha}\\
 \text{new draw from}\ G_0\, &\text{with probability}\  \frac{\alpha}{n - 1 + \alpha}
 \end{array}
 \right.
@@ -134,16 +133,31 @@ x_n \, &\text{with probability}\ \frac{\cond\{j : x_j = n\}\cond}{n - 1 + \alpha
 where $\cond \{j: x_j = n\}\cond$ is the number of times the value $x_n$ occurs in $\{x_1, x_2, \cdots x_n\}$.
 
 
-The fact of the Chinese restaurant process is that people are more likely to sit at the tables where many people are already sitting, however,  the customers will sit at a new table with probability proportional to $\alpha$.\\
+The fact is that people are more likely to sit at the tables where many people are already sitting, however,  the customers will sit at a new table with probability proportional to $\alpha$.\\
 
-Dirichlet Process mixtures assumes that the data originally come from a mixture of an infinite number of distributions.  The well-known EM algorithm is used for inference in mixture models by optimizing likelihood,  but MCMC and Variational inference are better options as $G$ is nonparametric.
+\subsection{Dirichlet Process Mixture Model}
+The Dirichlet Process Mixture Model (DPMM) is the resulting hierarchical model of applying Dirichlet Process,  which was initially proposed for classifying data points into unbounded number of mixture components.  Given a sample from $\{x_1, \cdots, x_N\}$ from the DPMM,  the goal is to compute the posterior predictive distribution 
+\begin{align*}
+\prob{X = \hat{x}\cond x_1, \cdots, x_N, \alpha, G_0} = \int\prob{\hat{x}\cond x}\prob{x\cond x_1, \cdots, x_N, \alpha, G_0}\,dx,
+\end{align*}
+where the posterior distribution $\prob{x\cond x_1, \cdots, x_N}$ does not have a closed form.  The well-known EM algorithm is used for inference in finite by optimizing likelihood but for the finite mixture models,  so MCMC and Variational inference are better options as $G$ is nonparametric.
 
 \section{Related Work}
-
-
+Blei and Jordan (2006) provided a Variational inference algorithm for Dirichlet Process Mixture Models based on the stick-breaking process, and also compared the mean convergence time consumption among their proposed variational inference algorithm and MCMC (including Collapsed Gibbs sampler and Blocked Gibbs sampler).  Let the base distribution $G_0$ be
+\begin{align*}
+\prob{x^*\cond \lambda} = h(x^*)\exp(\lambda_1^\top x^* + \lambda_2(-a(x^*)) - a(\lambda))
+\end{align*}
+where $\lambda$s' are hyperparameters,  and $a(x^*)$ is a cumulant function.  Then the target function for prediction, which is constructed on the stick-breaking process, is 
+\begin{align*}
+\prob{x_n\cond z_n, x_1^*, x_2^*, \cdots} = \prod_{i=1}^\infty [h(x_n)\exp({x_i^*}^\top x_n - a(x_i^*))]^{\mathbf{1}[z_n = i]},
+\end{align*}
+However,  this is too complicated to directly compute with.  Variational Inference is brought up as an alternative,  along with the mean-field variational approximations assuming the independence of latent variables and a derived coordinate ascent algorithm,  resulting in a straightforward expression:
+\begin{align*}
+\prob{x_{N+1}\cond \ x_1, x_2, \cdots, x_{n-1}, \alpha, \lambda}\approx \sum_{t=1}^T \expect{\pi_t(\mathbf{v})}\expect{\prob{x_{N+1}\cond x_t^*}}
+\end{align*}
+where $q$ is an approximation to the predict distribution depending on $x_1, x_2, \cdots, \alpha, \lambda$,  and each component $v_i$ in $\mathbf{v}$ follows the beta distribution with parameters $(1, \alpha)$.
 \section{Methods}
 \label{gen_inst}
-
 \subsection{Model}
 
 We propose a Variational Inference Dirichlet Process Gaussian Mixture Model based on the Chinese Restaurant Process, to stratify cancer patients based on DNA methylation values. This paper will build upon Blei and Jordan's (2006) work on Variational Inference for Dirichlet Process Mixtures. Our method differs from theirs in that we base our model on a Chinese Restaurant Process as opposed to a stick-breaking process. This Variational Inference model will be implemented in the probabilistic programming language Pyro. See Figure 1 for the graphical models for each variant of the model.
