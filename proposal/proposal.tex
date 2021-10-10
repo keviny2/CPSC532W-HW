@@ -231,6 +231,25 @@ We intend to use clustermaps to visualize the main results, as our study is solv
 \section{Conclusion}
 Variational Inference (VI) is an alternative strategy to Markov Chain Monte Carlo (MCMC) which tends to be faster and easier to scale to larger datasets (Blei et al., 2016). This is especially advantageous in applications that interact with high dimensional data, such as DNA methylation cluster analysis. We intend to build off the VI for DPMM model based on the stick-breaking process by Blei et al. and implement the same model, based on the Chinese Restaurant Process (CRP); the model will be written in the probabilistic programming language Pyro. We hypothesize that our model will be faster because it contains fewer parameters to estimate. Our model will be applied to a bioinformatic problem - stratifying cancer patients into functionally similar groups using DNA methylation. Consequently, these functionally similar groups can inform therapy decisions in clinical applications. 
 
+\section*{References}
+
+\medskip
+{
+\small
+
+[1] Baylin, Stephen B., and Peter A. Jones.  A Decade of Exploring the Cancer Epigenome -- Biological and Translational Implications.  {\it Nature Reviews Cancer}, vol 11, no. 10, 23 Sept. 2011, pp. 726-734, 10.1038/nrc3130.
+
+[2] Blei, David M, et al. Variational Inference: A Review for Statisticians. {\it Journal of the American Statistical Association}, vol. 112, no. 518, 27 Feb. 2017, pp. 859-877, arxiv.org/abs/1601.00670, 10.1080/01621459.2017.1285773.
+
+[3] Blei, David M., and Michael I. Jordan. Variational Inference for Dirichlet Process Mixtures. {\it Bayesian Analysis}, vol.1, no.1, Mar.2006, pp. 121-143, 10.1214/06-ba104.
+
+[4] Bock, Christoph, et al. Quantitative Comparison of Genome-Wide DNA Methylation Mapping Technologies. {\it Nature Biotechnology}, vol. 28, no. 10, 19 Sept. 2010, pp. 1106-1114, 10.1038/nbt.1681.
+
+[5] Salimans, Tim, et al.  Markov Chain Monte Carlo and Variational Inference: Bridging the Gap. ArXiv: 1410.6460, 19 May 2015, arxiv.org/abs/1410.6460.
+
+[6] Zhang, Cheng, et al. Advances in Variational Inference. {\it IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 41, no. 8, 1 Aug. 2019, pp. 2008-2026, 10.1109/tpami.2018.2889774.
+}
+
 %% **************Remove this after***************
 \newpage
 \section{Headings: first level}
