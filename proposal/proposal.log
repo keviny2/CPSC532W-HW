@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  11 OCT 2021 12:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  11 OCT 2021 13:45
 entering extended mode
 **./proposal.tex
 (proposal.tex
@@ -1026,7 +1026,7 @@ Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 Missing character: There is no ; in font nullfont!
 LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 2
-33.
+34.
  (C:\Users\kevin\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
@@ -1037,24 +1037,24 @@ pdfTeX warning: pdflatex (file ./figures/example_clustermap.pdf): PDF inclusion
 <figures/example_clustermap.pdf, id=86, 400.49625pt x 400.49625pt>
 File: figures/example_clustermap.pdf Graphic file (type pdf)
 <use figures/example_clustermap.pdf>
-Package pdftex.def Info: figures/example_clustermap.pdf  used on input line 247
+Package pdftex.def Info: figures/example_clustermap.pdf  used on input line 248
 .
 (pdftex.def)             Requested size: 120.1498pt x 120.1498pt.
 <figures/speed.png, id=87, 400.49625pt x 445.06274pt>
 File: figures/speed.png Graphic file (type png)
 <use figures/speed.png>
-Package pdftex.def Info: figures/speed.png  used on input line 257.
+Package pdftex.def Info: figures/speed.png  used on input line 258.
 (pdftex.def)             Requested size: 120.1498pt x 133.51985pt.
 [4 <./figures/example_clustermap.pdf> <./figures/speed.png>] [5] (proposal.aux)
 Package rerunfilecheck Info: File `proposal.out' has not changed.
 (rerunfilecheck)             Checksum: A2DA848061E64D5EC687E89F46DAFEFE;1756.
  ) 
 Here is how much of TeX's memory you used:
- 25013 strings out of 478868
- 484068 string characters out of 2848809
- 835901 words of memory out of 3000000
+ 25019 strings out of 478868
+ 484119 string characters out of 2848809
+ 835848 words of memory out of 3000000
  42290 multiletter control sequences out of 15000+600000
- 443600 words of font info for 153 fonts, out of 8000000 for 9000
+ 443860 words of font info for 157 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  84i,16n,83p,1165b,832s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <C
@@ -1078,7 +1078,7 @@ ts/type1/urw/helvetic/uhvr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/
 fonts/type1/urw/times/utmb8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/
 fonts/type1/urw/times/utmr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/
 fonts/type1/urw/times/utmri8a.pfb>
-Output written on proposal.pdf (5 pages, 433752 bytes).
+Output written on proposal.pdf (5 pages, 433728 bytes).
 PDF statistics:
  195 PDF objects out of 1000 (max. 8388607)
  23 named destinations out of 1000 (max. 500000)

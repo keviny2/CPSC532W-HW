@@ -83,7 +83,7 @@ Patients Using DNA Methylation}
 \maketitle
 
 \begin{abstract}
-Variational Inference (VI) is an alternative strategy to Markov Chain Monte Carlo (MCMC) which tends to be faster and easier to scale to larger datasets (Blei et al., 2016). This is especially advantageous in applications that interact with high dimensional data. Previous work has been done on a VI method for Dirichlet Process Mixture Models (DPMMs) based on the well-known stick-breaking process (Blei et al., 2016). In contrast, we propose a similar model, but based on the Chinese Restaurant Process (CRP). We hypothesize that our model will perform faster because it has fewer parameters to estimate. To test our hypothesis, we present an experiment on a large-scale stratification problem using DNA methylation to compare both implementations.
+Variational Inference (VI) is an alternative strategy to Markov Chain Monte Carlo (MCMC) which tends to be faster and easier to scale to larger datasets (Blei et al., 2016). This is especially advantageous in applications that interact with high dimensional data. Previous work has been done on a VI method for Dirichlet Process Mixture Models (DPMMs) based on the well-known stick-breaking process (Blei and Jordan, 2006). In contrast, we propose a similar model, but based on the Chinese Restaurant Process (CRP). We hypothesize that our model will perform faster because it has fewer parameters to estimate. To test our hypothesis, we present an experiment on a large-scale stratification problem using DNA methylation to compare both implementations.
 \end{abstract}
 
 \section{Introduction}
@@ -94,15 +94,15 @@ Variational inference is an alternative strategy to Markov Chain Monte Carlo (MC
 
 %% I had to add the package amsmath, don't know if this is allowed...
 \begin{align*}
-\log{p(x)} &\geq \log p(x) - D_{KL}(q_\theta(z\mid x)||p(z\mid x))\\
-		   &= E_{q_\theta(z\mid x)}(\log p(x,z)-\log q_\theta (z\mid x))
+\log{p(x)} &\geq \log p(x) - D_{KL}(q_\theta(z\cond x)||p(z\cond x))\\
+		   &= E_{q_\theta(z\cond x)}(\log p(x,z)-\log q_\theta (z\cond x))
 \end{align*}
 
 In recent years, there have been many advances in the field of VI, which are aptly summarized in a review by Zhang et al., (2019).
 
 \subsection{Dirichlet Process and Chinese Restaurant Process}
 
-The Dirichlet process is a stochastic process used in Bayesian nonparametrics; one speci, for constructing Dirichlet process mixture models (Neal, 2000). A Dirichlet process $G$ is a distribution of distributions consisting of a base distribution $G_0$ and a positive real number $\alpha$, written as,
+The Dirichlet process is a stochastic process used in Bayesian nonparametrics; a specific application being, constructing Dirichlet process mixture models (Neal, 2000). A Dirichlet process $G$ is a distribution of distributions and can be written as,
 
 \begin{align*}
 G \sim \text{DP}(G_0, \alpha)
@@ -118,7 +118,7 @@ then,
 \end{align*}
 which represents the dependencies among $\{X_i\}_{i=1}^k$ by marginalizing out $G$. \\
 
-The Chinese restaurant process, stick-breaking process and Polya urn scheme are three common perspectives regarding the Dirichlet Process; we restrict our attention only to the Chinese restaurant process perspective in this project. Assume a restaurant has infinitely many tables,  and let $\{X_i\}_{i=1}^k$ be the customers of the restaurant.  The $\{X_i\}_{i=1}^k$ are partitioned based on which table each customer is seated at.  Consider the behavior of a single customer $X_n$ given $\{X_i\}_{i=1}^{n-1}$:
+The Chinese restaurant process (CRP), stick-breaking process and Polya urn scheme are three common perspectives regarding the Dirichlet Process; we restrict our attention only to the Chinese restaurant process perspective in this project. The CRP can be described as follows. Assume a restaurant has infinitely many tables,  and let $\{X_i\}_{i=1}^k$ be the customers of the restaurant.  The $\{X_i\}_{i=1}^k$ are partitioned based on which table each customer is seated at.  Consider the behavior of a single customer $X_n$, given $\{X_i\}_{i=1}^{n-1}$:
 \begin{align*}
 X_n\cond (X_1 = x_1, X_2 = x_2, \cdots,  X_{n-1} = x_{n-1}) = \left\{
 \begin{array}{rl}
@@ -132,7 +132,7 @@ x_n^* \, &\text{with probability}\ \frac{\cond\{j : x_j = n\}\cond}{n - 1 + \alp
 where $\cond \{j: x_j = n\}\cond$ is the number of times the value $x_n$ occurs in $\{x_1, x_2, \cdots x_n\}$.
 
 
-The intuition is that customers are more likely to sit at tables with more customers, but will sit at a new table with a probability proportional to $\alpha$.\\
+The intuition is that customers are more likely to sit at tables with more customers, and will sit at a new table with a probability proportional to $\alpha$.\\
 
 
 \subsection{Dirichlet Process Mixture Model}
@@ -150,25 +150,26 @@ Cancers develop via the acquisition of genomic changes. These changes in turn al
 
 
 \section{Related Work}
-Blei and Jordan (2006) introduced a VI algorithm for DPMMs based on the stick-breaking process. They compared the mean convergence time consumption of their VI algorithm to two MCMC sampling algorithms, i.e., Collapsed Gibbs and Blocked Gibbs. We now provide a brief description of their algorithm. Let,
+Blei and Jordan (2006) introduced a VI algorithm for DPMMs based on the stick-breaking process. They compared the mean convergence time consumption of their VI algorithm to two MCMC sampling algorithms, i.e., Collapsed Gibbs and Blocked Gibbs. We now provide a brief description of the algorithm. Let,
 %% TODO: is this correct?
 \begin{align*}
 \prob{G_0 = x^*\cond \lambda} = h(x^*)\exp(\lambda_1^\top x^* + \lambda_2(-a(x^*)) - a(\lambda))
 \end{align*}
-where $\lambda$s' are hyperparameters,  and $a(x^*)$ is a cumulant function.  Then the target function for prediction, which is based on the stick-breaking process, is 
+where $\lambda$s' are hyperparameters,  and $a(x^*)$ is a cumulant function.  Then the target function for prediction is,
 \begin{align*}
 \prob{x_n\cond z_n, x_1^*, x_2^*, \cdots} = \prod_{i=1}^\infty [h(x_n)\exp({x_i^*}^\top x_n - a(x_i^*))]^{\mathbf{1}[z_n = i]}
 \end{align*}
-This is an intractable distribution, so Blei and Jordan use VI, along with the mean-field variational approximations assuming the independence of latent variables and a derived coordinate ascent algorithm. They arrive at the following expression,
+This is an intractable distribution, so VI is used, along with mean-field variational approximations assuming the independence of latent variables and a derived coordinate ascent algorithm. They arrive at the following expression,
 \begin{align*}
 \prob{x_{N+1}\cond \ x_1, x_2, \cdots, x_{n-1}, \alpha, \lambda}\approx \sum_{t=1}^T \expect{\pi_t(\mathbf{v})}\expect{\prob{x_{N+1}\cond x_t^*}}
 \end{align*}
-% q isn't even in the equation?
+% TODO: q isn't even in the equation?
 where $q$ is an approximation to the predictive distribution depending on $x_1, x_2, \cdots, \alpha, \lambda$,  and each component $v_i$ in $\mathbf{v}$ follows the beta distribution with parameters $(1, \alpha)$.
 
 \section{Methods}
 \subsection{Model}
 % TODO: is that the right way to cite?
+% TODO: maybe cite pyro?
 This paper builds upon Blei and Jordan's work (2006). We propose a VI algorithm for DPMMs based on a CRP, to stratify cancer patients using DNA methylation. Our method differs in that we base our model on a CRP as opposed to a stick-breaking process. We will use the probabilistic programming language Pyro to implement both models (see Figure 1 for graphical models).
 
 \begin{figure}[!htp]
