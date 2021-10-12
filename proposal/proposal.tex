@@ -58,7 +58,7 @@ Patients Using DNA Methylation}
 \maketitle
 
 \begin{abstract}
-Variational Inference (VI) is an alternative strategy to Markov Chain Monte Carlo (MCMC) which tends to be faster and easier to scale to larger datasets (Blei et al., 2016). This is especially advantageous in applications that interact with high dimensional data. Previous work has been done on a VI method for Dirichlet Process Mixture Models (DPMMs) based on the well-known stick-breaking process (Blei and Jordan, 2006). In contrast, we propose a similar model, but based on the Chinese Restaurant Process (CRP). We hypothesize that our model will perform faster because it has fewer parameters to estimate. To test our hypothesis, we present an experiment on a large-scale stratification problem using DNA methylation to compare both implementations.
+Variational Inference (VI) is an alternative strategy to Markov Chain Monte Carlo (MCMC) which tends to be faster and easier to scale to larger datasets (Blei et al., 2016). This is especially advantageous in applications that interact with high dimensional data. Previous work has been done on a VI method for Dirichlet Process Mixture Models (DPMMs) based on the well-known stick-breaking process (Blei and Jordan, 2006). In contrast, we propose a similar model, but based on the Chinese Restaurant Process (CRP). We hypothesize that our model will perform faster because it has fewer parameters to estimate. To test our hypothesis, we present an experiment on a large-scale stratification problem using DNA methylation.
 \end{abstract}
 
 \section{Introduction}
@@ -126,7 +126,6 @@ Cancers develop via the acquisition of genomic changes. These changes in turn al
 
 \section{Related Work}
 Blei and Jordan (2006) introduced a VI algorithm for DPMMs based on the stick-breaking process. They compared the mean convergence time consumption of their VI algorithm to two MCMC sampling algorithms, i.e., Collapsed Gibbs and Blocked Gibbs. We now provide a brief description of the algorithm. Let,
-%% TODO: is this correct?
 \begin{align*}
 \prob{G_0 = x^*\cond \lambda} = h(x^*)\exp(\lambda_1^\top x^* + \lambda_2(-a(x^*)) - a(\lambda))
 \end{align*}
@@ -136,16 +135,13 @@ where $\lambda$s' are hyperparameters,  and $a(x^*)$ is a cumulant function.  Th
 \end{align*}
 This is an intractable distribution, so VI is used, along with mean-field variational approximations assuming the independence of latent variables and a derived coordinate ascent algorithm. They arrive at the following expression,
 \begin{align*}
-\prob{x_{N+1}\cond \ x_1, x_2, \cdots, x_{n-1}, \alpha, \lambda}\approx \sum_{t=1}^T \expect{\pi_t(\mathbf{v})}\expect{\prob{x_{N+1}\cond x_t^*}}
+\prob{x_{N+1}\cond \ x_1, x_2, \cdots, x_{n-1}, \alpha, \lambda}\approx \sum_{t=1}^T E_q(\pi_t(\mathbf{v}))E_q(\prob{x_{N+1}\cond x_t^*})
 \end{align*}
-% TODO: q isn't even in the equation?
 where $q$ is an approximation to the predictive distribution depending on $x_1, x_2, \cdots, \alpha, \lambda$,  and each component $v_i$ in $\mathbf{v}$ follows the beta distribution with parameters $(1, \alpha)$.
 
 \section{Methods}
 \subsection{Model}
-% TODO: is that the right way to cite?
-% TODO: maybe cite pyro?
-This paper builds upon Blei and Jordan's work (2006). We propose a VI algorithm for DPMMs based on a CRP, to stratify cancer patients using DNA methylation. Our method differs in that we base our model on a CRP as opposed to a stick-breaking process. We will use the probabilistic programming language Pyro to implement both models (see Figure 1 for graphical models).
+This paper builds upon Blei and Jordan's work (2006). We propose a VI algorithm for DPMMs based on a CRP, to stratify cancer patients using DNA methylation. Our method differs in that we base our model on a CRP as opposed to a stick-breaking process. We will use the probabilistic programming language Pyro (Bingham et al., 2019) to implement both models (see Figure 1 for graphical models).
 
 \begin{figure}[!htp]
 	\centering
@@ -234,7 +230,7 @@ We expect to observe that our model, based on a CRP will have a shorter mean con
 	\caption{Mean convergence time and standard error across ten data sets per dimension for variational inference, TDP Gibbs sampling, and the collapsed Gibbs sampler (Blei and Jordan, 2006)}
 \end{figure}
 
-
+\newpage
 
 \section*{References}
 
@@ -255,6 +251,8 @@ We expect to observe that our model, based on a CRP will have a shorter mean con
 [6] Zhang, Cheng, et al. Advances in Variational Inference. {\it IEEE Transactions on Pattern Analysis and Machine Intelligence}, vol. 41, no. 8, 1 Aug. 2019, pp. 2008-2026, 10.1109/tpami.2018.2889774.
 
 [7] Triche, Jr. T (2014). FDb.InfiniumMethylation.hg19: Annotation package for Illumina Infinium DNA methylation probes. R package version 2.2.0.
+
+[8] Bingham, Eli et al. Pyro: Deep Universal Probabilistic Programming. \textit{J. Mach. Learn. Res.}, vol. 20, 2019, pp. 28:1--28:6, http://jmlr.org/papers/v20/18-403.html
 }
 
 \end{document}
