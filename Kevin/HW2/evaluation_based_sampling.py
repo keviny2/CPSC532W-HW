@@ -1,6 +1,7 @@
 from daphne import daphne
 from tests import is_tol, run_prob_test,load_truth
 import torch
+import numpy as np
 
 def evaluate_program(ast):
     """Evaluate a program as desugared by daphne, generate a sample from the prior
@@ -14,18 +15,41 @@ def evaluate_program(ast):
 
     # [+ 3 4]
     if all([type(elem) is not list for elem in ast]):
-        if type(ast[0]) == int or type(ast[0]) == float:
+        if type(ast[0]) in [int, float, torch.Tensor]:
             return ast[0]
         elif ast[0] == '+':
-            return sum(ast[1:])
+            return torch.sum(torch.tensor(ast[1:]))
+        elif ast[0] == 'sqrt':
+            return torch.sqrt(torch.tensor(ast[1]))
         elif ast[0] == '-':
-            return None
+            return ast[1] - torch.sum(torch.tensor(ast[2:]))
         elif ast[0] == '*':
-            return None
+            return torch.prod(torch.tensor(ast[1:]))
+        elif ast[0] == '/':
+            return ast[1] / torch.prod(torch.tensor(ast[2:]))
+        elif ast[0] == 'vector':
+            return torch.tensor(ast[1:])
+        elif ast[0] == 'get':
+            return ast[1][ast[2]]
+        elif ast[0] == 'put':
+            ast[1][ast[2]] = ast[3]
+            return ast[1]
+        elif ast[0] == 'first':
+            return ast[1][0]
+        elif ast[0] == 'last':
+            return ast[1][-1]
+        elif ast[0] == 'append':
+            res = ast[1].tolist()
+            res.extend([ast[2]])
+            return torch.tensor(res)
+        elif ast[0] == 'hash-map':
+            pass
+        else:
+            return ast
 
     # [+ [- 3 1] [* 2 4]]
     subroot = [evaluate_program(sub_ast) for sub_ast in ast]
-    return torch.tensor(evaluate_program(subroot)), '0'
+    return torch.tensor(evaluate_program(subroot))
 
 
 def get_stream(ast):
@@ -36,18 +60,19 @@ def get_stream(ast):
 
 
 def run_deterministic_tests():
-    
-    for i in range(1,14):
+
+    debug_start = 11
+    for i in range(debug_start,14):
         #note: this path should be with respect to the daphne path!
         ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/tests/deterministic/test_{}.daphne'.format(i)])
         truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
-        ret, sig = evaluate_program(ast)
+        ret, sig = evaluate_program(ast), '0'
         try:
             assert(is_tol(ret, truth))
         except AssertionError:
             raise AssertionError('return value {} is not equal to truth {} for exp {}'.format(ret,truth,ast))
         
-        print('Test passed')
+        print('Test passed', ast, 'test', i)
         
     print('All deterministic tests passed')
     
