@@ -5,7 +5,13 @@ import numpy as np
         
 def evaluate_program(ast):
     if type(ast) is not list:
-        return ast
+        if type(ast) is dict or type(ast) is str:
+            return ast
+        else:
+            return torch.tensor(ast)
+
+    if type(ast) is list and all([type(elem) is dict for elem in ast]):
+        return ast[0]
 
     if all([type(elem) is not list for elem in ast]):
         if type(ast[0]) == torch.Tensor:
@@ -24,17 +30,13 @@ def evaluate_program(ast):
             return torch.tensor(ast[1:])
         elif ast[0] == 'hash-map':
             ast = np.reshape(np.array(ast[1:]), (-1, 2))
-            ast = dict((ast[i][0], ast[i][1]) for i in range(ast.shape[0]))
+            ast = dict((ast[i][0], torch.tensor(ast[i][1])) for i in range(ast.shape[0]))
             return ast
         elif ast[0] == 'get':
-            return (ast[1])[ast[2]]
+            return torch.tensor((ast[1])[int(ast[2])])
         elif ast[0] == 'put':
-            if type(ast[1]) == torch.Tensor:
-                (ast[1])[ast[2]] = ast[3]
-                return ast[1]
-            elif type(ast[1]) == dict:
-                (ast[1])[ast[2]] = ast[3]
-                return ast[1]
+           (ast[1])[int(ast[2])] = ast[3]
+           return ast[1]
         elif ast[0] == 'first':
             return torch.tensor((ast[1])[0])
         elif ast[0] == 'last':
@@ -45,8 +47,7 @@ def evaluate_program(ast):
             return ast
 
     subroot = [evaluate_program(sub_ast) for sub_ast in ast]
-
-    return torch.tensor(evaluate_program(subroot))
+    return evaluate_program(subroot)
 
 
 def get_stream(ast):
@@ -60,7 +61,6 @@ def run_deterministic_tests():
     
     for i in range(1,14):
         #note: this path should be with respect to the daphne path!
-        print(i)
         ast = daphne(['desugar', '-i',
                       '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/deterministic/test_{}.daphne'.format(i)])
         truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
