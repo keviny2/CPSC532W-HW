@@ -33,6 +33,30 @@ def evaluate_program(ast):
                 sample = dist.sample()
                 return sample
 
+    if len(ast) > 2 and ast[0] == 'let':
+        var_names = []
+        var_types = []
+        vals = []
+        for i in range(1, len(ast)):
+            if type(ast[i][0]) is str and type(ast[i][1]) is dict:
+                var_names.append(ast[1][0])
+                var_types.append(ast[1][1])
+            elif ast[i][0] in ['normal', 'beta', 'exponential', 'uniform']:
+                if ast[i][0] == 'normal':
+                    sub = ast[i]
+                    if type(sub[1][0]) is str and sub[1][0] in var_names:
+                        index = [index for index in range(len(var_names)) if var_names[index] == sub[1][0]][0]
+                        val = float(var_types[index][sub[1][1]])
+                        vals.append(val)
+                    if type(ast[2][0]) is str and sub[2][0] in var_names:
+                        index = [index for index in range(len(var_names)) if var_names[index] == sub[2][0]][0]
+                        val = float(var_types[index][sub[2][1]])
+                        vals.append(val)
+                        dist = distributions.normal.Normal(float(vals[0]), float(vals[1]))
+                        sample = dist.sample()
+                        return sample
+
+
     if all([type(elem) is not list for elem in ast]):
         if type(ast[0]) == torch.Tensor:
             return ast[0]
@@ -54,7 +78,7 @@ def evaluate_program(ast):
             return ast
         elif ast[0] == 'get':
             if type(ast[1]) is str:
-                return str(ast[2])
+                return ast[1], ast[2]
             else:
                 return torch.tensor((ast[1])[int(ast[2])])
         elif ast[0] == 'put':
@@ -82,18 +106,18 @@ def get_stream(ast):
 
 def run_deterministic_tests():
     
-    #for i in range(1,14):
+    for i in range(1,14):
 
-        # ast = daphne(['desugar', '-i',
-        #               '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/deterministic/test_{}.daphne'.format(i)])
-        # truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
-        # ret, sig = evaluate_program(ast), '0'
-        # try:
-        #     assert(is_tol(ret, truth))
-        # except AssertionError:
-        #     raise AssertionError('return value {} is not equal to truth {} for exp {}'.format(ret,truth,ast))
-        #
-        # print('Test passed')
+        ast = daphne(['desugar', '-i',
+                      '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/deterministic/test_{}.daphne'.format(i)])
+        truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
+        ret, sig = evaluate_program(ast), '0'
+        try:
+            assert(is_tol(ret, truth))
+        except AssertionError:
+            raise AssertionError('return value {} is not equal to truth {} for exp {}'.format(ret,truth,ast))
+
+        print('Test passed')
 
     print('All deterministic tests passed')
     
@@ -105,7 +129,6 @@ def run_probabilistic_tests():
     max_p_value = 1e-4
     
     for i in range(1,7):
-        i = 1
         ast = daphne(['desugar', '-i',
                       '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
         truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
