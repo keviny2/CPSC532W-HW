@@ -1,7 +1,7 @@
 from daphne import daphne
 from tests import is_tol, run_prob_test,load_truth
 import torch
-from torch.distributions import normal, beta, exponential
+from torch.distributions import normal, beta, exponential, uniform
 
 variable_bindings = {}
 
@@ -15,7 +15,6 @@ def evaluate_program(ast):
     if type(ast) is not list:
         return ast
 
-    # BUG: THERE IS A BUG IN MY CODE FOR LET!!!!!
     # substitute bound variables for their values
 
     # construct boolean array indicating which elements are variables that are bound to a value using the global
@@ -29,15 +28,26 @@ def evaluate_program(ast):
             if val:
                 ast[idx] = variable_bindings[ast[idx]]
 
+    if ast[0] == 'if':
+        e1 = evaluate_program(ast[1])
+        e2 = evaluate_program(ast[2])
+        e3 = evaluate_program(ast[3])
+        if e1:
+            return e2
+        else:
+            return e3
 
     if ast[0] == 'let':
         # we will successfully assign a variable a value after this block of code executes
-        # BUG: weird behavior
         binding_obj = evaluate_program(ast[1])
         variable_bindings[binding_obj[0]] = binding_obj[1]
 
         # throw away let statement and continue evaluation
-        return evaluate_program(ast[2:])
+        res = evaluate_program(ast[2:])
+
+        # clear all variable bindings
+        variable_bindings.clear()
+        return res
 
     if ast[0] == 'sample':
         distribution_obj = evaluate_program(ast[1])
@@ -47,6 +57,8 @@ def evaluate_program(ast):
             return beta.Beta(distribution_obj[1], distribution_obj[2]).sample()
         if distribution_obj[0] == 'exponential':
             return exponential.Exponential(distribution_obj[1]).sample()
+        if distribution_obj[0] == 'uniform':
+            return uniform.Uniform(distribution_obj[1], distribution_obj[2]).sample()
 
     # [+ 3 4]
     if all([type(elem) is not list for elem in ast]):
@@ -54,7 +66,7 @@ def evaluate_program(ast):
             return torch.tensor(ast[0])
         if type(ast[0]) is dict:
             return ast[0]
-        if ast[0] in ['normal', 'beta', 'exponential']:
+        if ast[0] in ['normal', 'beta', 'exponential', 'uniform']:
             return ast
         elif ast[0] == '+':
             return torch.sum(torch.tensor(ast[1:]))
@@ -66,6 +78,10 @@ def evaluate_program(ast):
             return torch.prod(torch.tensor(ast[1:]))
         elif ast[0] == '/':
             return ast[1] / torch.prod(torch.tensor(ast[2:]))
+        elif ast[0] == '<':
+            return ast[1] < ast[2]
+        elif ast[0] == '>':
+            return ast[1] > ast[2]
         elif ast[0] == 'vector':
             return torch.tensor(ast[1:])
         elif ast[0] == 'get':
@@ -127,7 +143,7 @@ def run_probabilistic_tests():
     num_samples=1e4
     max_p_value = 1e-4
 
-    debug_start = 4
+    debug_start = 5
     for i in range(debug_start,7):
         #note: this path should be with respect to the daphne path!        
         ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
