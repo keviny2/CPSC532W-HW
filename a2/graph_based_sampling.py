@@ -1,15 +1,44 @@
 import torch
-import torch.distributions as dist
-
+from torch import distributions as dist
 from daphne import daphne
+from evaluation_based_sampling import evaluate_program
 
-from primitives import funcprimitives #TODO
+import primitives
 from tests import is_tol, run_prob_test,load_truth
+
+
+primitives_operations = ['+', '-', '*', '/', 'sqrt', 'vector', 'hash-map', 'get', 'put', 'first', 'second', 'rest',
+                         'last', 'append', '<', '>', 'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-repmat']
+distribution_types = ['normal', 'beta', 'exponential', 'uniform', 'discrete']
 
 # Put all function mappings from the deterministic language environment to your
 # Python evaluation context here:
 env = {'normal': dist.Normal,
-       'sqrt': torch.sqrt}
+       'beta': dist.Beta,
+       'exponential': dist.Exponential,
+       'uniform': dist.Uniform,
+       'discrete': dist.Categorical,
+       '+': torch.sum,
+       '*': torch.multiply,
+       '-': primitives.minus,
+       '/': primitives.divide,
+       'sqrt': torch.sqrt,
+       'vector': primitives.vector,
+       'hash-map': primitives.hashmap,
+       'get': primitives.get,
+       'put': primitives.put,
+       'first': primitives.first,
+       'second': primitives.second,
+       'rest': primitives.rest,
+       'last': primitives.last,
+       'append': primitives.append,
+       '<': primitives.smaller,
+       '>': primitives.larger,
+       'mat-transpose': primitives.mat_transpose,
+       'mat-tanh': primitives.mat_tanh,
+       'mat-mul': primitives.mat_mul,
+       'mad-add': primitives.mat_add,
+       }
 
 
 def deterministic_eval(exp):
@@ -17,7 +46,8 @@ def deterministic_eval(exp):
     if type(exp) is list:
         op = exp[0]
         args = exp[1:]
-        return env[op](*map(deterministic_eval, args))
+        #return env[op](*map(deterministic_eval, args))
+        return env[op](args)
     elif type(exp) is int or type(exp) is float:
         # We use torch for all numerical objects in our evaluator
         return torch.tensor(float(exp))
@@ -49,7 +79,9 @@ def run_deterministic_tests():
     
     for i in range(1,13):
         #note: this path should be with respect to the daphne path!
-        graph = daphne(['graph','-i','../CS532-HW2/programs/tests/deterministic/test_{}.daphne'.format(i)])
+        i = 8
+        graph = daphne(['graph','-i',
+                        '/Users/xiaoxuanliang/Desktop/a2/programs/tests/deterministic/test_{}.daphne'.format(i)])
         truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
         ret = deterministic_eval(graph[-1])
         try:
@@ -71,7 +103,8 @@ def run_probabilistic_tests():
     
     for i in range(1,7):
         #note: this path should be with respect to the daphne path!        
-        graph = daphne(['graph', '-i', '../CS532-HW2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
+        graph = daphne(['graph', '-i',
+                        '/Users/xiaoxuanliang/Desktop/a2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
         truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
         
         stream = get_stream(graph)
