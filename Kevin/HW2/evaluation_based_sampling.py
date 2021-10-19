@@ -2,12 +2,12 @@ import copy
 
 from daphne import daphne
 from tests import is_tol, run_prob_test,load_truth
+from distributions import my_distributions, Distribution
 import torch
-from torch.distributions import normal, beta, exponential, uniform, multinomial, bernoulli
+
 
 variable_bindings = {}
 functions = {}
-my_distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'bernoulli']
 
 def evaluate_program(ast):
     """Evaluate a program as desugared by daphne, generate a sample from the prior
@@ -31,18 +31,26 @@ def evaluate_program(ast):
     variable_bindings_bool = [elem in variables for elem in ast_curr]
 
     # substitute the variable name in ast_curr with the actual value
+    # BUG: sometimes works on tensors, at other times fails
     if any(variable_bindings_bool):
         for idx, val in enumerate(variable_bindings_bool):
             if val:
                 ast_curr[idx] = variable_bindings[ast_curr[idx]]
 
+
     try:
+        # always check whether there is a function definition in order to continue running the program after
+        # saving the function def in the functions dict
         if ast_curr[0][0] == 'defn':
             functions[ast_curr[0][1]] = ast_curr[0][2:]
-            res = evaluate_program(ast_curr[1:])
+            key = ast_curr[0][1]
+
+            # remove the defn from ast, some weird bugs arise if I keep it there
+            ast_curr = ast_curr[1:]
+            res = evaluate_program(ast_curr)
 
             # clear all functions
-            functions.clear()
+            del functions[key]
 
             return res
     except:
@@ -66,35 +74,38 @@ def evaluate_program(ast):
             variable_bindings[ast_curr[1][0]] = distribution_object
         else:
             binding_obj = evaluate_program(ast_curr[1])
-            variable_bindings[binding_obj[0]] = binding_obj[1]
+            variable_bindings[binding_obj[0]] = binding_obj[1]  # 33
 
         # throw away let statement and continue evaluation
         res = evaluate_program(ast_curr[2:])
 
         # clear all variable bindings
-        variable_bindings.clear()
-        if type(res) is not list:
-            return torch.tensor([res])
-        else:
+        del variable_bindings[binding_obj[0]]
+
+        # make sure that a list is returned
+        try:
+            temp = res[0]  # try subscripting res
             return res
+        except (TypeError, ValueError, IndexError):
+            return torch.tensor(res)
 
     if ast_curr[0] == 'sample':
         distribution_obj = evaluate_program(ast_curr[1])
-        if distribution_obj[0] == 'normal':
-            return normal.Normal(distribution_obj[1], distribution_obj[2]).sample()
-        if distribution_obj[0] == 'beta':
-            return beta.Beta(distribution_obj[1], distribution_obj[2]).sample()
-        if distribution_obj[0] == 'exponential':
-            return exponential.Exponential(distribution_obj[1]).sample()
-        if distribution_obj[0] == 'uniform':
-            return uniform.Uniform(distribution_obj[1], distribution_obj[2]).sample()
-        if distribution_obj[0] == 'discrete':
-            # TODO: don't know exactly what multinomial should return yet... should it be index? or something else?
-            return multinomial.Multinomial(total_count=1, probs=distribution_obj[1]).sample()
-        if distribution_obj[0] == 'bernoulli':
-            return bernoulli.Bernoulli(distribution_obj[1])
+        return distribution_obj.sample()
+
     if ast_curr[0] == 'observe':
         return None
+
+    if ast_curr[0] == 'vector':
+        sublists = [evaluate_program(elem) for elem in ast_curr[1:]]
+        try:
+            ret = torch.tensor(sublists)
+        except (ValueError, RuntimeError):
+            ret = sublists
+        return ret
+
+    if all(item in my_distributions for item in list(list(zip(*ast_curr))[0])):
+        return ast_curr
 
     # [+ 3 4]
     if all([type(elem) is not list for elem in ast_curr]):
@@ -115,7 +126,8 @@ def evaluate_program(ast):
             return evaluate_program(processed_function_body)
 
         if ast_curr[0] in my_distributions:
-            return ast_curr
+            distribution_obj = Distribution(ast_curr[0], ast_curr[1:])
+            return distribution_obj
         elif ast_curr[0] == '+':
             return torch.sum(torch.tensor(ast_curr[1:]))
         elif ast_curr[0] == '-':
@@ -130,8 +142,6 @@ def evaluate_program(ast):
             return ast_curr[1] < ast_curr[2]
         elif ast_curr[0] == '>':
             return ast_curr[1] > ast_curr[2]
-        elif ast_curr[0] == 'vector':
-            return torch.tensor(ast_curr[1:])
         elif ast_curr[0] == 'get':
             if type(ast_curr[1]) is dict:
                 return torch.tensor(ast_curr[1][ast_curr[2]])
@@ -147,8 +157,12 @@ def evaluate_program(ast):
             return ast_curr[1]
         elif ast_curr[0] == 'first':
             return torch.tensor(ast_curr[1][0])
+        elif ast_curr[0] == 'second':
+            return torch.tensor(ast_curr[1][1])
         elif ast_curr[0] == 'last':
             return torch.tensor(ast_curr[1][-1])
+        elif ast_curr[0] == 'rest':
+            return torch.tensor(ast_curr[1][1:])
         elif ast_curr[0] == 'append':
             res = ast_curr[1].tolist()
             res.extend([ast_curr[2]])
@@ -220,7 +234,7 @@ def run_probabilistic_tests():
     num_samples=1e4
     max_p_value = 1e-4
 
-    debug_start = 1
+    debug_start = 6
     for i in range(debug_start,7):
         #note: this path should be with respect to the daphne path!        
         ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
@@ -243,8 +257,24 @@ if __name__ == '__main__':
     
     # run_probabilistic_tests()
 
-    debug_start = 1
+    debug_start = 3
     for i in range(debug_start,5):
-        ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/{}.daphne'.format(i)])
+        # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/{}.daphne'.format(i)])
+
+        # faster load
+        import pickle
+
+        # saving the list
+        # file_name = "daphne3_ast.pkl"
+        #
+        # open_file = open(file_name, "wb")
+        # pickle.dump(ast, open_file)
+        # open_file.close()
+
+        # loading the list
+        open_file = open('daphne3_ast.pkl', 'rb')
+        ast = pickle.load(open_file)
+        open_file.close()
+
         print('\n\n\nSample of prior of program {}:'.format(i))
         print(evaluate_program(ast)[0])
