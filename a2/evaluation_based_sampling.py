@@ -93,7 +93,7 @@ def run_deterministic_tests():
     # for i in range(1, 14):
     #     i = 6
     #     ast = daphne(['desugar', '-i',
-    #                   '/Users/xiaoxuanliang/Desktop/a2/programs/tests/deterministic/test_{}.daphne'.format(i)])
+    #                   '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/deterministic/test_{}.daphne'.format(i)])
     #     truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
     #     ret, sig = evaluate_program(ast), '0'
     #     try:
@@ -111,9 +111,9 @@ def run_probabilistic_tests():
     # max_p_value = 1e-4
     #
     # for i in range(1, 7):
-    #     i = 6
+    #     i = 1
     #     ast = daphne(['desugar', '-i',
-    #                   '/Users/xiaoxuanliang/Desktop/a2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
+    #                   '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
     #     truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
     #
     #     stream = get_stream(ast)
@@ -134,6 +134,7 @@ if __name__ == '__main__':
     run_probabilistic_tests()
 
     for i in range(1, 5):
+        i = 3
         ast = daphne(['desugar', '-i',
                       '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/{}.daphne'.format(i)])
 
