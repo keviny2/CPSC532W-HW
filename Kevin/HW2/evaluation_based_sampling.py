@@ -4,212 +4,101 @@ import pickle
 from daphne import daphne
 from tests import is_tol, run_prob_test,load_truth
 from distributions import my_distributions, Distribution
+from primitives import math_operations, data_structure_operations, matrix_operations,\
+    complex_operations, evaluate_math_operation, evaluate_data_structure_operation, evaluate_complex_operation,\
+    evaluate_matrix_operation
 import torch
 
 
-variable_bindings = {}
 functions = {}
 
-def evaluate_program(ast):
+def evaluate_program(orig_ast):
     """Evaluate a program as desugared by daphne, generate a sample from the prior
     Args:
         ast: json FOPPL program
     Returns: sample from the prior of ast
     """
 
-    # make a deep copy so that substituting variables with actual values doesn't change
-    # the variable for the next execution of the function by the generator
-    ast_curr = copy.deepcopy(ast)
+    variable_bindings = {}
 
-    if type(ast_curr) is not list:
-        return ast_curr
-
-    # substitute bound variables for their values
-
-    # construct boolean array indicating which elements are variables that are bound to a value using the global
-    # variable_bindings dictionary
-    variables = list(variable_bindings.keys())
-    variable_bindings_bool = [elem in variables for elem in ast_curr]
-
-    # substitute the variable name in ast_curr with the actual value
-    # BUG: sometimes works on tensors, at other times fails
-    if any(variable_bindings_bool):
-        for idx, val in enumerate(variable_bindings_bool):
-            if val:
-                ast_curr[idx] = variable_bindings[ast_curr[idx]]
-
-
-    try:
-        # always check whether there is a function definition in order to continue running the program after
-        # saving the function def in the functions dict
-        if ast_curr[0][0] == 'defn':
-            functions[ast_curr[0][1]] = ast_curr[0][2:]
-            key = ast_curr[0][1]
-
-            # remove the defn from ast, some weird bugs arise if I keep it there
-            ast_curr = ast_curr[1:]
-            res = evaluate_program(ast_curr)
-
-            # clear all functions
-            del functions[key]
-
-            return res
-    except:
-        pass
-
-    if ast_curr[0] == 'if':
-        e1 = evaluate_program(ast_curr[1])
-        e2 = evaluate_program(ast_curr[2])
-        e3 = evaluate_program(ast_curr[3])
-        if e1:
-            return e2
-        else:
-            return e3
-
-    if ast_curr[0] == 'let':
-        # we will successfully assign a variable a value after this block of code executes
-
-        # check if the variable will be assigned to a distribution object
-        if type(ast_curr[1][0]) is str and ast_curr[1][1][0] in my_distributions:
-            distribution_object = evaluate_program(ast_curr[1][1])
-            variable_bindings[ast_curr[1][0]] = distribution_object
-        else:
-            binding_obj = evaluate_program(ast_curr[1])
-            variable_bindings[binding_obj[0]] = binding_obj[1]  # 33
-
-        # throw away let statement and continue evaluation
-        res = evaluate_program(ast_curr[2:])
-
-        # clear all variable bindings
-        del variable_bindings[binding_obj[0]]
-
-        # make sure that a list is returned
-        try:
-            temp = res[0]  # try subscripting res
-            return res
-        except (TypeError, ValueError, IndexError):
-            return torch.tensor(res)
-
-    if ast_curr[0] == 'sample':
-        distribution_obj = evaluate_program(ast_curr[1])
-        return distribution_obj.sample()
-
-    if ast_curr[0] == 'observe':
-        return None
-
-    if ast_curr[0] == 'vector':
-        sublists = [evaluate_program(elem) for elem in ast_curr[1:]]
-        try:
-            ret = torch.tensor(sublists)
-        except (ValueError, RuntimeError):
-            ret = sublists
-        return ret
-
-    if all(item in my_distributions for item in list(list(zip(*ast_curr))[0])):
-        return ast_curr
-
-    # [+ 3 4]
-    if all([type(elem) is not list for elem in ast_curr]):
-        if type(ast_curr[0]) in [int, float, torch.Tensor]:
-            return torch.tensor(ast_curr[0])
-        if type(ast_curr[0]) is dict:
-            return ast_curr[0]
-        if ast_curr[0] in list(functions.keys()):
-            function_params = dict(zip(functions[ast_curr[0]][0], ast_curr[1:]))
-            function_body = functions[ast_curr[0]][1]
-
-            try:
-                assert(len(function_params) == (len(ast_curr) - 1))
-            except AssertionError:
-                raise AssertionError('Invalid number of parameters')
-
-            processed_function_body = substitute_params(function_params, function_body)
-            return evaluate_program(processed_function_body)
-
-        if ast_curr[0] in my_distributions:
-            distribution_obj = Distribution(ast_curr[0], ast_curr[1:])
-            return distribution_obj
-        elif ast_curr[0] == '+':
-            return torch.sum(torch.tensor(ast_curr[1:]))
-        elif ast_curr[0] == '-':
-            return ast_curr[1] - torch.sum(torch.tensor(ast_curr[2:]))
-        elif ast_curr[0] == '*':
-            return torch.prod(torch.tensor(ast_curr[1:]))
-        elif ast_curr[0] == '/':
-            return ast_curr[1] / torch.prod(torch.tensor(ast_curr[2:]))
-        elif ast_curr[0] == 'sqrt':
-            return torch.sqrt(torch.tensor(ast_curr[1]))
-        elif ast_curr[0] == '<':
-            return ast_curr[1] < ast_curr[2]
-        elif ast_curr[0] == '>':
-            return ast_curr[1] > ast_curr[2]
-        elif ast_curr[0] == 'get':
-            if type(ast_curr[1]) is dict:
-                return torch.tensor(ast_curr[1][ast_curr[2]])
-            return torch.tensor(ast_curr[1][ast_curr[2]])
-        elif ast_curr[0] == 'put':
-            if type(ast_curr[1]) is dict:
-                ast_curr[1][ast_curr[2]] = torch.tensor(ast_curr[3])
-            else:
-                ast_curr[1][ast_curr[2]] = torch.tensor(ast_curr[3])
-            return ast_curr[1]
-        elif ast_curr[0] == 'remove':
-            del ast_curr[1][ast_curr[2]]
-            return ast_curr[1]
-        elif ast_curr[0] == 'first':
-            return torch.tensor(ast_curr[1][0])
-        elif ast_curr[0] == 'second':
-            return torch.tensor(ast_curr[1][1])
-        elif ast_curr[0] == 'last':
-            return torch.tensor(ast_curr[1][-1])
-        elif ast_curr[0] == 'rest':
-            return torch.tensor(ast_curr[1][1:])
-        elif ast_curr[0] == 'append':
-            res = ast_curr[1].tolist()
-            res.extend([ast_curr[2]])
-            return torch.tensor(res)
-        elif ast_curr[0] == 'hash-map':
-            return dict(zip(ast_curr[1:][::2], torch.tensor(ast_curr[1:][1::2])))
-        else:
-            return ast_curr
-
-    # [+ [- 3 1] [* 2 4]]
-    subroot = [evaluate_program(sub_ast_curr) for sub_ast_curr in ast_curr]
-    return evaluate_program(subroot)
-
-
-def substitute_params_helper(params, body):
-    res = []
-    for elem in body:
-        if elem in list(params.keys()):
-            res.append(params[elem])
-        else:
-            res.append(elem)
-
-    if len(res) == 1:
-        return res[0]
+    if type(orig_ast[0]) is list and orig_ast[0][0] == 'defn':
+        function_expression = orig_ast[0][2:]
+        functions[orig_ast[0][1]] = function_expression
+        ast = orig_ast[1]
     else:
-        return res
+        ast = orig_ast[0]
+    return evaluate_program_helper(ast, variable_bindings)
 
-def substitute_params(params, body):
-    if not isinstance(body, list):
-        if body in list(params.keys()):
-            return params[body]
+
+def evaluate_program_helper(ast, variable_bindings):
+
+    # print(ast)
+
+    if type(ast) is not list:
+        if ast in math_operations:
+            return ast
+        if ast in data_structure_operations:
+            return ast
+        if ast in matrix_operations:
+            return ast
+        if ast in complex_operations:
+            return ast
+        if ast in my_distributions:
+            return ast
+        if type(ast) is torch.Tensor:
+            return ast
+        if type(ast) in [int, float]:
+            return torch.tensor(ast)
+        if ast in list(variable_bindings.keys()):
+            return variable_bindings[ast]
+        if ast in list(functions.keys()):
+            return functions[ast]
+        if ast is None:
+            return None
         else:
-            return body
+            raise RuntimeError('Invalid Function', ast)
 
-    if all([type(elem) is not list for elem in body]):
-        return substitute_params_helper(params, body)
+    if type(ast) is list:
+        if ast[0] == 'let':
+            # evaluate the expression that the variable will be bound to
+            binding_obj = evaluate_program_helper(ast[1][1], variable_bindings)
 
-    curr = [substitute_params(params, elem) for elem in body]
-    return curr
+            # the variable name is found in let_ast[1][0]
+            # update variable_bindings dictionary
+            variable_bindings[ast[1][0]] = binding_obj
+
+            # evaluate the return expression
+            return evaluate_program_helper(ast[2], variable_bindings)
+        if ast[0] in my_distributions:
+            curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
+            return Distribution(dist_type=curr[0], params=curr[1:])
+        if ast[0] in math_operations:
+            curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
+            return evaluate_math_operation(curr)
+        if ast[0] in data_structure_operations:
+            curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
+            return evaluate_data_structure_operation(curr)
+        if ast[0] in complex_operations:
+            curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
+            return evaluate_complex_operation(curr)
+        if ast[0] in matrix_operations:
+            curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
+            return evaluate_matrix_operation(curr)
+        if ast[0] in list(functions.keys()):
+            inputs = [evaluate_program_helper(elem, variable_bindings) for elem in ast[1:]]
+            body = functions[ast[0]]
+
+            for idx, param in enumerate(body[0]):
+                variable_bindings[param] = inputs[idx]
+
+            return evaluate_program_helper(body[1], variable_bindings)
+
 
 def get_stream(ast):
     """Return a stream of prior samples"""
     while True:
         yield evaluate_program(ast)
     
-
 
 def run_deterministic_tests():
 
@@ -229,7 +118,6 @@ def run_deterministic_tests():
         
     print('All deterministic tests passed')
     
-
 
 def run_probabilistic_tests():
     
@@ -253,6 +141,7 @@ def run_probabilistic_tests():
     
     print('All probabilistic tests passed')
 
+
 def save_ast(file_name, my_ast):
     # faster load
 
@@ -261,6 +150,7 @@ def save_ast(file_name, my_ast):
     pickle.dump(my_ast, open_file)
     open_file.close()
 
+
 def load_ast(file_name):
 
     # loading the list
@@ -268,6 +158,7 @@ def load_ast(file_name):
     ret = pickle.load(open_file)
     open_file.close()
     return ret
+
 
 if __name__ == '__main__':
 
@@ -281,4 +172,4 @@ if __name__ == '__main__':
 
         ast = load_ast('programs/saved_asts/daphne{}_ast.pkl'.format(i))
         print('\n\n\nSample of prior of program {}:'.format(i))
-        print(evaluate_program(ast)[0])
+        print(evaluate_program(ast))
