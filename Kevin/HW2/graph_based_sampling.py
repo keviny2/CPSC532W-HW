@@ -1,12 +1,12 @@
 import torch
 import torch.distributions as dist
-import pickle
 
 from daphne import daphne
 
 import primitives
 from graph import Graph
 from tests import is_tol, run_prob_test,load_truth
+from utils import load_ast, substitute_sampled_vertices
 
 # Put all function mappings from the deterministic language environment to your
 # Python evaluation context here:
@@ -79,19 +79,6 @@ def sample_from_joint(graph):
     variable_bindings = graph[1]['Y']
     expression = substitute_sampled_vertices(raw_expression, variable_bindings)
     return deterministic_eval(expression)
-    # return graph[1]['Y'][variable_of_interest]
-
-
-def substitute_sampled_vertices(expression, variable_bindings):
-    if type(expression) is not list:
-        if isinstance(expression, str):
-            if expression in list(variable_bindings.keys()):
-                return variable_bindings[expression]
-        return expression
-
-    return [substitute_sampled_vertices(sub_expression, variable_bindings) for sub_expression in expression]
-
-
 
 
 
@@ -111,7 +98,7 @@ def get_stream(graph):
 
 def run_deterministic_tests():
 
-    debug_start = 6
+    debug_start = 1
     for i in range(debug_start,13):
         #note: this path should be with respect to the daphne path!
         # graph = daphne(['graph','-i','../CPSC532W-HW/Kevin/HW2/programs/tests/deterministic/test_{}.daphne'.format(i)])
@@ -152,24 +139,7 @@ def run_probabilistic_tests():
     
     print('All probabilistic tests passed')    
 
-def save_ast(file_name, my_ast):
-    # faster load
 
-    # saving the list
-    open_file = open(file_name, "wb")
-    pickle.dump(my_ast, open_file)
-    open_file.close()
-
-
-def load_ast(file_name):
-
-    # loading the list
-    open_file = open(file_name, 'rb')
-    ret = pickle.load(open_file)
-    open_file.close()
-    return ret
-        
-        
 if __name__ == '__main__':
     
 

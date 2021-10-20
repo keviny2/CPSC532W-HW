@@ -1,6 +1,3 @@
-import copy
-import pickle
-
 from daphne import daphne
 from tests import is_tol, run_prob_test,load_truth
 from distributions import my_distributions, Distribution
@@ -8,6 +5,7 @@ from primitives import math_operations, data_structure_operations, matrix_operat
     complex_operations, evaluate_math_operation, evaluate_data_structure_operation, evaluate_complex_operation,\
     evaluate_matrix_operation
 import torch
+from utils import load_ast
 
 
 functions = {}
@@ -141,23 +139,6 @@ def run_probabilistic_tests():
     
     print('All probabilistic tests passed')
 
-
-def save_ast(file_name, my_ast):
-    # faster load
-
-    # saving the list
-    open_file = open(file_name, "wb")
-    pickle.dump(my_ast, open_file)
-    open_file.close()
-
-
-def load_ast(file_name):
-
-    # loading the list
-    open_file = open(file_name, 'rb')
-    ret = pickle.load(open_file)
-    open_file.close()
-    return ret
 
 
 if __name__ == '__main__':
