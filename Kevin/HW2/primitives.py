@@ -9,15 +9,77 @@ matrix_operations = ['mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-rep
 
 complex_operations = ['sample', 'if', 'defn', 'observe']
 
-# TODO: implement primitives for graph - these primitives will be called when evaluating
-#  the link function while doing ancestral sampling
+
+def conditional(*args):
+    return evaluate_complex_operation(['if', *args])
 
 def vector(*args):
     return evaluate_data_structure_operation(['vector', *args])
 
 def sample(*args):
-    # TODO: implement sample
-    return evaluate_complex_operation()
+    return args[0].sample()
+
+def observe(*args):
+    # TODO: change this later
+    return args[0].sample()
+
+def hashmap(*args):
+    return evaluate_data_structure_operation(['hash-map', *args])
+
+def get(*args):
+    return evaluate_data_structure_operation(['get', *args])
+
+def put(*args):
+    return evaluate_data_structure_operation(['put', *args])
+
+def first(*args):
+    return evaluate_data_structure_operation(['first', *args])
+
+def second(*args):
+    return evaluate_data_structure_operation(['second', *args])
+
+def rest(*args):
+    return evaluate_data_structure_operation(['rest', *args])
+
+def last(*args):
+    return evaluate_data_structure_operation(['last', *args])
+
+def append(*args):
+    return evaluate_data_structure_operation(['append', *args])
+
+def less_than(*args):
+    return evaluate_math_operation(['<', *args])
+
+def greater_than(*args):
+    return evaluate_math_operation(['>', *args])
+
+def add(*args):
+    return evaluate_math_operation(['+', *args])
+
+def minus(*args):
+    return evaluate_math_operation(['-', *args])
+
+def multiply(*args):
+    return evaluate_math_operation(['*', *args])
+
+def divide(*args):
+    return evaluate_math_operation(['/', *args])
+
+def mat_transpose(*args):
+    return evaluate_matrix_operation(['mat-transpose', *args])
+
+def mat_tanh(*args):
+    return evaluate_matrix_operation(['mat-tanh', *args])
+
+def mat_mul(*args):
+    return evaluate_matrix_operation(['mat-mul', *args])
+
+def mat_add(*args):
+    return evaluate_matrix_operation(['mat-add', *args])
+
+def mat_repmat(*args):
+    return evaluate_matrix_operation(['mat-repmat', *args])
+
 
 def evaluate_matrix_operation(ast):
     if ast[0] == 'mat-mul':
@@ -79,12 +141,11 @@ def evaluate_data_structure_operation(ast):
                     ret[elem.numpy().item()] = ast[1:][idx + 1]
         return ret
     elif ast[0] == 'get':
-        if type(ast[1]) is dict:
-            if type(ast[2]) is torch.Tensor:
-                return ast[1][ast[2].numpy().item()]
-            return ast[1][ast[2]]
+        if type(ast[2]) is torch.Tensor:
+            index = int(ast[2].numpy().item())
         else:
-            return ast[1][ast[2]]
+            index = ast[2]
+        return ast[1][index]
     elif ast[0] == 'put':
         if type(ast[1]) is dict:
             if type(ast[2]) is torch.Tensor:

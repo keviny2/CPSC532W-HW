@@ -11,9 +11,34 @@ from tests import is_tol, run_prob_test,load_truth
 # Put all function mappings from the deterministic language environment to your
 # Python evaluation context here:
 env = {'normal': dist.Normal,
+       'beta': dist.Beta,
+       'exponential': dist.Exponential,
+       'uniform': dist.Uniform,
+       'discrete': dist.Categorical,
+       '+': primitives.add,
+       '*': primitives.multiply,
+       '-': primitives.minus,
+       '/': primitives.divide,
        'sqrt': torch.sqrt,
        'vector': primitives.vector,
-       'sample': primitives.sample
+       'sample*': primitives.sample,
+       'observe*': primitives.observe,
+       'hash-map': primitives.hashmap,
+       'get': primitives.get,
+       'put': primitives.put,
+       'first': primitives.first,
+       'second': primitives.second,
+       'rest': primitives.rest,
+       'last': primitives.last,
+       'append': primitives.append,
+       '<': primitives.less_than,
+       '>': primitives.greater_than,
+       'mat-transpose': primitives.mat_transpose,
+       'mat-tanh': primitives.mat_tanh,
+       'mat-mul': primitives.mat_mul,
+       'mat-add': primitives.mat_add,
+       'mat-repmat': primitives.mat_repmat,
+       'if': primitives.conditional
        }
 
 
@@ -26,21 +51,48 @@ def deterministic_eval(exp):
     elif type(exp) is int or type(exp) is float:
         # We use torch for all numerical objects in our evaluator
         return torch.tensor(float(exp))
+    elif type(exp) is torch.Tensor:
+        return exp
     else:
         raise("Expression type unknown.", exp)
 
 
 def sample_from_joint(graph):
     "This function does ancestral sampling starting from the prior."
-    # TODO: use sampling order to perform ancestral sampling; I will have to evaluate the link functions which
-    #  describe the distribution b/c those are your good old expressions from evaluation_based_sampling
 
     g = Graph(graph[1]['V'])
-    for key, value in graph[1]['A'].items():
-        g.addEdge(key, value[0])
+    for key, values in graph[1]['A'].items():
+        for child in values:
+            g.addEdge(key, child)
     sampling_order = g.topologicalSort()
 
-    return torch.tensor([0.0, 0.0, 0.0])
+    for vertex in sampling_order:
+        # substitute parent nodes with their sampled values
+        raw_expression = graph[1]['P'][vertex]
+        variable_bindings = graph[1]['Y']
+        expression = substitute_sampled_vertices(raw_expression, variable_bindings)
+
+        graph[1]['Y'][vertex] = deterministic_eval(expression)
+
+    # substitute return nodes with sampled values
+    raw_expression = graph[2]
+    variable_bindings = graph[1]['Y']
+    expression = substitute_sampled_vertices(raw_expression, variable_bindings)
+    return deterministic_eval(expression)
+    # return graph[1]['Y'][variable_of_interest]
+
+
+def substitute_sampled_vertices(expression, variable_bindings):
+    if type(expression) is not list:
+        if isinstance(expression, str):
+            if expression in list(variable_bindings.keys()):
+                return variable_bindings[expression]
+        return expression
+
+    return [substitute_sampled_vertices(sub_expression, variable_bindings) for sub_expression in expression]
+
+
+
 
 
 def get_stream(graph):
@@ -96,6 +148,7 @@ def run_probabilistic_tests():
 
         print('p value', p_val)
         assert(p_val > max_p_value)
+        print('Test passed', graph, 'test', i)
     
     print('All probabilistic tests passed')    
 
@@ -120,10 +173,11 @@ def load_ast(file_name):
 if __name__ == '__main__':
     
 
-    # run_deterministic_tests()
+    run_deterministic_tests()
     run_probabilistic_tests()
 
-    for i in range(1,5):
+    debug_start = 1
+    for i in range(debug_start,5):
         # graph = daphne(['graph','-i','../CPSC532W-HW/Kevin/HW2/programs/{}.daphne'.format(i)])
         graph = load_ast('programs/saved_asts/daphne_graph{}.pkl'.format(i))
         print('\n\n\nSample of prior of program {}:'.format(i))
