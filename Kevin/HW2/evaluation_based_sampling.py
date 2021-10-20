@@ -104,7 +104,7 @@ def run_deterministic_tests():
 
     debug_start = 1
     for i in range(debug_start,14):
-        #note: this path should be with respect to the daphne path!
+        # note: this path should be with respect to the daphne path!
         # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/tests/deterministic/test_{}.daphne'.format(i)])
         ast = load_ast('programs/saved_asts/det{}_ast.pkl'.format(i))
         truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))

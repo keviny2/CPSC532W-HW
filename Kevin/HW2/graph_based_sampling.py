@@ -1,16 +1,20 @@
 import torch
 import torch.distributions as dist
+import pickle
 
 from daphne import daphne
 
-# TODO
-from primitives import funcprimitives
+import primitives
+from graph import Graph
 from tests import is_tol, run_prob_test,load_truth
 
 # Put all function mappings from the deterministic language environment to your
 # Python evaluation context here:
 env = {'normal': dist.Normal,
-       'sqrt': torch.sqrt}
+       'sqrt': torch.sqrt,
+       'vector': primitives.vector,
+       'sample': primitives.sample
+       }
 
 
 def deterministic_eval(exp):
@@ -28,7 +32,14 @@ def deterministic_eval(exp):
 
 def sample_from_joint(graph):
     "This function does ancestral sampling starting from the prior."
-    # TODO insert your code here
+    # TODO: use sampling order to perform ancestral sampling; I will have to evaluate the link functions which
+    #  describe the distribution b/c those are your good old expressions from evaluation_based_sampling
+
+    g = Graph(graph[1]['V'])
+    for key, value in graph[1]['A'].items():
+        g.addEdge(key, value[0])
+    sampling_order = g.topologicalSort()
+
     return torch.tensor([0.0, 0.0, 0.0])
 
 
@@ -47,18 +58,20 @@ def get_stream(graph):
 #Testing:
 
 def run_deterministic_tests():
-    
-    for i in range(1,13):
+
+    debug_start = 6
+    for i in range(debug_start,13):
         #note: this path should be with respect to the daphne path!
-        graph = daphne(['graph','-i','../HW2/programs/tests/deterministic/test_{}.daphne'.format(i)])
+        # graph = daphne(['graph','-i','../CPSC532W-HW/Kevin/HW2/programs/tests/deterministic/test_{}.daphne'.format(i)])
+        graph = load_ast('programs/saved_asts/graph_deterministic{}.pkl'.format(i))
         truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
         ret = deterministic_eval(graph[-1])
         try:
             assert(is_tol(ret, truth))
         except AssertionError:
             raise AssertionError('return value {} is not equal to truth {} for graph {}'.format(ret,truth,graph))
-        
-        print('Test passed')
+
+        print('Test passed', graph, 'test', i)
         
     print('All deterministic tests passed')
     
@@ -69,33 +82,51 @@ def run_probabilistic_tests():
     #TODO: 
     num_samples=1e4
     max_p_value = 1e-4
-    
-    for i in range(1,7):
+
+    debug_start = 1
+    for i in range(debug_start,7):
         #note: this path should be with respect to the daphne path!        
-        graph = daphne(['graph', '-i', '../HW2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
+        # graph = daphne(['graph', '-i', '../CPSC532W-HW/Kevin/HW2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
+        graph = load_ast('programs/saved_asts/graph_prob{}.pkl'.format(i))
         truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
-        
+
         stream = get_stream(graph)
-        
+
         p_val = run_prob_test(stream, truth, num_samples)
-        
+
         print('p value', p_val)
         assert(p_val > max_p_value)
     
     print('All probabilistic tests passed')    
 
+def save_ast(file_name, my_ast):
+    # faster load
 
+    # saving the list
+    open_file = open(file_name, "wb")
+    pickle.dump(my_ast, open_file)
+    open_file.close()
+
+
+def load_ast(file_name):
+
+    # loading the list
+    open_file = open(file_name, 'rb')
+    ret = pickle.load(open_file)
+    open_file.close()
+    return ret
         
         
 if __name__ == '__main__':
     
 
-    run_deterministic_tests()
+    # run_deterministic_tests()
     run_probabilistic_tests()
 
     for i in range(1,5):
-        graph = daphne(['graph','-i','../CS532-HW2/programs/{}.daphne'.format(i)])
+        # graph = daphne(['graph','-i','../CPSC532W-HW/Kevin/HW2/programs/{}.daphne'.format(i)])
+        graph = load_ast('programs/saved_asts/daphne_graph{}.pkl'.format(i))
         print('\n\n\nSample of prior of program {}:'.format(i))
-        print(sample_from_joint(graph))    
+        print(sample_from_joint(graph))
 
     

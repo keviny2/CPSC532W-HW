@@ -9,6 +9,15 @@ matrix_operations = ['mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-rep
 
 complex_operations = ['sample', 'if', 'defn', 'observe']
 
+# TODO: implement primitives for graph - these primitives will be called when evaluating
+#  the link function while doing ancestral sampling
+
+def vector(*args):
+    return evaluate_data_structure_operation(['vector', *args])
+
+def sample(*args):
+    # TODO: implement sample
+    return evaluate_complex_operation()
 
 def evaluate_matrix_operation(ast):
     if ast[0] == 'mat-mul':
@@ -62,10 +71,6 @@ def evaluate_data_structure_operation(ast):
             return torch.stack(ast[1:])
         except:
             return ast[1:]
-        # try:
-        #     return torch.stack(ast[1:])
-        # except:
-        #     return ast[1:]
     elif ast[0] == 'hash-map':
         ret = {}
         for idx, elem in enumerate(ast[1:]):

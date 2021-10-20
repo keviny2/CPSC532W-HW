@@ -27,7 +27,6 @@ class Distribution:
         if self.dist_type == 'uniform':
             return torch.tensor(uniform.Uniform(self.params[0], self.params[1]).sample())
         if self.dist_type == 'discrete':
-            # TODO: don't know exactly what multinomial should return yet... should it be index? or something else?
             return categorical.Categorical(probs=self.params[0]).sample()
         if self.dist_type == 'bernoulli':
             return torch.tensor(bernoulli.Bernoulli(self.params[0]))
