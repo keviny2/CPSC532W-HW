@@ -90,39 +90,37 @@ def get_stream(ast):
 
 
 def run_deterministic_tests():
-    # for i in range(1, 14):
-    #     i = 6
-    #     ast = daphne(['desugar', '-i',
-    #                   '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/deterministic/test_{}.daphne'.format(i)])
-    #     truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
-    #     ret, sig = evaluate_program(ast), '0'
-    #     try:
-    #         assert (is_tol(ret, truth))
-    #     except AssertionError:
-    #         raise AssertionError('return value {} is not equal to truth {} for exp {}'.format(ret, truth, ast))
-    #
-    #     print('Test passed')
+    for i in range(1, 14):
+        ast = daphne(['desugar', '-i',
+                      '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/deterministic/test_{}.daphne'.format(i)])
+        truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
+        ret, sig = evaluate_program(ast), '0'
+        try:
+            assert (is_tol(ret, truth))
+        except AssertionError:
+            raise AssertionError('return value {} is not equal to truth {} for exp {}'.format(ret, truth, ast))
+
+        print('Test passed')
 
     print('All deterministic tests passed')
 
 
 def run_probabilistic_tests():
-    # num_samples = 1e4
-    # max_p_value = 1e-4
-    #
-    # for i in range(1, 7):
-    #     i = 1
-    #     ast = daphne(['desugar', '-i',
-    #                   '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
-    #     truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
-    #
-    #     stream = get_stream(ast)
-    #
-    #     p_val = run_prob_test(stream, truth, num_samples)
-    #
-    #     print('p value', p_val)
-    #     assert (p_val > max_p_value)
-    #     print('Test passed')
+    num_samples = 1e4
+    max_p_value = 1e-4
+
+    for i in range(1, 7):
+        ast = daphne(['desugar', '-i',
+                      '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
+        truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
+
+        stream = get_stream(ast)
+
+        p_val = run_prob_test(stream, truth, num_samples)
+
+        print('p value', p_val)
+        assert (p_val > max_p_value)
+        print('Test passed')
 
     print('All probabilistic tests passed')
 
@@ -134,7 +132,6 @@ if __name__ == '__main__':
     run_probabilistic_tests()
 
     for i in range(1, 5):
-        i = 3
         ast = daphne(['desugar', '-i',
                       '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/{}.daphne'.format(i)])
 

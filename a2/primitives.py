@@ -87,13 +87,15 @@ def distributions_evaluation(ast):
 
 
 
-def minus(ast):
+def minus(*ast):
     return ast[0] - (torch.sum(torch.tensor(ast[1:])))
 
-def divide(ast):
+def divide(*ast):
     return ast[0] / torch.prod(torch.tensor(ast[1:]))
 
-def vector(ast):
+def vector(*ast):
+    if type(ast) is tuple:
+        ast = list(ast)
     try:
         for i in range(len(ast)):
            ast[i] = torch.tensor(ast[i])
@@ -101,57 +103,60 @@ def vector(ast):
     except:
         return ast
 
-def hashmap(ast):
+def hashmap(*ast):
     ast = np.reshape(np.array(ast), (-1, 2))
     ast = dict((ast[i][0], torch.tensor(ast[i][1])) for i in range(ast.shape[0]))
     return ast
 
-def get(ast):
+def get(*ast):
     try:
         return ast[0][ast[1].item()]
     except:
         return ast[0][int(ast[1])]
 
-def put(ast):
+def put(*ast):
     (ast[0])[int(ast[1])] = ast[2]
     return ast[0]
 
-def first(ast):
+def first(*ast):
     return (ast[0])[0]
 
-def second(ast):
+def second(*ast):
     return (ast[0])[1]
 
-def rest(ast):
+def rest(*ast):
     return (ast[0])[1:]
 
-def last(ast):
+def last(*ast):
     return (ast[0])[len(ast[0]) - 1]
 
-def append(ast):
+def append(*ast):
     return torch.cat((ast[0], torch.tensor([ast[1]])), dim=0)
 
-def smaller(ast):
+def smaller(*ast):
     return ast[0] < ast[1]
 
-def larger(ast):
+def larger(*ast):
     return ast[0] > ast[1]
 
-def mat_transpose(ast):
+def mat_transpose(*ast):
     return ast[0].T
 
-def mat_tanh(ast):
+def mat_tanh(*ast):
     return torch.tanh(ast[0])
 
-def mat_mul(ast):
-    ast[0] = ast[0].float()
-    ast[1] = ast[1].float()
-    return torch.matmul(ast[0], ast[1])
+def mat_mul(*ast):
+    return torch.matmul(ast[0].float(), ast[1].float())
 
-def mat_add(ast):
+def mat_add(*ast):
     return ast[0] + ast[1]
 
-def mat_repmat(ast):
+def mat_repmat(*ast):
     return  torch.tensor(ast[0]).repeat(int(ast[1]), int(ast[2]))
 
 
+def iff(*ast):
+    if ast[0]:
+        return ast[1]
+    else:
+        return ast[2]

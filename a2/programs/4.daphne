@@ -28,3 +28,4 @@
                mu_rc mu_r]
       (observe (normal mu_rc 1) y_rc)))
 [W_0 b_0 W_1 b_1])
+
