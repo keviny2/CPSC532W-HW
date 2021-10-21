@@ -62,9 +62,6 @@ def deterministic_eval(exp):
 
 
 def sample_from_joint(graph):
-
-    "This function does ancestral sampling starting from the prior."
-
     vertices = graph[1]['V']
     edges = graph[1]['A']
     links = graph[1]['P']
@@ -187,6 +184,7 @@ if __name__ == '__main__':
     run_probabilistic_tests()
 
     for i in range(1,5):
+        i = 4
         graph = daphne(['graph','-i',
                         '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a2/programs/{}.daphne'.format(i)])
         print(graph)

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  20 OCT 2021 02:39
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  20 OCT 2021 16:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -837,7 +837,7 @@ Package: relsize 2013/03/29 ver 4.1
 \algocf@algoframe=\box65
 \algocf@algobox=\box66
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 23.
+Package hyperref Info: Option `colorlinks' set `true' on input line 21.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -943,27 +943,274 @@ Package csquotes Info: ... none found.
 
 
 Package csquotes Warning: No multilingual support.
-(csquotes)                Cannot enable multilingual quotes on input line 48.
+(csquotes)                Cannot enable multilingual quotes on input line 43.
 
-(./532hw2.aux)
+(./532hw2.aux
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:b' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:b' multiply defined.
+
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:d' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:d' multiply defined.
+
+
+LaTeX Warning: Label `fig:e' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:e' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:d' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:d' multiply defined.
+
+
+LaTeX Warning: Label `fig:e' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:e' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:d' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:d' multiply defined.
+
+
+LaTeX Warning: Label `fig:e' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:e' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:b' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:b' multiply defined.
+
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:b' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:b' multiply defined.
+
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:b' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:b' multiply defined.
+
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:b' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:b' multiply defined.
+
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:d' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:d' multiply defined.
+
+
+LaTeX Warning: Label `fig:e' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:e' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:d' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:d' multiply defined.
+
+
+LaTeX Warning: Label `fig:e' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:e' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:d' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:d' multiply defined.
+
+
+LaTeX Warning: Label `fig:e' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:e' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:d' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:d' multiply defined.
+
+
+LaTeX Warning: Label `fig:e' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:e' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:f' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:f' multiply defined.
+
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:b' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:b' multiply defined.
+
+
+LaTeX Warning: Label `fig:a' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:a' multiply defined.
+
+
+LaTeX Warning: Label `fig:b' multiply defined.
+
+
+LaTeX Warning: Label `sub@fig:b' multiply defined.
+
+)
 \openout1 = `532hw2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
-LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 43.
+LaTeX Font Info:    ... okay on input line 43.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1036,8 +1283,8 @@ Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file '532hw2.bbl' not found.
 
 No file 532hw2.bbl.
-Package biblatex Info: Reference section=0 on input line 48.
-Package biblatex Info: Reference segment=0 on input line 48.
+Package biblatex Info: Reference section=0 on input line 43.
+Package biblatex Info: Reference segment=0 on input line 43.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: hyperref package is loaded.
@@ -1047,7 +1294,7 @@ Package: ltcaption 2018/08/26 v1.4a longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
 \AtBeginShipoutBox=\box74
-Package hyperref Info: Link coloring ON on input line 48.
+Package hyperref Info: Link coloring ON on input line 43.
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -1061,55 +1308,392 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count456
 )
-LaTeX Info: Redefining \ref on input line 48.
-LaTeX Info: Redefining \pageref on input line 48.
-LaTeX Info: Redefining \nameref on input line 48.
+LaTeX Info: Redefining \ref on input line 43.
+LaTeX Info: Redefining \pageref on input line 43.
+LaTeX Info: Redefining \nameref on input line 43.
  (./532hw2.out) (./532hw2.out)
 \@outlinefile=\write4
 \openout4 = `532hw2.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 51.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 46.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 51.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 46.
 
 
 (/usr/local/texlive/2020/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 58.
+<../figs/evaluation_1.png, id=4, 578.16pt x 433.62pt>
+File: ../figs/evaluation_1.png Graphic file (type png)
+<use ../figs/evaluation_1.png>
+Package pdftex.def Info: ../figs/evaluation_1.png  used on input line 53.
+(pdftex.def)             Requested size: 231.2599pt x 173.44492pt.
+<../figs/evaluation_2_1.png, id=6, 578.16pt x 433.62pt>
+File: ../figs/evaluation_2_1.png Graphic file (type png)
+<use ../figs/evaluation_2_1.png>
+Package pdftex.def Info: ../figs/evaluation_2_1.png  used on input line 62.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+<../figs/evaluation_2_2.png, id=7, 578.16pt x 433.62pt>
+File: ../figs/evaluation_2_2.png Graphic file (type png)
+<use ../figs/evaluation_2_2.png>
+Package pdftex.def Info: ../figs/evaluation_2_2.png  used on input line 67.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
  [1
 
-{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 58.
+{/usr/local/texlive/2020/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <../figs
+/evaluation_1.png> <../figs/evaluation_2_1.png> <../figs/evaluation_2_2.png>]
+<../figs/evaluation_3_1.png, id=28, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_1.png Graphic file (type png)
+<use ../figs/evaluation_3_1.png>
+Package pdftex.def Info: ../figs/evaluation_3_1.png  used on input line 81.
+(pdftex.def)             Requested size: 101.17645pt x 75.87802pt.
+<../figs/evaluation_3_2.png, id=29, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_2.png Graphic file (type png)
+<use ../figs/evaluation_3_2.png>
+Package pdftex.def Info: ../figs/evaluation_3_2.png  used on input line 86.
+(pdftex.def)             Requested size: 101.17645pt x 75.87802pt.
+<../figs/evaluation_3_3.png, id=30, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_3.png Graphic file (type png)
+<use ../figs/evaluation_3_3.png>
+Package pdftex.def Info: ../figs/evaluation_3_3.png  used on input line 91.
+(pdftex.def)             Requested size: 101.17645pt x 75.87802pt.
+<../figs/evaluation_3_4.png, id=31, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_4.png Graphic file (type png)
+<use ../figs/evaluation_3_4.png>
+Package pdftex.def Info: ../figs/evaluation_3_4.png  used on input line 96.
+(pdftex.def)             Requested size: 101.17645pt x 75.87802pt.
+<../figs/evaluation_3_5.png, id=32, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_5.png Graphic file (type png)
+<use ../figs/evaluation_3_5.png>
+Package pdftex.def Info: ../figs/evaluation_3_5.png  used on input line 102.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_6.png, id=33, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_6.png Graphic file (type png)
+<use ../figs/evaluation_3_6.png>
+Package pdftex.def Info: ../figs/evaluation_3_6.png  used on input line 107.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_7.png, id=34, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_7.png Graphic file (type png)
+<use ../figs/evaluation_3_7.png>
+Package pdftex.def Info: ../figs/evaluation_3_7.png  used on input line 112.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_8.png, id=35, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_8.png Graphic file (type png)
+<use ../figs/evaluation_3_8.png>
+Package pdftex.def Info: ../figs/evaluation_3_8.png  used on input line 117.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_9.png, id=36, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_9.png Graphic file (type png)
+<use ../figs/evaluation_3_9.png>
+Package pdftex.def Info: ../figs/evaluation_3_9.png  used on input line 123.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_10.png, id=37, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_10.png Graphic file (type png)
+<use ../figs/evaluation_3_10.png>
+Package pdftex.def Info: ../figs/evaluation_3_10.png  used on input line 128.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_11.png, id=38, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_11.png Graphic file (type png)
+<use ../figs/evaluation_3_11.png>
+Package pdftex.def Info: ../figs/evaluation_3_11.png  used on input line 133.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_12.png, id=39, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_12.png Graphic file (type png)
+<use ../figs/evaluation_3_12.png>
+Package pdftex.def Info: ../figs/evaluation_3_12.png  used on input line 138.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_13.png, id=40, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_13.png Graphic file (type png)
+<use ../figs/evaluation_3_13.png>
+Package pdftex.def Info: ../figs/evaluation_3_13.png  used on input line 144.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_14.png, id=41, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_14.png Graphic file (type png)
+<use ../figs/evaluation_3_14.png>
+Package pdftex.def Info: ../figs/evaluation_3_14.png  used on input line 149.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_15.png, id=42, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_15.png Graphic file (type png)
+<use ../figs/evaluation_3_15.png>
+Package pdftex.def Info: ../figs/evaluation_3_15.png  used on input line 154.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_16.png, id=43, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_16.png Graphic file (type png)
+<use ../figs/evaluation_3_16.png>
+Package pdftex.def Info: ../figs/evaluation_3_16.png  used on input line 159.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/evaluation_3_17.png, id=44, 578.16pt x 433.62pt>
+File: ../figs/evaluation_3_17.png Graphic file (type png)
+<use ../figs/evaluation_3_17.png>
+Package pdftex.def Info: ../figs/evaluation_3_17.png  used on input line 167.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+ [2 <../figs/evaluation_3_1.png> <../figs/evaluation_3_2.png> <../figs/evaluati
+on_3_3.png> <../figs/evaluation_3_4.png> <../figs/evaluation_3_5.png> <../figs/
+evaluation_3_6.png> <../figs/evaluation_3_7.png> <../figs/evaluation_3_8.png> <
+../figs/evaluation_3_9.png> <../figs/evaluation_3_10.png> <../figs/evaluation_3
+_11.png> <../figs/evaluation_3_12.png> <../figs/evaluation_3_13.png> <../figs/e
+valuation_3_14.png> <../figs/evaluation_3_15.png> <../figs/evaluation_3_16.png>
+]
+<../figs/evaluation_4_1.png, id=85, 578.16pt x 433.62pt>
+File: ../figs/evaluation_4_1.png Graphic file (type png)
+<use ../figs/evaluation_4_1.png>
+Package pdftex.def Info: ../figs/evaluation_4_1.png  used on input line 179.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+<../figs/evaluation_4_2.png, id=86, 578.16pt x 433.62pt>
+File: ../figs/evaluation_4_2.png Graphic file (type png)
+<use ../figs/evaluation_4_2.png>
+Package pdftex.def Info: ../figs/evaluation_4_2.png  used on input line 184.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+<../figs/evaluation_4_3.png, id=87, 578.16pt x 433.62pt>
+File: ../figs/evaluation_4_3.png Graphic file (type png)
+<use ../figs/evaluation_4_3.png>
+Package pdftex.def Info: ../figs/evaluation_4_3.png  used on input line 190.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+<../figs/evaluation_4_4.png, id=88, 578.16pt x 433.62pt>
+File: ../figs/evaluation_4_4.png Graphic file (type png)
+<use ../figs/evaluation_4_4.png>
+Package pdftex.def Info: ../figs/evaluation_4_4.png  used on input line 195.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+ [3 <../figs/evaluation_3_17.png> <../figs/evaluation_4_1.png> <../figs/evaluat
+ion_4_2.png> <../figs/evaluation_4_3.png> <../figs/evaluation_4_4.png>]
+<../figs/graph_1.png, id=109, 578.16pt x 433.62pt>
+File: ../figs/graph_1.png Graphic file (type png)
+<use ../figs/graph_1.png>
+Package pdftex.def Info: ../figs/graph_1.png  used on input line 205.
+(pdftex.def)             Requested size: 231.2599pt x 173.44492pt.
+<../figs/graph_2_1.png, id=110, 578.16pt x 433.62pt>
+File: ../figs/graph_2_1.png Graphic file (type png)
+<use ../figs/graph_2_1.png>
+Package pdftex.def Info: ../figs/graph_2_1.png  used on input line 214.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+<../figs/graph_2_2.png, id=111, 578.16pt x 433.62pt>
+File: ../figs/graph_2_2.png Graphic file (type png)
+<use ../figs/graph_2_2.png>
+Package pdftex.def Info: ../figs/graph_2_2.png  used on input line 219.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+ [4 <../figs/graph_1.png> <../figs/graph_2_1.png> <../figs/graph_2_2.png>]
+<../figs/graph_3_1.png, id=126, 578.16pt x 433.62pt>
+File: ../figs/graph_3_1.png Graphic file (type png)
+<use ../figs/graph_3_1.png>
+Package pdftex.def Info: ../figs/graph_3_1.png  used on input line 233.
+(pdftex.def)             Requested size: 101.17645pt x 75.87802pt.
+<../figs/graph_3_2.png, id=127, 578.16pt x 433.62pt>
+File: ../figs/graph_3_2.png Graphic file (type png)
+<use ../figs/graph_3_2.png>
+Package pdftex.def Info: ../figs/graph_3_2.png  used on input line 238.
+(pdftex.def)             Requested size: 101.17645pt x 75.87802pt.
+<../figs/graph_3_3.png, id=128, 578.16pt x 433.62pt>
+File: ../figs/graph_3_3.png Graphic file (type png)
+<use ../figs/graph_3_3.png>
+Package pdftex.def Info: ../figs/graph_3_3.png  used on input line 243.
+(pdftex.def)             Requested size: 101.17645pt x 75.87802pt.
+<../figs/graph_3_4.png, id=129, 578.16pt x 433.62pt>
+File: ../figs/graph_3_4.png Graphic file (type png)
+<use ../figs/graph_3_4.png>
+Package pdftex.def Info: ../figs/graph_3_4.png  used on input line 248.
+(pdftex.def)             Requested size: 101.17645pt x 75.87802pt.
+<../figs/graph_3_5.png, id=130, 578.16pt x 433.62pt>
+File: ../figs/graph_3_5.png Graphic file (type png)
+<use ../figs/graph_3_5.png>
+Package pdftex.def Info: ../figs/graph_3_5.png  used on input line 254.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_6.png, id=131, 578.16pt x 433.62pt>
+File: ../figs/graph_3_6.png Graphic file (type png)
+<use ../figs/graph_3_6.png>
+Package pdftex.def Info: ../figs/graph_3_6.png  used on input line 259.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_7.png, id=132, 578.16pt x 433.62pt>
+File: ../figs/graph_3_7.png Graphic file (type png)
+<use ../figs/graph_3_7.png>
+Package pdftex.def Info: ../figs/graph_3_7.png  used on input line 264.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_8.png, id=133, 578.16pt x 433.62pt>
+File: ../figs/graph_3_8.png Graphic file (type png)
+<use ../figs/graph_3_8.png>
+Package pdftex.def Info: ../figs/graph_3_8.png  used on input line 269.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_9.png, id=134, 578.16pt x 433.62pt>
+File: ../figs/graph_3_9.png Graphic file (type png)
+<use ../figs/graph_3_9.png>
+Package pdftex.def Info: ../figs/graph_3_9.png  used on input line 275.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_10.png, id=135, 578.16pt x 433.62pt>
+File: ../figs/graph_3_10.png Graphic file (type png)
+<use ../figs/graph_3_10.png>
+Package pdftex.def Info: ../figs/graph_3_10.png  used on input line 280.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_11.png, id=136, 578.16pt x 433.62pt>
+File: ../figs/graph_3_11.png Graphic file (type png)
+<use ../figs/graph_3_11.png>
+Package pdftex.def Info: ../figs/graph_3_11.png  used on input line 285.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_12.png, id=137, 578.16pt x 433.62pt>
+File: ../figs/graph_3_12.png Graphic file (type png)
+<use ../figs/graph_3_12.png>
+Package pdftex.def Info: ../figs/graph_3_12.png  used on input line 290.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_13.png, id=138, 578.16pt x 433.62pt>
+File: ../figs/graph_3_13.png Graphic file (type png)
+<use ../figs/graph_3_13.png>
+Package pdftex.def Info: ../figs/graph_3_13.png  used on input line 296.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_14.png, id=139, 578.16pt x 433.62pt>
+File: ../figs/graph_3_14.png Graphic file (type png)
+<use ../figs/graph_3_14.png>
+Package pdftex.def Info: ../figs/graph_3_14.png  used on input line 301.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_15.png, id=140, 578.16pt x 433.62pt>
+File: ../figs/graph_3_15.png Graphic file (type png)
+<use ../figs/graph_3_15.png>
+Package pdftex.def Info: ../figs/graph_3_15.png  used on input line 306.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_16.png, id=141, 578.16pt x 433.62pt>
+File: ../figs/graph_3_16.png Graphic file (type png)
+<use ../figs/graph_3_16.png>
+Package pdftex.def Info: ../figs/graph_3_16.png  used on input line 311.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+<../figs/graph_3_17.png, id=142, 578.16pt x 433.62pt>
+File: ../figs/graph_3_17.png Graphic file (type png)
+<use ../figs/graph_3_17.png>
+Package pdftex.def Info: ../figs/graph_3_17.png  used on input line 319.
+(pdftex.def)             Requested size: 121.41637pt x 91.05626pt.
+ [5 <../figs/graph_3_1.png> <../figs/graph_3_2.png> <../figs/graph_3_3.png> <..
+/figs/graph_3_4.png> <../figs/graph_3_5.png> <../figs/graph_3_6.png> <../figs/g
+raph_3_7.png> <../figs/graph_3_8.png> <../figs/graph_3_9.png> <../figs/graph_3_
+10.png> <../figs/graph_3_11.png> <../figs/graph_3_12.png> <../figs/graph_3_13.p
+ng> <../figs/graph_3_14.png> <../figs/graph_3_15.png> <../figs/graph_3_16.png>]
+<../figs/graph_4_1.png, id=181, 578.16pt x 433.62pt>
+File: ../figs/graph_4_1.png Graphic file (type png)
+<use ../figs/graph_4_1.png>
+Package pdftex.def Info: ../figs/graph_4_1.png  used on input line 330.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+<../figs/graph_4_2.png, id=182, 578.16pt x 433.62pt>
+File: ../figs/graph_4_2.png Graphic file (type png)
+<use ../figs/graph_4_2.png>
+Package pdftex.def Info: ../figs/graph_4_2.png  used on input line 335.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+<../figs/graph_4_3.png, id=183, 578.16pt x 433.62pt>
+File: ../figs/graph_4_3.png Graphic file (type png)
+<use ../figs/graph_4_3.png>
+Package pdftex.def Info: ../figs/graph_4_3.png  used on input line 341.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+<../figs/graph_4_4.png, id=184, 578.16pt x 433.62pt>
+File: ../figs/graph_4_4.png Graphic file (type png)
+<use ../figs/graph_4_4.png>
+Package pdftex.def Info: ../figs/graph_4_4.png  used on input line 346.
+(pdftex.def)             Requested size: 202.3529pt x 151.76265pt.
+ [6 <../figs/graph_3_17.png> <../figs/graph_4_1.png> <../figs/graph_4_2.png> <.
+./figs/graph_4_3.png> <../figs/graph_4_4.png>]
+<../figs/evaluation_tests.png, id=202, 842.14626pt x 779.91376pt>
+File: ../figs/evaluation_tests.png Graphic file (type png)
+<use ../figs/evaluation_tests.png>
+Package pdftex.def Info: ../figs/evaluation_tests.png  used on input line 356.
+(pdftex.def)             Requested size: 505.29166pt x 467.95187pt.
+ [7 <../figs/evaluation_tests.png>]
+<../figs/graph_tests.png, id=211, 835.12pt x 737.75626pt>
+File: ../figs/graph_tests.png Graphic file (type png)
+<use ../figs/graph_tests.png>
+Package pdftex.def Info: ../figs/graph_tests.png  used on input line 363.
+(pdftex.def)             Requested size: 501.07587pt x 442.65717pt.
+ [8 <../figs/graph_tests.png>]
+<../figs/evaluation_code1.png, id=218, 981.6675pt x 393.47pt>
+File: ../figs/evaluation_code1.png Graphic file (type png)
+<use ../figs/evaluation_code1.png>
+Package pdftex.def Info: ../figs/evaluation_code1.png  used on input line 371.
+(pdftex.def)             Requested size: 392.66003pt x 157.38521pt.
+<../figs/evaluation_code2.png, id=219, 907.39pt x 865.2325pt>
+File: ../figs/evaluation_code2.png Graphic file (type png)
+<use ../figs/evaluation_code2.png>
+Package pdftex.def Info: ../figs/evaluation_code2.png  used on input line 377.
+(pdftex.def)             Requested size: 453.6939pt x 432.61519pt.
+<../figs/evaluation_code3.png, id=220, 932.48375pt x 490.83376pt>
+File: ../figs/evaluation_code3.png Graphic file (type png)
+<use ../figs/evaluation_code3.png>
+Package pdftex.def Info: ../figs/evaluation_code3.png  used on input line 383.
+(pdftex.def)             Requested size: 466.24074pt x 245.41628pt.
+ [9 <../figs/evaluation_code1.png> <../figs/evaluation_code2.png>]
+<../figs/graph_code1.png, id=231, 728.7225pt x 963.6pt>
+File: ../figs/graph_code1.png Graphic file (type png)
+<use ../figs/graph_code1.png>
+Package pdftex.def Info: ../figs/graph_code1.png  used on input line 392.
+(pdftex.def)             Requested size: 437.23688pt x 578.16447pt.
+<../figs/graph_code2.png, id=232, 596.2275pt x 714.67pt>
+File: ../figs/graph_code2.png Graphic file (type png)
+<use ../figs/graph_code2.png>
+Package pdftex.def Info: ../figs/graph_code2.png  used on input line 398.
+(pdftex.def)             Requested size: 357.73926pt x 428.8053pt.
+<../figs/graph_code3.png, id=233, 509.905pt x 417.56pt>
+File: ../figs/graph_code3.png Graphic file (type png)
+<use ../figs/graph_code3.png>
+Package pdftex.def Info: ../figs/graph_code3.png  used on input line 404.
+(pdftex.def)             Requested size: 305.94536pt x 250.53792pt.
+<../figs/graph_code4.png, id=234, 553.06625pt x 320.19624pt>
+File: ../figs/graph_code4.png Graphic file (type png)
+<use ../figs/graph_code4.png>
+Package pdftex.def Info: ../figs/graph_code4.png  used on input line 410.
+(pdftex.def)             Requested size: 331.8423pt x 192.11922pt.
+
+[10 <../figs/evaluation_code3.png>] [11 <../figs/graph_code1.png>] [12 <../figs
+/graph_code2.png>] [13 <../figs/graph_code3.png> <../figs/graph_code4.png>]
+<../figs/primitive_code1.png, id=262, 668.4975pt x 480.79625pt>
+File: ../figs/primitive_code1.png Graphic file (type png)
+<use ../figs/primitive_code1.png>
+Package pdftex.def Info: ../figs/primitive_code1.png  used on input line 418.
+(pdftex.def)             Requested size: 401.1016pt x 288.47997pt.
+<../figs/primitive_code2.png, id=263, 754.82pt x 646.415pt>
+File: ../figs/primitive_code2.png Graphic file (type png)
+<use ../figs/primitive_code2.png>
+Package pdftex.def Info: ../figs/primitive_code2.png  used on input line 424.
+(pdftex.def)             Requested size: 452.89551pt x 387.85199pt.
+<../figs/primitive_code3.png, id=264, 717.68124pt x 592.2125pt>
+File: ../figs/primitive_code3.png Graphic file (type png)
+<use ../figs/primitive_code3.png>
+Package pdftex.def Info: ../figs/primitive_code3.png  used on input line 431.
+(pdftex.def)             Requested size: 430.61206pt x 355.33023pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 435.
+
+[14 <../figs/primitive_code1.png>] [15 <../figs/primitive_code2.png>] [16 <../f
+igs/primitive_code3.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 435.
  (./532hw2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 58.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 58.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 435.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 435.
 Package rerunfilecheck Info: File `532hw2.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package logreq Info: Writing requests to '532hw2.run.xml'.
 \openout1 = `532hw2.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 20188 strings out of 480608
- 341787 string characters out of 5903631
- 1139540 words of memory out of 5000000
- 35752 multiletter control sequences out of 15000+600000
- 540651 words of font info for 54 fonts, out of 8000000 for 9000
+ 20805 strings out of 480608
+ 355429 string characters out of 5903631
+ 1146921 words of memory out of 5000000
+ 36206 multiletter control sequences out of 15000+600000
+ 544806 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 50i,7n,48p,1455b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pf
-b></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></
-usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on 532hw2.pdf (1 page, 46563 bytes).
+ 50i,12n,87p,1455b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
+></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
+usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></us
+r/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
+local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/lo
+cal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local
+/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/te
+xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texli
+ve/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on 532hw2.pdf (16 pages, 2366110 bytes).
 PDF statistics:
- 31 PDF objects out of 1000 (max. 8388607)
- 23 compressed objects within 1 object stream
- 4 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 338 PDF objects out of 1000 (max. 8388607)
+ 188 compressed objects within 2 object streams
+ 97 named destinations out of 1000 (max. 500000)
+ 301 words of extra memory for PDF output out of 10000 (max. 10000000)
 
