@@ -112,7 +112,8 @@ def run_deterministic_tests():
         except AssertionError:
             raise AssertionError('return value {} is not equal to truth {} for exp {}'.format(ret,truth,ast))
         
-        print('Test passed', ast, 'test', i)
+        # print('Test passed', ast, 'test', i)
+        print('Test passed')
         
     print('All deterministic tests passed')
     
@@ -135,7 +136,8 @@ def run_probabilistic_tests():
 
         print('p value', p_val)
         assert(p_val > max_p_value)
-        print('Test passed', ast, 'test', i)
+        # print('Test passed', ast, 'test', i)
+        print('Test passed')
     
     print('All probabilistic tests passed')
 
