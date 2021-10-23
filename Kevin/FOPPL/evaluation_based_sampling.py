@@ -1,16 +1,14 @@
 from daphne import daphne
 from tests import is_tol, run_prob_test,load_truth
-from distributions import my_distributions, Distribution
-from primitives import math_operations, data_structure_operations, matrix_operations,\
-    complex_operations, evaluate_math_operation, evaluate_data_structure_operation, evaluate_complex_operation,\
-    evaluate_matrix_operation
+from distributions import distributions, Distribution
+from primitives import primitives_list, evaluate_primitive
 import torch
 from utils import load_ast
 
 
 functions = {}
 
-def evaluate_program(orig_ast):
+def evaluate_program(orig_ast, env=None):
     """Evaluate a program as desugared by daphne, generate a sample from the prior
     Args:
         ast: json FOPPL program
@@ -25,23 +23,15 @@ def evaluate_program(orig_ast):
         ast = orig_ast[1]
     else:
         ast = orig_ast[0]
-    return evaluate_program_helper(ast, variable_bindings)
+    return evaluate_program_helper(ast, variable_bindings, env)
 
 
-def evaluate_program_helper(ast, variable_bindings):
-
-    # print(ast)
+def evaluate_program_helper(ast, variable_bindings, env=None):
 
     if type(ast) is not list:
-        if ast in math_operations:
+        if ast in primitives_list:
             return ast
-        if ast in data_structure_operations:
-            return ast
-        if ast in matrix_operations:
-            return ast
-        if ast in complex_operations:
-            return ast
-        if ast in my_distributions:
+        if ast in distributions:
             return ast
         if type(ast) is torch.Tensor:
             return ast
@@ -67,21 +57,12 @@ def evaluate_program_helper(ast, variable_bindings):
 
             # evaluate the return expression
             return evaluate_program_helper(ast[2], variable_bindings)
-        if ast[0] in my_distributions:
+        if ast[0] in distributions:
             curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
             return Distribution(dist_type=curr[0], params=curr[1:])
-        if ast[0] in math_operations:
+        if ast[0] in primitives_list:
             curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
-            return evaluate_math_operation(curr)
-        if ast[0] in data_structure_operations:
-            curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
-            return evaluate_data_structure_operation(curr)
-        if ast[0] in complex_operations:
-            curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
-            return evaluate_complex_operation(curr)
-        if ast[0] in matrix_operations:
-            curr = [evaluate_program_helper(elem, variable_bindings) for elem in ast]
-            return evaluate_matrix_operation(curr)
+            return evaluate_primitive(curr)
         if ast[0] in list(functions.keys()):
             inputs = [evaluate_program_helper(elem, variable_bindings) for elem in ast[1:]]
             body = functions[ast[0]]
@@ -103,8 +84,8 @@ def run_deterministic_tests():
     debug_start = 1
     for i in range(debug_start,14):
         # note: this path should be with respect to the daphne path!
-        # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/tests/deterministic/test_{}.daphne'.format(i)])
-        ast = load_ast('programs/saved_asts/det{}_ast.pkl'.format(i))
+        # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/FOPPL/programs/tests/deterministic/test_{}.daphne'.format(i)])
+        ast = load_ast('programs/saved_asts/hw2/det{}_ast.pkl'.format(i))
         truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
         ret, sig = evaluate_program(ast), '0'
         try:
@@ -126,8 +107,8 @@ def run_probabilistic_tests():
     debug_start = 1
     for i in range(debug_start,7):
         #note: this path should be with respect to the daphne path!        
-        # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
-        ast = load_ast('programs/saved_asts/prob{}_ast.pkl'.format(i))
+        # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/FOPPL/programs/tests/probabilistic/test_{}.daphne'.format(i)])
+        ast = load_ast('programs/saved_asts/hw2/prob{}_ast.pkl'.format(i))
         truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
 
         stream = get_stream(ast)
@@ -151,8 +132,8 @@ if __name__ == '__main__':
 
     debug_start = 1
     for i in range(debug_start,5):
-        # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/HW2/programs/{}.daphne'.format(i)])
+        # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/FOPPL/programs/{}.daphne'.format(i)])
 
-        ast = load_ast('programs/saved_asts/daphne{}_ast.pkl'.format(i))
+        ast = load_ast('programs/saved_asts/hw2/daphne{}_ast.pkl'.format(i))
         print('\n\n\nSample of prior of program {}:'.format(i))
         print(evaluate_program(ast))

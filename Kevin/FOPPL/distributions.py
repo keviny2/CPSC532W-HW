@@ -1,7 +1,7 @@
 import torch
 from torch.distributions import normal, beta, exponential, uniform, categorical, bernoulli
 
-my_distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'bernoulli']
+distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'bernoulli']
 
 class Distribution:
     def __init__(self, dist_type, params):
@@ -19,15 +19,15 @@ class Distribution:
 
     def sample(self):
         if self.dist_type == 'normal':
-            return torch.tensor(normal.Normal(self.params[0], self.params[1]).sample())
+            return normal.Normal(self.params[0], self.params[1]).sample()
         if self.dist_type == 'beta':
-            return torch.tensor(beta.Beta(self.params[0], self.params[1]).sample())
+            return beta.Beta(self.params[0], self.params[1]).sample()
         if self.dist_type == 'exponential':
-            return torch.tensor(exponential.Exponential(self.params[0]).sample())
+            return exponential.Exponential(self.params[0]).sample()
         if self.dist_type == 'uniform':
-            return torch.tensor(uniform.Uniform(self.params[0], self.params[1]).sample())
+            return uniform.Uniform(self.params[0], self.params[1]).sample()
         if self.dist_type == 'discrete':
             return categorical.Categorical(probs=self.params[0]).sample()
         if self.dist_type == 'bernoulli':
-            return torch.tensor(bernoulli.Bernoulli(self.params[0]))
+            return bernoulli.Bernoulli(self.params[0])
 

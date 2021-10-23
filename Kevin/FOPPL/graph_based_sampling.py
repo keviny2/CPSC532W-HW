@@ -101,8 +101,8 @@ def run_deterministic_tests():
     debug_start = 1
     for i in range(debug_start,13):
         #note: this path should be with respect to the daphne path!
-        # graph = daphne(['graph','-i','../CPSC532W-HW/Kevin/HW2/programs/tests/deterministic/test_{}.daphne'.format(i)])
-        graph = load_ast('programs/saved_asts/graph_deterministic{}.pkl'.format(i))
+        # graph = daphne(['graph','-i','../CPSC532W-HW/Kevin/FOPPL/programs/tests/deterministic/test_{}.daphne'.format(i)])
+        graph = load_ast('programs/saved_asts/hw2/graph_deterministic{}.pkl'.format(i))
         truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
         ret = deterministic_eval(graph[-1])
         try:
@@ -126,8 +126,8 @@ def run_probabilistic_tests():
     debug_start = 1
     for i in range(debug_start,7):
         #note: this path should be with respect to the daphne path!        
-        # graph = daphne(['graph', '-i', '../CPSC532W-HW/Kevin/HW2/programs/tests/probabilistic/test_{}.daphne'.format(i)])
-        graph = load_ast('programs/saved_asts/graph_prob{}.pkl'.format(i))
+        # graph = daphne(['graph', '-i', '../CPSC532W-HW/Kevin/FOPPL/programs/tests/probabilistic/test_{}.daphne'.format(i)])
+        graph = load_ast('programs/saved_asts/hw2/graph_prob{}.pkl'.format(i))
         truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
 
         stream = get_stream(graph)
@@ -150,8 +150,8 @@ if __name__ == '__main__':
 
     debug_start = 1
     for i in range(debug_start,5):
-        # graph = daphne(['graph','-i','../CPSC532W-HW/Kevin/HW2/programs/{}.daphne'.format(i)])
-        graph = load_ast('programs/saved_asts/daphne_graph{}.pkl'.format(i))
+        # graph = daphne(['graph','-i','../CPSC532W-HW/Kevin/FOPPL/programs/{}.daphne'.format(i)])
+        graph = load_ast('programs/saved_asts/hw2/daphne_graph{}.pkl'.format(i))
         print('\n\n\nSample of prior of program {}:'.format(i))
         print(sample_from_joint(graph))
 

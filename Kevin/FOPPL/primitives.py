@@ -1,21 +1,18 @@
 import torch
 
-math_operations = ['+', '-', '*', '/', 'sqrt', '<', '<=', '>', '>=', '==']
-
-data_structure_operations = ['vector', 'hash-map', 'get', 'put', 'first',
-                             'second', 'rest', 'last', 'append']
-
-matrix_operations = ['mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-repmat']
-
-complex_operations = ['sample', 'if', 'defn', 'observe']
+primitives_list = ['+', '-', '*', '/', 'sqrt', '<', '<=', '>', '>=', '==',
+                   'vector', 'hash-map', 'get', 'put', 'first', 'second', 'rest', 'last', 'append',
+                   'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-repmat',
+                   'sample', 'if', 'defn', 'observe'
+                   ]
 
 
 def conditional(*args):
-    return evaluate_complex_operation(['if', *args])
+    return evaluate_primitive(['if', *args])
 
 
 def vector(*args):
-    return evaluate_data_structure_operation(['vector', *args])
+    return evaluate_primitive(['vector', *args])
 
 
 def sample(*args):
@@ -27,109 +24,102 @@ def observe(*args):
 
 
 def hashmap(*args):
-    return evaluate_data_structure_operation(['hash-map', *args])
+    return evaluate_primitive(['hash-map', *args])
 
 
 def get(*args):
-    return evaluate_data_structure_operation(['get', *args])
+    return evaluate_primitive(['get', *args])
 
 
 def put(*args):
-    return evaluate_data_structure_operation(['put', *args])
+    return evaluate_primitive(['put', *args])
 
 
 def first(*args):
-    return evaluate_data_structure_operation(['first', *args])
+    return evaluate_primitive(['first', *args])
 
 
 def second(*args):
-    return evaluate_data_structure_operation(['second', *args])
+    return evaluate_primitive(['second', *args])
 
 
 def rest(*args):
-    return evaluate_data_structure_operation(['rest', *args])
+    return evaluate_primitive(['rest', *args])
 
 
 def last(*args):
-    return evaluate_data_structure_operation(['last', *args])
+    return evaluate_primitive(['last', *args])
 
 
 def append(*args):
-    return evaluate_data_structure_operation(['append', *args])
+    return evaluate_primitive(['append', *args])
 
 
 def less_than(*args):
-    return evaluate_math_operation(['<', *args])
+    return evaluate_primitive(['<', *args])
 
 
 def greater_than(*args):
-    return evaluate_math_operation(['>', *args])
+    return evaluate_primitive(['>', *args])
 
 
 def add(*args):
-    return evaluate_math_operation(['+', *args])
+    return evaluate_primitive(['+', *args])
 
 
 def minus(*args):
-    return evaluate_math_operation(['-', *args])
+    return evaluate_primitive(['-', *args])
 
 
 def multiply(*args):
-    return evaluate_math_operation(['*', *args])
+    return evaluate_primitive(['*', *args])
 
 
 def divide(*args):
-    return evaluate_math_operation(['/', *args])
+    return evaluate_primitive(['/', *args])
 
 
 def mat_transpose(*args):
-    return evaluate_matrix_operation(['mat-transpose', *args])
+    return evaluate_primitive(['mat-transpose', *args])
 
 
 def mat_tanh(*args):
-    return evaluate_matrix_operation(['mat-tanh', *args])
+    return evaluate_primitive(['mat-tanh', *args])
 
 
 def mat_mul(*args):
-    return evaluate_matrix_operation(['mat-mul', *args])
+    return evaluate_primitive(['mat-mul', *args])
 
 
 def mat_add(*args):
-    return evaluate_matrix_operation(['mat-add', *args])
+    return evaluate_primitive(['mat-add', *args])
 
 
 def mat_repmat(*args):
-    return evaluate_matrix_operation(['mat-repmat', *args])
+    return evaluate_primitive(['mat-repmat', *args])
 
 
-def evaluate_matrix_operation(ast):
+def evaluate_primitive(ast):
     if ast[0] == 'mat-mul':
         return torch.matmul(ast[1].float(), ast[2].float())
     if ast[0] == 'mat-add':
         return ast[1] + ast[2]
     if ast[0] == 'mat-repmat':
-        return torch.tensor(ast[1]).repeat(int(ast[2]), int(ast[3]))
+        return ast[1].repeat(int(ast[2]), int(ast[3]))
     if ast[0] == 'mat-tanh':
         return torch.tanh(ast[1])
     if ast[0] == 'mat-transpose':
         return ast[1].T
-
-
-def evaluate_complex_operation(ast):
     if ast[0] == 'if':
         if ast[1]:
             return ast[2]
         else:
             return ast[3]
-
     if ast[0] == 'sample':
         return ast[1].sample()
 
     if ast[0] == 'observe':
         return ast[1].sample()
-
-
-def evaluate_math_operation(ast):
     if ast[0] == '+':
         return torch.sum(torch.tensor(ast[1:]))
     elif ast[0] == '-':
@@ -144,13 +134,10 @@ def evaluate_math_operation(ast):
         return ast[1] < ast[2]
     elif ast[0] == '>':
         return ast[1] > ast[2]
-
-
-def evaluate_data_structure_operation(ast):
     if ast[0] == 'vector':
         try:
             for i in range(1, len(ast)):
-                ast[i] = torch.tensor(ast[i])
+                ast[i] = ast[i].clone().detach()
             return torch.stack(ast[1:])
         except:
             return ast[1:]
@@ -187,3 +174,4 @@ def evaluate_data_structure_operation(ast):
         return ast[1][1:]
     elif ast[0] == 'append':
         return torch.cat((ast[1], torch.tensor([ast[2]])), dim=0)
+
