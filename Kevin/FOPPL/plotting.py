@@ -1,7 +1,6 @@
 from evaluation_based_sampling import load_ast, evaluate_program
 from graph_based_sampling import sample_from_joint
 import matplotlib.pyplot as plt
-import torch
 import numpy as np
 
 tasks = ['Gaussian unknown mean problem',
@@ -9,7 +8,7 @@ tasks = ['Gaussian unknown mean problem',
          'Hidden Markov Model',
          'Bayesian Neural Net']
 
-def create_plots(sampling_type, task_num, num_samples=1000):
+def create_plots(sampling_type, task_num, num_samples=1000, save_plot=False):
     samples = get_samples(sampling_type, task_num, num_samples)
     if task_num == 1:
         fig, ax = plt.subplots(figsize=(8, 6))
@@ -18,8 +17,6 @@ def create_plots(sampling_type, task_num, num_samples=1000):
         ax.set(ylabel='frequency', xlabel='mu')
         path = 'report/figures/{0}_{1}'.format(sampling_type, task_num)
         plt.suptitle("{0} - {1} based sampling".format(tasks[task_num - 1], sampling_type))
-        plt.savefig(path)
-        print("\nFigure saved as '%s'" % path)
 
     if task_num == 2:
         fig, axs = plt.subplots(2, figsize=(8, 6))
@@ -36,8 +33,6 @@ def create_plots(sampling_type, task_num, num_samples=1000):
         path = 'report/figures/{0}_{1}'.format(sampling_type, task_num)
         plt.suptitle("{0} - {1} based sampling".format(tasks[task_num - 1], sampling_type))
         plt.tight_layout()
-        plt.savefig(path)
-        print("\nFigure saved as '%s'" % path)
 
     if task_num == 3:
         fig, axs = plt.subplots(figsize=(8, 6))
@@ -59,8 +54,6 @@ def create_plots(sampling_type, task_num, num_samples=1000):
         path = 'report/figures/{0}_{1}'.format(sampling_type, task_num)
         plt.suptitle("{0} - {1} based sampling".format(tasks[task_num - 1], sampling_type))
         plt.tight_layout()
-        plt.savefig(path)
-        print("\nFigure saved as '%s'" % path)
 
     if task_num == 4:
         fig, axs = plt.subplots(2, 2, figsize=(8, 6))
@@ -84,21 +77,25 @@ def create_plots(sampling_type, task_num, num_samples=1000):
         path = 'report/figures/{0}_{1}'.format(sampling_type, task_num)
         plt.suptitle("{0} - {1} based sampling".format(tasks[task_num - 1], sampling_type))
         plt.tight_layout()
+
+    if save_plot:
         plt.savefig(path)
         print("\nFigure saved!", path)
+
+    plt.show()
 
 
 def get_samples(sampling_type, task_num, num_samples):
     samples = []
     if sampling_type == 'evaluation':
-        ast = load_ast('programs/saved_asts/daphne{}_ast.pkl'.format(task_num))
+        ast = load_ast('programs/saved_asts/hw2/daphne{}_ast.pkl'.format(task_num))
 
         stream = get_stream(ast, sampling_type)
         for i in range(int(num_samples)):
             samples.append(next(stream))
 
     if sampling_type == 'graph':
-        graph = load_ast('programs/saved_asts/daphne_graph{}.pkl'.format(task_num))
+        graph = load_ast('programs/saved_asts/hw2/daphne_graph{}.pkl'.format(task_num))
 
         stream = get_stream(graph, sampling_type)
         for i in range(int(num_samples)):
@@ -113,7 +110,7 @@ def get_samples(sampling_type, task_num, num_samples):
 def get_stream(obj, sampling_type):
     if sampling_type == 'evaluation':
         while True:
-            yield evaluate_program(obj)
+            yield evaluate_program(obj)[0]
     if sampling_type == 'graph':
         while True:
             yield sample_from_joint(obj)
@@ -121,6 +118,6 @@ def get_stream(obj, sampling_type):
 
 if __name__ == '__main__':
 
-    for task in range(3, 5):
+    for task in range(4, 5):
         create_plots('evaluation', task)
         create_plots('graph', task)

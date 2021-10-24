@@ -2,13 +2,15 @@ import torch
 
 primitives_list = ['+', '-', '*', '/', 'sqrt', '<', '<=', '>', '>=', '==',
                    'vector', 'hash-map', 'get', 'put', 'first', 'second', 'rest', 'last', 'append',
-                   'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-repmat',
-                   'sample', 'if', 'defn', 'observe'
+                   'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-repmat'
                    ]
 
 
 def conditional(*args):
-    return evaluate_primitive(['if', *args])
+    if args[0]:
+        return args[1]
+    else:
+        return args[2]
 
 
 def vector(*args):
@@ -110,16 +112,6 @@ def evaluate_primitive(ast):
         return torch.tanh(ast[1])
     if ast[0] == 'mat-transpose':
         return ast[1].T
-    if ast[0] == 'if':
-        if ast[1]:
-            return ast[2]
-        else:
-            return ast[3]
-    if ast[0] == 'sample':
-        return ast[1].sample()
-
-    if ast[0] == 'observe':
-        return ast[1].sample()
     if ast[0] == '+':
         return torch.sum(torch.tensor(ast[1:]))
     elif ast[0] == '-':

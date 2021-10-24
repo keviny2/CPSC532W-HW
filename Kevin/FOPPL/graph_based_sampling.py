@@ -60,6 +60,7 @@ def deterministic_eval(exp):
 def sample_from_joint(graph):
     "This function does ancestral sampling starting from the prior."
 
+    # perform topological sort on vertices
     g = Graph(graph[1]['V'])
     for key, values in graph[1]['A'].items():
         for child in values:
@@ -73,6 +74,7 @@ def sample_from_joint(graph):
         expression = substitute_sampled_vertices(raw_expression, variable_bindings)
 
         graph[1]['Y'][vertex] = deterministic_eval(expression)
+
 
     # substitute return nodes with sampled values
     raw_expression = graph[2]

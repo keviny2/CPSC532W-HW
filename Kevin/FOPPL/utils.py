@@ -1,4 +1,34 @@
 import pickle
+import torch
+from torch.distributions import normal, beta, exponential, uniform, categorical, bernoulli
+
+distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'bernoulli']
+
+def get_distribution(dist_type, parameters):
+    params = []
+    for param in parameters:
+        if type(param) is torch.Tensor:
+            try:
+                params.append(param.numpy().item())
+            except:
+                params.append(param)
+        else:
+            params.append(param)
+
+    if dist_type == 'normal':
+        return normal.Normal(params[0], params[1])
+    if dist_type == 'beta':
+        return beta.Beta(params[0], params[1])
+    if dist_type == 'exponential':
+        return exponential.Exponential(params[0])
+    if dist_type == 'uniform':
+        return uniform.Uniform(params[0], params[1])
+    if dist_type == 'discrete':
+        return categorical.Categorical(probs=params[0])
+    if dist_type == 'bernoulli':
+        return bernoulli.Bernoulli(params[0])
+
+
 
 
 def save_ast(file_name, my_ast):

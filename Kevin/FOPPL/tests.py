@@ -52,8 +52,7 @@ def run_prob_test(stream, truth, num_samples):
             'exponential' : expon,
             'normalmix' : normalmix,
             }
-    
-    print(truth)
+
     truth_dist = distrs[truth[0]](*truth[1:])
 
     d,p_val = kstest(np.array(samples), truth_dist.cdf)
