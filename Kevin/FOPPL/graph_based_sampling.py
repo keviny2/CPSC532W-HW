@@ -8,6 +8,7 @@ import primitives
 from graph import Graph
 from tests import is_tol, run_prob_test,load_truth
 from utils import load_ast, substitute_sampled_vertices
+from dirac import Dirac
 
 # Put all function mappings from the deterministic language environment to your
 # Python evaluation context here:
@@ -19,6 +20,7 @@ env = {'normal': dist.Normal,
        'flip': dist.Bernoulli,
        'dirichlet': dist.Dirichlet,
        'gamma': dist.Gamma,
+       'dirac': Dirac,
        '+': primitives.add,
        '*': primitives.multiply,
        '-': primitives.minus,
@@ -38,6 +40,8 @@ env = {'normal': dist.Normal,
        '<': primitives.less_than,
        '>': primitives.greater_than,
        '=': primitives.equal,
+       'and': primitives.and_op,
+       'or': primitives.or_op,
        'mat-transpose': primitives.mat_transpose,
        'mat-tanh': primitives.mat_tanh,
        'mat-mul': primitives.mat_mul,
@@ -53,13 +57,16 @@ def deterministic_eval(exp):
         op = exp[0]
         args = exp[1:]
         return env[op](*map(deterministic_eval, args))
-    elif type(exp) is int or type(exp) is float:
+    elif type(exp) in [int, float, bool]:
         # We use torch for all numerical objects in our evaluator
         return torch.tensor(float(exp))
     elif type(exp) is torch.Tensor:
         return exp
+    elif exp is None:
+        return exp
     else:
-        raise("Expression type unknown.", exp)
+        print(exp)
+        raise "Expression type unknown."
 
 
 def sample_from_joint(graph):

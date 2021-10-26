@@ -68,6 +68,11 @@ def greater_than(*args):
 def equal(*args):
     return evaluate_primitive(['=', *args])
 
+def and_op(*args):
+    return evaluate_primitive(['and', *args])
+
+def or_op(*args):
+    return evaluate_primitive(['or', *args])
 
 def add(*args):
     return evaluate_primitive(['+', *args])

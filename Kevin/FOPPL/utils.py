@@ -1,7 +1,7 @@
 import pickle
 import torch
 from torch.distributions import normal, beta, exponential, uniform, categorical, bernoulli, gamma, dirichlet
-from torch.nn.init import dirac_
+from dirac import Dirac
 
 distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'flip', 'gamma', 'dirichlet', 'dirac']
 
@@ -41,9 +41,7 @@ def get_distribution(dist_type, parameters):
     if dist_type == 'dirac':
         # TODO: implement the dirac function
         # IDEA: can try to use sympy.functions.special.delta_functions.DiracDelta()
-        return dirac_(torch.tensor(params[0]))
-
-
+        return Dirac(params[0])
 
 
 def save_ast(file_name, my_ast):
@@ -89,7 +87,4 @@ def substitute_sampled_vertices(expression, variable_bindings):
         return expression
 
     return [substitute_sampled_vertices(sub_expression, variable_bindings) for sub_expression in expression]
-
-
-
 
