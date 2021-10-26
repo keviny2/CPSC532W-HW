@@ -1,6 +1,6 @@
 import torch
 
-primitives_list = ['+', '-', '*', '/', 'sqrt', '<', '<=', '>', '>=', '==',
+primitives_list = ['+', '-', '*', '/', 'sqrt', '<', '<=', '>', '>=', '=', 'and', 'or',
                    'vector', 'hash-map', 'get', 'put', 'first', 'second', 'rest', 'last', 'append',
                    'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-repmat'
                    ]
@@ -22,7 +22,7 @@ def sample(*args):
 
 
 def observe(*args):
-    return args[0].sample()
+    return args[0].log_prob(args[1])
 
 
 def hashmap(*args):
@@ -63,6 +63,10 @@ def less_than(*args):
 
 def greater_than(*args):
     return evaluate_primitive(['>', *args])
+
+
+def equal(*args):
+    return evaluate_primitive(['=', *args])
 
 
 def add(*args):
@@ -126,6 +130,12 @@ def evaluate_primitive(ast):
         return ast[1] < ast[2]
     elif ast[0] == '>':
         return ast[1] > ast[2]
+    elif ast[0] == '=':
+        return ast[1] == ast[2]
+    elif ast[0] == 'and':
+        return ast[1] and ast[2]
+    elif ast[0] == 'or':
+        return ast[1] or ast[2]
     if ast[0] == 'vector':
         try:
             for i in range(1, len(ast)):

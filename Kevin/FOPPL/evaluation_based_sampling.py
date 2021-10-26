@@ -7,7 +7,7 @@ from utils import load_ast, get_distribution, distributions
 
 functions = {}
 
-def evaluate_program(orig_ast, sig={}, sampler=None):
+def evaluate_program(orig_ast, sig={}, sampler=''):
     """Evaluate a program as desugared by daphne, generate a sample from the prior
     Args:
         ast: json FOPPL program
@@ -39,6 +39,8 @@ def evaluate_program_helper(ast, sig, variable_bindings):
         return ast, sig
     if type(ast) in [int, float]:
         return torch.tensor(ast), sig
+    if type(ast) is bool:
+        return torch.FloatTensor([ast]), sig
     if ast in list(variable_bindings.keys()):
         return variable_bindings[ast], sig
     if ast in list(functions.keys()):

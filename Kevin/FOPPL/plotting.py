@@ -2,11 +2,8 @@ from evaluation_based_sampling import load_ast, evaluate_program
 from graph_based_sampling import sample_from_joint
 import matplotlib.pyplot as plt
 import numpy as np
+from utils import tasks
 
-tasks = ['Gaussian unknown mean problem',
-         'Bayesian linear regression',
-         'Hidden Markov Model',
-         'Bayesian Neural Net']
 
 def create_plots(sampling_type, task_num, num_samples=1000, save_plot=False):
     samples = get_samples(sampling_type, task_num, num_samples)

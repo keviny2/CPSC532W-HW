@@ -1,5 +1,6 @@
 import torch
 import torch.distributions as dist
+import re
 
 from daphne import daphne
 
@@ -15,6 +16,9 @@ env = {'normal': dist.Normal,
        'exponential': dist.Exponential,
        'uniform': dist.Uniform,
        'discrete': dist.Categorical,
+       'flip': dist.Bernoulli,
+       'dirichlet': dist.Dirichlet,
+       'gamma': dist.Gamma,
        '+': primitives.add,
        '*': primitives.multiply,
        '-': primitives.minus,
@@ -33,6 +37,7 @@ env = {'normal': dist.Normal,
        'append': primitives.append,
        '<': primitives.less_than,
        '>': primitives.greater_than,
+       '=': primitives.equal,
        'mat-transpose': primitives.mat_transpose,
        'mat-tanh': primitives.mat_tanh,
        'mat-mul': primitives.mat_mul,
@@ -67,6 +72,10 @@ def sample_from_joint(graph):
             g.addEdge(key, child)
     sampling_order = g.topologicalSort()
 
+    # ignore observed variables - do not sample them
+    regex = re.compile(r'observe*')
+    sampling_order = [vertex for vertex in sampling_order if not regex.match(vertex)]
+
     for vertex in sampling_order:
         # substitute parent nodes with their sampled values
         raw_expression = graph[1]['P'][vertex]
@@ -81,7 +90,6 @@ def sample_from_joint(graph):
     variable_bindings = graph[1]['Y']
     expression = substitute_sampled_vertices(raw_expression, variable_bindings)
     return deterministic_eval(expression)
-
 
 
 def get_stream(graph):
@@ -146,7 +154,6 @@ def run_probabilistic_tests():
 
 if __name__ == '__main__':
     
-
     run_deterministic_tests()
     run_probabilistic_tests()
 

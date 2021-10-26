@@ -1,8 +1,15 @@
 import pickle
 import torch
-from torch.distributions import normal, beta, exponential, uniform, categorical, bernoulli
+from torch.distributions import normal, beta, exponential, uniform, categorical, bernoulli, gamma, dirichlet
+from torch.nn.init import dirac_
 
-distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'bernoulli']
+distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'flip', 'gamma', 'dirichlet', 'dirac']
+
+tasks = ['Gaussian unknown mean problem',
+         'Bayesian linear regression',
+         'Hidden Markov Model',
+         'Bayesian Neural Net']
+
 
 def get_distribution(dist_type, parameters):
     params = []
@@ -25,24 +32,42 @@ def get_distribution(dist_type, parameters):
         return uniform.Uniform(params[0], params[1])
     if dist_type == 'discrete':
         return categorical.Categorical(probs=params[0])
-    if dist_type == 'bernoulli':
+    if dist_type == 'flip':
         return bernoulli.Bernoulli(params[0])
+    if dist_type == 'gamma':
+        return gamma.Gamma(params[0], params[1])
+    if dist_type == 'dirichlet':
+        return dirichlet.Dirichlet(params[0])
+    if dist_type == 'dirac':
+        # TODO: implement the dirac function
+        # IDEA: can try to use sympy.functions.special.delta_functions.DiracDelta()
+        return dirac_(torch.tensor(params[0]))
 
 
 
 
 def save_ast(file_name, my_ast):
-    # faster load
+    """
+    saves an ast compiled by daphne in a pickle file
 
-    # saving the list
+    :param file_name: path to where the saved ast will be saved
+    :param my_ast: ast object to be stored
+    :return:
+    """
+
     open_file = open(file_name, "wb")
     pickle.dump(my_ast, open_file)
     open_file.close()
 
 
 def load_ast(file_name):
+    """
+    loads a saved ast
 
-    # loading the list
+    :param file_name: path to the pickle file
+    :return:
+    """
+
     open_file = open(file_name, 'rb')
     ret = pickle.load(open_file)
     open_file.close()
@@ -50,6 +75,13 @@ def load_ast(file_name):
 
 
 def substitute_sampled_vertices(expression, variable_bindings):
+    """
+    given an ast, substitute all variable strings with their corresponding values
+
+    :param expression: an ast
+    :param variable_bindings: a map between variable names and variable values
+    :return:
+    """
     if type(expression) is not list:
         if isinstance(expression, str):
             if expression in list(variable_bindings.keys()):
@@ -57,5 +89,7 @@ def substitute_sampled_vertices(expression, variable_bindings):
         return expression
 
     return [substitute_sampled_vertices(sub_expression, variable_bindings) for sub_expression in expression]
+
+
 
 
