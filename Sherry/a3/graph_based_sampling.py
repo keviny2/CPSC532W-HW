@@ -17,6 +17,7 @@ env = {'normal': dist.Normal,
        'gamma': dist.Gamma,
        'flip': dist.Bernoulli,
        'dirichlet': dist.Dirichlet,
+       'dirac': primitives.Dirac,
        '+': primitives.plus,
        '*': torch.multiply,
        '-': primitives.minus,
@@ -114,7 +115,33 @@ def sample_from_joint(graph):
             topological_orderings.append(vertex)
 
     record = evaluate(returnings, variables_dict)
+    return deterministic_eval(record), variables_dict, topological_orderings
+
+
+def sample_from_joint_with_sorted(graph, topological_orderings):
+    links = graph[1]['P']
+    returnings = graph[2]
+    variables_dict = {}
+
+
+    for vertex in topological_orderings:
+        link = links[vertex]
+        if link[0] == 'sample*':
+            record = evaluate(link[1], variables_dict)
+            dist = deterministic_eval(record)
+            value = dist.sample()
+            variables_dict[vertex] = value
+
+        elif link[0] == 'observe*':
+            record = evaluate(link[2], variables_dict)
+            value = deterministic_eval(record)
+            variables_dict[vertex] = value
+
+    record = evaluate(returnings, variables_dict)
     return deterministic_eval(record), variables_dict
+
+
+
 
 def evaluate(exp, variables_dict):
 

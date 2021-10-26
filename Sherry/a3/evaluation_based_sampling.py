@@ -21,7 +21,7 @@ def evaluate_program(ast):
 primitives_operations = ['+', '-', '*', '/', 'sqrt', 'vector', 'hash-map', 'get', 'put', 'first', 'second', 'rest',
                          'last', 'append', '<', '<=', '>', '>=', '=', 'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add',
                          'mat-repmat', 'and', 'or']
-distribution_types = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'gamma', 'dirichlet', 'flip']
+distribution_types = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'gamma', 'dirichlet', 'flip', 'dirac']
 condition_types = ['sample', 'let', 'if', 'defn', 'observe']
 
 def evaluate_variable(ast, variables_dict, functions_dict, sigma):
