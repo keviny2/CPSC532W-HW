@@ -5,8 +5,8 @@ import time
 
 if __name__ == "__main__":
     daphne_input_nums = [1, 2, 5, 6, 7]
-    num_samples = 100000
-    num_points = 100000  # number of points to plot
+    num_samples = 90000
+    num_points = 90000  # number of points to plot
 
     debug_start = 0
     importance_sampler = ImportanceSampler('IS')
@@ -30,6 +30,9 @@ if __name__ == "__main__":
         if num == 5:
             num_samples = 3500
 
+        if num == 6:
+            num_samples = 6000
+
 
         # MH within Gibbs
         start = time.time()
@@ -40,12 +43,15 @@ if __name__ == "__main__":
         mh_gibbs_sampler.summary(num, samples)
         mh_gibbs_sampler.plot(num, samples, num_points, save_plot=True)
 
+
         # HMC
-        # start = time.time()
-        # hmc_sampler.sample(num_samples, num)
-        # end = time.time()
-        #
-        # print('Took {0} seconds to finish Program {1}'.format(end - start, num))
-        #
+        start = time.time()
+        samples = hmc_sampler.sample(num_samples, num)
+        end = time.time()
+        print('Took {0} seconds to finish Program {1}'.format(end - start, num))
+
+        hmc_sampler.summary(num, samples)
+        hmc_sampler.plot(num, samples, num_points, save_plot=True)
+
         num_samples = 100000
 

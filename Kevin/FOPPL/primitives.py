@@ -122,7 +122,8 @@ def evaluate_primitive(ast):
     if ast[0] == 'mat-transpose':
         return ast[1].T
     if ast[0] == '+':
-        return torch.sum(torch.tensor(ast[1:]))
+        # return torch.sum(torch.tensor(ast[1:]))
+        return ast[1] + ast[2]
     elif ast[0] == '-':
         return ast[1] - torch.sum(torch.tensor(ast[2:]))
     elif ast[0] == '*':

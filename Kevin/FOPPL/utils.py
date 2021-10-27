@@ -88,3 +88,4 @@ def substitute_sampled_vertices(expression, variable_bindings):
 
     return [substitute_sampled_vertices(sub_expression, variable_bindings) for sub_expression in expression]
 
+

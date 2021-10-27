@@ -1,4 +1,8 @@
 from abc import ABC, abstractmethod
+import re
+import torch
+from utils import load_ast, substitute_sampled_vertices
+from graph_based_sampling import deterministic_eval
 
 
 class Sampler(ABC):
@@ -71,6 +75,8 @@ class Sampler(ABC):
 
         :param num: number corresponding to which daphne program was loaded; will affect how we compute summary
         :param samples: list of observations obtained from the sampling procedure
+        :param num_points: number of points to plot
+        :param save_plot: True if we save the plot
         """
         if num == 1:
             self.plot_values(samples, ['mu'], num_points, save_plot, num)
@@ -90,5 +96,52 @@ class Sampler(ABC):
 
         if num == 7:
             self.plot_values(samples, ['x', 'y'], num_points, save_plot, num)
+
+    @staticmethod
+    def compute_log_density(samples, num):
+        """
+        computes log density for a set of observations
+        :param samples: set of observations
+        :param num: identification for which program to run
+        :return: trace of log densities
+        """
+        # load the corresponding program
+        graph = load_ast('programs/saved_asts/hw3/program{}_graph.pkl'.format(num))
+
+        regex_obs = re.compile(r'observe*')
+        regex_lat = re.compile(r'sample*')
+
+        # iterate over every node in the graph to obtain the joint
+        log_ps = []  # accumulator
+
+        # iterate over each observation
+        for x in samples:
+            # assign parameter values
+            if x.size() == torch.Size([]) or x.size() == torch.Size([1]):
+                graph[1]['Y'][graph[2]] = x
+            else:
+                for i in range(len(x)):
+                    graph[1]['Y']['sample{}'.format(i + 1)] = x[i]
+
+            # iterate over nodes and compute log likelihood
+            log_p = 0  # accumulator
+            for node in graph[1]['V']:
+                # substitute variables with their values
+                raw_expression = graph[1]['P'][node]
+                expression = substitute_sampled_vertices(raw_expression, graph[1]['Y'])
+
+                # different behavior when it is a sample or observed node
+                if regex_obs.match(node):
+                    log_p += deterministic_eval(expression)
+                elif regex_lat.match(node):
+                    expression[0] = 'observe*'
+                    expression.append(graph[1]['Y'][node])
+                    log_p += deterministic_eval(expression)
+                else:
+                    raise KeyError('Cannot determine expression type')
+
+            log_ps.append(log_p)
+
+        return torch.FloatTensor(log_ps)
 
 
