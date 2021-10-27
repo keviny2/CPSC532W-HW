@@ -39,16 +39,16 @@ print('\nposterior variance of x in 5.daphne using Importance Sampling is {}'.fo
 print('\nposterior variance of y in 5.daphne using Importance Sampling is {}'.format(variance_IS[1]))
 
 '''posterior distribution for IS:'''
-plot_histogram_IS(samples_IS[:, 0].numpy(), weights.numpy(), "Posterior distribution of x in 5.daphne using IS",
+plot_histogram_IS(samples_IS[:, 0].numpy(), (weights / torch.sum(weights) * num_samples).numpy(), "Posterior distribution of x in 5.daphne using IS",
                "x", "IS", "posterior_histogram_5_x_daphne")
-plot_histogram_IS(samples_IS[:, 1].numpy(), weights.numpy(), "Posterior distribution of y in 5.daphne using IS",
+plot_histogram_IS(samples_IS[:, 1].numpy(), (weights / torch.sum(weights) * num_samples).numpy(), "Posterior distribution of y in 5.daphne using IS",
                   "y", "IS", "posterior_histogram_5_y_daphne")
 
 '''Gibbs:'''
 
 t = time.time()
 samples_Gibbs, variables_dict_set = gibbs(latent, variables_dict, num_samples, edges, links, returnings)
-print("\nGibbs sampling for 1.daphne took %f seconds" % (time.time() - t))
+print("\nGibbs sampling for 5.daphne took %f seconds" % (time.time() - t))
 
 mean = torch.mean(samples_Gibbs.float(), dim = 0)
 variance = torch.var(samples_Gibbs.float(), dim = 0)
@@ -95,7 +95,7 @@ for obs in observed:
 
 t = time.time()
 samples_HMC, variables_dict_set = HMC(latents_dict, num_samples, 10, 0.1, torch.eye(len(latent)), observes_dict, links)
-print("\nHamiltonian monte carlo for 2.daphne took %f seconds" % (time.time() - t))
+print("\nHamiltonian monte carlo for 5.daphne took %f seconds" % (time.time() - t))
 
 extract_samples = []
 for i in range(num_samples):
@@ -132,4 +132,4 @@ logPs3 = joint_log_likelihood_HMC(vertices, links, variables_dict_set, num_sampl
 
 plot_joint_loglik(logPs1.numpy(), "Joint Log-Likelihood for x for 5.daphne using HMC", "HMC", "joint_log_likelihood_5_x_daphne")
 plot_joint_loglik(logPs2.numpy(), "Joint Log-Likelihood for y for 5.daphne using HMC", "HMC", "joint_log_likelihood_5_y_daphne")
-plot_joint_loglik(logPs2.numpy(), "Joint Log-Likelihood for for 5.daphne using HMC", "HMC", "joint_log_likelihood_5_y_daphne")
+plot_joint_loglik(logPs3.numpy(), "Joint Log-Likelihood for 5.daphne using HMC", "HMC", "joint_log_likelihood_5_daphne")

@@ -325,6 +325,14 @@ where $c$ indicates the center of this function and $z$ is a constant.  It has t
 \begin{align*}
 \int_{-\infty}^\infty z\exp(-(x - c)^8\,dx = 2z\Gamma\left(\frac 54\right)z\Rightarrow z = \frac{1}{2\Gamma(5/4)}\ \text{such that the integral is equal to 1}
 \end{align*} 
+\textbf{Results analysis}: 
+\begin{enumerate}
+\item Importance Sampling seems giving a good result.  Both posterior means for x and y are around $3.5$ as x and y have the same priors and they are added to approximately $7$.
+\item Gibbs Sampling seems giving a not bad result.  The sum of posterior means of x and y is 7 but they are not around $3.5$.  It makes sure that posterior means are on the line $x + y = 7$. This may due to the order that we sample x and y: we sample for x and first and update y based on the resulted value of x.
+\item  HMC gives a bad result and it's not efficient.  The gradient could easily go to infinity and samples in the whole process get stuck at some numbers forever so we have to rerun it until the gradients stay at the range of finite numbers with luck.  It's achievable but not reliable to calculate posterior means in this way. 
+\end{enumerate}
+
+\hfill
 \begin{enumerate}
 \item Importance Sampling
 \begin{figure}[!ht]
@@ -456,7 +464,7 @@ where $c$ indicates the center of this function and $z$ is a constant.  It has t
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.5]{../figs/Gibbs/joint_log_likelihood_5_daphne}
+	\includegraphics[scale=0.5]{../figs/HMC/joint_log_likelihood_5_daphne}
 	 \caption{Joint Log-likelihood plots for 5.daphne using HMC Sampling}
 \end{figure}
 \end{enumerate}

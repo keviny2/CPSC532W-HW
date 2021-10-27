@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  27 OCT 2021 11:52
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2020.4.7)  27 OCT 2021 13:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1499,142 +1499,144 @@ n input line 314.
 (pdftex.def)             Requested size: 346.89867pt x 260.17401pt.
  [11 <../figs/IS/posterior_histogram_4_daphne.png> <../figs/Gibbs/4_program_res
 ults.png> <../figs/Gibbs/posterior_histogram_4_daphne.png>]
-<../figs/IS/5_program_results.png, id=182, 739.76375pt x 223.83624pt>
+<../figs/IS/5_program_results.png, id=182, 720.6925pt x 221.82875pt>
 File: ../figs/IS/5_program_results.png Graphic file (type png)
 <use ../figs/IS/5_program_results.png>
 Package pdftex.def Info: ../figs/IS/5_program_results.png  used on input line 3
-32.
-(pdftex.def)             Requested size: 369.88097pt x 111.91785pt.
+40.
+(pdftex.def)             Requested size: 360.34537pt x 110.9141pt.
 <../figs/IS/posterior_histogram_5_x_daphne.png, id=183, 578.16pt x 433.62pt>
 File: ../figs/IS/posterior_histogram_5_x_daphne.png Graphic file (type png)
 <use ../figs/IS/posterior_histogram_5_x_daphne.png>
 Package pdftex.def Info: ../figs/IS/posterior_histogram_5_x_daphne.png  used on
- input line 340.
+ input line 348.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
 <../figs/IS/posterior_histogram_5_y_daphne.png, id=184, 578.16pt x 433.62pt>
 File: ../figs/IS/posterior_histogram_5_y_daphne.png Graphic file (type png)
 <use ../figs/IS/posterior_histogram_5_y_daphne.png>
 Package pdftex.def Info: ../figs/IS/posterior_histogram_5_y_daphne.png  used on
- input line 345.
+ input line 353.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
- [12 <../figs/IS/5_program_results.png> <../figs/IS/posterior_histogram_5_x_dap
-hne.png> <../figs/IS/posterior_histogram_5_y_daphne.png>]
-<../figs/Gibbs/5_program_results.png, id=204, 662.475pt x 219.82124pt>
+ [12 <../figs/IS/5_program_results.png>]
+<../figs/Gibbs/5_program_results.png, id=203, 617.30624pt x 222.8325pt>
 File: ../figs/Gibbs/5_program_results.png Graphic file (type png)
 <use ../figs/Gibbs/5_program_results.png>
 Package pdftex.def Info: ../figs/Gibbs/5_program_results.png  used on input lin
-e 354.
-(pdftex.def)             Requested size: 331.2367pt x 109.91034pt.
-<../figs/Gibbs/posterior_histogram_5_x_daphne.png, id=205, 578.16pt x 433.62pt>
+e 362.
+(pdftex.def)             Requested size: 308.65236pt x 111.41597pt.
+<../figs/Gibbs/posterior_histogram_5_x_daphne.png, id=204, 578.16pt x 433.62pt>
 
 File: ../figs/Gibbs/posterior_histogram_5_x_daphne.png Graphic file (type png)
 <use ../figs/Gibbs/posterior_histogram_5_x_daphne.png>
 Package pdftex.def Info: ../figs/Gibbs/posterior_histogram_5_x_daphne.png  used
- on input line 362.
+ on input line 370.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/Gibbs/posterior_histogram_5_y_daphne.png, id=206, 578.16pt x 433.62pt>
+<../figs/Gibbs/posterior_histogram_5_y_daphne.png, id=205, 578.16pt x 433.62pt>
 
 File: ../figs/Gibbs/posterior_histogram_5_y_daphne.png Graphic file (type png)
 <use ../figs/Gibbs/posterior_histogram_5_y_daphne.png>
 Package pdftex.def Info: ../figs/Gibbs/posterior_histogram_5_y_daphne.png  used
- on input line 367.
+ on input line 375.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/Gibbs/trace_plot_5_x_daphne.png, id=207, 578.16pt x 433.62pt>
+<../figs/Gibbs/trace_plot_5_x_daphne.png, id=206, 578.16pt x 433.62pt>
 File: ../figs/Gibbs/trace_plot_5_x_daphne.png Graphic file (type png)
 <use ../figs/Gibbs/trace_plot_5_x_daphne.png>
 Package pdftex.def Info: ../figs/Gibbs/trace_plot_5_x_daphne.png  used on input
- line 376.
+ line 384.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/Gibbs/trace_plot_5_y_daphne.png, id=208, 578.16pt x 433.62pt>
+<../figs/Gibbs/trace_plot_5_y_daphne.png, id=207, 578.16pt x 433.62pt>
 File: ../figs/Gibbs/trace_plot_5_y_daphne.png Graphic file (type png)
 <use ../figs/Gibbs/trace_plot_5_y_daphne.png>
 Package pdftex.def Info: ../figs/Gibbs/trace_plot_5_y_daphne.png  used on input
- line 381.
+ line 389.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/Gibbs/joint_log_likelihood_5_x_daphne.png, id=209, 578.16pt x 433.62pt
+<../figs/Gibbs/joint_log_likelihood_5_x_daphne.png, id=208, 578.16pt x 433.62pt
 >
 File: ../figs/Gibbs/joint_log_likelihood_5_x_daphne.png Graphic file (type png)
 
 <use ../figs/Gibbs/joint_log_likelihood_5_x_daphne.png>
 Package pdftex.def Info: ../figs/Gibbs/joint_log_likelihood_5_x_daphne.png  use
-d on input line 391.
+d on input line 399.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/Gibbs/joint_log_likelihood_5_y_daphne.png, id=210, 578.16pt x 433.62pt
+<../figs/Gibbs/joint_log_likelihood_5_y_daphne.png, id=209, 578.16pt x 433.62pt
 >
 File: ../figs/Gibbs/joint_log_likelihood_5_y_daphne.png Graphic file (type png)
 
 <use ../figs/Gibbs/joint_log_likelihood_5_y_daphne.png>
 Package pdftex.def Info: ../figs/Gibbs/joint_log_likelihood_5_y_daphne.png  use
-d on input line 396.
+d on input line 404.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/Gibbs/joint_log_likelihood_5_daphne.png, id=211, 578.16pt x 433.62pt>
+<../figs/Gibbs/joint_log_likelihood_5_daphne.png, id=210, 578.16pt x 433.62pt>
 File: ../figs/Gibbs/joint_log_likelihood_5_daphne.png Graphic file (type png)
 <use ../figs/Gibbs/joint_log_likelihood_5_daphne.png>
 Package pdftex.def Info: ../figs/Gibbs/joint_log_likelihood_5_daphne.png  used 
-on input line 402.
+on input line 410.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
- [13 <../figs/Gibbs/5_program_results.png> <../figs/Gibbs/posterior_histogram_5
-_x_daphne.png> <../figs/Gibbs/posterior_histogram_5_y_daphne.png> <../figs/Gibb
-s/trace_plot_5_x_daphne.png> <../figs/Gibbs/trace_plot_5_y_daphne.png>]
-<../figs/HMC/5_program_results.png, id=230, 650.43pt x 225.84375pt>
+ [13 <../figs/IS/posterior_histogram_5_x_daphne.png> <../figs/IS/posterior_hist
+ogram_5_y_daphne.png> <../figs/Gibbs/5_program_results.png> <../figs/Gibbs/post
+erior_histogram_5_x_daphne.png> <../figs/Gibbs/posterior_histogram_5_y_daphne.p
+ng>] [14 <../figs/Gibbs/trace_plot_5_x_daphne.png> <../figs/Gibbs/trace_plot_5_
+y_daphne.png> <../figs/Gibbs/joint_log_likelihood_5_x_daphne.png> <../figs/Gibb
+s/joint_log_likelihood_5_y_daphne.png>]
+<../figs/HMC/5_program_results.png, id=243, 596.2275pt x 226.8475pt>
 File: ../figs/HMC/5_program_results.png Graphic file (type png)
 <use ../figs/HMC/5_program_results.png>
 Package pdftex.def Info: ../figs/HMC/5_program_results.png  used on input line 
-411.
-(pdftex.def)             Requested size: 325.2142pt x 112.92159pt.
-<../figs/HMC/posterior_histogram_5_x_daphne.png, id=231, 578.16pt x 433.62pt>
+419.
+(pdftex.def)             Requested size: 298.11302pt x 113.42346pt.
+<../figs/HMC/posterior_histogram_5_x_daphne.png, id=244, 578.16pt x 433.62pt>
 File: ../figs/HMC/posterior_histogram_5_x_daphne.png Graphic file (type png)
 <use ../figs/HMC/posterior_histogram_5_x_daphne.png>
 Package pdftex.def Info: ../figs/HMC/posterior_histogram_5_x_daphne.png  used o
-n input line 419.
+n input line 427.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/HMC/posterior_histogram_5_y_daphne.png, id=232, 578.16pt x 433.62pt>
+<../figs/HMC/posterior_histogram_5_y_daphne.png, id=245, 578.16pt x 433.62pt>
 File: ../figs/HMC/posterior_histogram_5_y_daphne.png Graphic file (type png)
 <use ../figs/HMC/posterior_histogram_5_y_daphne.png>
 Package pdftex.def Info: ../figs/HMC/posterior_histogram_5_y_daphne.png  used o
-n input line 424.
+n input line 432.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/HMC/trace_plot_5_x_daphne.png, id=233, 578.16pt x 433.62pt>
+<../figs/HMC/trace_plot_5_x_daphne.png, id=246, 578.16pt x 433.62pt>
 File: ../figs/HMC/trace_plot_5_x_daphne.png Graphic file (type png)
 <use ../figs/HMC/trace_plot_5_x_daphne.png>
 Package pdftex.def Info: ../figs/HMC/trace_plot_5_x_daphne.png  used on input l
-ine 433.
+ine 441.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/HMC/trace_plot_5_y_daphne.png, id=234, 578.16pt x 433.62pt>
+<../figs/HMC/trace_plot_5_y_daphne.png, id=247, 578.16pt x 433.62pt>
 File: ../figs/HMC/trace_plot_5_y_daphne.png Graphic file (type png)
 <use ../figs/HMC/trace_plot_5_y_daphne.png>
 Package pdftex.def Info: ../figs/HMC/trace_plot_5_y_daphne.png  used on input l
-ine 438.
+ine 446.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/HMC/joint_log_likelihood_5_x_daphne.png, id=235, 578.16pt x 433.62pt>
+<../figs/HMC/joint_log_likelihood_5_x_daphne.png, id=248, 578.16pt x 433.62pt>
 File: ../figs/HMC/joint_log_likelihood_5_x_daphne.png Graphic file (type png)
 <use ../figs/HMC/joint_log_likelihood_5_x_daphne.png>
 Package pdftex.def Info: ../figs/HMC/joint_log_likelihood_5_x_daphne.png  used 
-on input line 448.
+on input line 456.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-<../figs/HMC/joint_log_likelihood_5_y_daphne.png, id=236, 578.16pt x 433.62pt>
+<../figs/HMC/joint_log_likelihood_5_y_daphne.png, id=249, 578.16pt x 433.62pt>
 File: ../figs/HMC/joint_log_likelihood_5_y_daphne.png Graphic file (type png)
 <use ../figs/HMC/joint_log_likelihood_5_y_daphne.png>
 Package pdftex.def Info: ../figs/HMC/joint_log_likelihood_5_y_daphne.png  used 
-on input line 453.
+on input line 461.
 (pdftex.def)             Requested size: 252.94499pt x 189.70828pt.
-File: ../figs/Gibbs/joint_log_likelihood_5_daphne.png Graphic file (type png)
-<use ../figs/Gibbs/joint_log_likelihood_5_daphne.png>
-Package pdftex.def Info: ../figs/Gibbs/joint_log_likelihood_5_daphne.png  used 
-on input line 459.
+<../figs/HMC/joint_log_likelihood_5_daphne.png, id=250, 578.16pt x 433.62pt>
+File: ../figs/HMC/joint_log_likelihood_5_daphne.png Graphic file (type png)
+<use ../figs/HMC/joint_log_likelihood_5_daphne.png>
+Package pdftex.def Info: ../figs/HMC/joint_log_likelihood_5_daphne.png  used on
+ input line 467.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 464.
- [14 <../figs/Gibbs/joint_log_likelihood_5_x_daphne.png> <../figs/Gibbs/joint_l
-og_likelihood_5_y_daphne.png> <../figs/Gibbs/joint_log_likelihood_5_daphne.png>
- <../figs/HMC/5_program_results.png>] [15 <../figs/HMC/posterior_histogram_5_x_
-daphne.png> <../figs/HMC/posterior_histogram_5_y_daphne.png> <../figs/HMC/trace
-_plot_5_x_daphne.png> <../figs/HMC/trace_plot_5_y_daphne.png>]
-[16 <../figs/HMC/joint_log_likelihood_5_x_daphne.png> <../figs/HMC/joint_log_li
-kelihood_5_y_daphne.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 464.
- (./532hw3.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 464.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 464.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 472.
+ [15 <../figs/Gibbs/joint_log_likelihood_5_daphne.png> <../figs/HMC/5_program_r
+esults.png> <../figs/HMC/posterior_histogram_5_x_daphne.png> <../figs/HMC/poste
+rior_histogram_5_y_daphne.png>]
+[16 <../figs/HMC/trace_plot_5_x_daphne.png> <../figs/HMC/trace_plot_5_y_daphne.
+png> <../figs/HMC/joint_log_likelihood_5_x_daphne.png> <../figs/HMC/joint_log_l
+ikelihood_5_y_daphne.png>] [17 <../figs/HMC/joint_log_likelihood_5_daphne.png>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 472.
+(./532hw3.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 472.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 472.
 Package rerunfilecheck Info: File `532hw3.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 
@@ -1646,26 +1648,27 @@ Package logreq Info: Writing requests to '532hw3.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 20731 strings out of 480608
- 361223 string characters out of 5903631
+ 20742 strings out of 480608
+ 361585 string characters out of 5903631
  1143674 words of memory out of 5000000
- 36155 multiletter control sequences out of 15000+600000
+ 36162 multiletter control sequences out of 15000+600000
  544806 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  50i,10n,87p,1455b,790s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
-></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
-</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></
-usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
-r/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
-local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loc
-al/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/
-texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/t
-exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on 532hw3.pdf (16 pages, 1695744 bytes).
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
+></usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></u
+sr/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
+/local/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
+ocal/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loca
+l/texlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/t
+exlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
+xlive/2020/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
+Output written on 532hw3.pdf (17 pages, 1779852 bytes).
 PDF statistics:
- 328 PDF objects out of 1000 (max. 8388607)
- 193 compressed objects within 2 object streams
- 104 named destinations out of 1000 (max. 500000)
- 266 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 342 PDF objects out of 1000 (max. 8388607)
+ 202 compressed objects within 3 object streams
+ 108 named destinations out of 1000 (max. 500000)
+ 271 words of extra memory for PDF output out of 10000 (max. 10000000)
 
