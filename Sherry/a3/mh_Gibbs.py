@@ -40,12 +40,9 @@ def gibbs(X, cal_X, num_samples, edges, links, returnings):
         sample = deterministic_eval(evaluate(returnings, cal_X_prime))
         samples.append(sample)
         cal_X = cal_X_prime
-        # logP = joint_log_likelihood(vertices, links, cal_X_prime)
-        # logPs.append(logP)
         cal_Xs.append(cal_X)
     samples = torch.stack(samples)
     return samples, cal_Xs
-
 
 def joint_log_likelihood(vertices, links, variables_dict_set, num_samples):
     logPs = []

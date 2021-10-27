@@ -24,30 +24,32 @@ latent, observed = latent_observed(links)
 
 
 '''IS'''
-t = time.time()
-samples_IS, weights = importance_Sampling(ast, 20000)
-print("\nImportance sampling for 3.daphne took %f seconds" % (time.time() - t))
-
-mean_IS = importance_Sampling_mean(samples_IS, weights, 20000)
-variance_IS = importance_Sampling_variance(samples_IS, weights, mean_IS)
-print('\nposterior probability (mean) that the first and second datapoint are in the same cluster using Important sampling is {}'.format(mean_IS))
-print('\nposterior probability (variance) that the first and second datapoint are in the same cluster using Important sampling is {}'.format(variance_IS))
-
-'''posterior distribution for IS:'''
-plot_histogram_IS(samples_IS.numpy(), weights.numpy(), "Posterior distribution of the first and second datapoint in the same cluster in 3.daphne using IS",
-               "indicator", "IS", "posterior_histogram_3_daphne")
+# t = time.time()
+# samples_IS, weights = importance_Sampling(ast, 20000)
+# print("\nImportance sampling for 3.daphne took %f seconds" % (time.time() - t))
+#
+# mean_IS = importance_Sampling_mean(samples_IS, weights, 20000)
+# variance_IS = importance_Sampling_variance(samples_IS, weights, mean_IS)
+# print('\nposterior probability (mean) that the first and second datapoint are \nin the same cluster using Important sampling is {}'.format(mean_IS))
+# print('\nposterior probability (variance) that the first and second datapoint are \nin the same cluster using Important sampling is {}'.format(variance_IS))
+#
+# '''posterior distribution for IS:'''
+# plot_histogram_IS(samples_IS.numpy(),  (weights / torch.sum(weights) * 20000).numpy(),
+#                   "Posterior distribution of the first and second datapoint \nin the same cluster in 3.daphne using IS", "indicator", "IS", "posterior_histogram_3_daphne")
 
 
 '''Gibbs'''
+
+
 t = time.time()
-sample, variables_dict_set = gibbs(latent, variables_dict, 20000, edges, links, returnings)
+sample_gibbs, variables_dict_set = gibbs(latent, variables_dict, 1500, edges, links, returnings)
 print("\nGibbs sampling for 3.daphne took %f seconds" % (time.time() - t))
-mean = torch.mean(sample.float(), dim = 0)
-print('\nposterior probability that the first and second datapoint are in the same cluster using MH Gibbs is {}'.format(mean))
+mean = torch.mean(sample_gibbs.float(), dim = 0)
+print('\nposterior probability that the first and second datapoint are \nin the same cluster using MH Gibbs is {}'.format(mean))
 
 
 '''posterior distribution for Gibbs:'''
-plot_histogram(sample.numpy(), "Posterior distribution of the first and second datapoint in the same cluster in 3.daphne using Gibbs",
+plot_histogram(sample_gibbs.numpy(), "Posterior distribution of the first and second datapoint \nin the same cluster in 3.daphne using MH Gibbs",
                "indicator", "Gibbs", "posterior_histogram_3_daphne")
 
 

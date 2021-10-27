@@ -310,34 +310,34 @@ plot_joint_loglik(logPs, "Joint Log-Likelihood plot for 4.daphne", "Gibbs", "Joi
 
 # Todo: 5.daphne
 
-# i = 5
-# ast = daphne(['desugar', '-i',
-#               '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a3/programs/{}.daphne'.format(i)])
-# graph = daphne(['graph','-i',
-#                 '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a3/programs/{}.daphne'.format(i)])
+i = 5
+ast = daphne(['desugar', '-i',
+              '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a3/programs/{}.daphne'.format(i)])
+graph = daphne(['graph','-i',
+                '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a3/programs/{}.daphne'.format(i)])
 
-# mean, variance, sample, weights = importance_Sampling(ast, 10000)
-#
-# '''posterior distribution for IS:'''
-# plot_histogram_IS(sample[:, 0].numpy(), weights.numpy(), "Posterior distribution of x in 5.daphne using IS",
-#                "x", "IS", "posterior_histogram_x_5_daphne")
-# plot_histogram_IS(sample[:, 1].numpy(), weights.numpy(), "Posterior distribution of y in 5.daphne using IS",
-#                   "y", "IS", "posterior_histogram_y_5_daphne")
+mean, variance, sample, weights = importance_Sampling(ast, 10000)
 
-# sample, variables_dict, topological_sort= sample_from_joint(graph)
-# vertices = graph[1]['V']
-# edges = graph[1]['A']
-# links = graph[1]['P']
-# returnings = graph[2]
-# latent, observed = latent_observed(links)
-# sample, logPs = gibbs(latent, variables_dict, 10000, vertices, edges, links, returnings)
-# mean = torch.mean(sample.float(), dim = 0)
-# variance = torch.var(sample.float(), dim = 0)
-# print('posterior mean is {}'.format(mean))
-# print('posterior variance is {}'.format(variance))
-# # posterior distribution for Gibbs:
-# plot_histogram(sample.numpy(), "Posterior distribution of the indicator in 3.daphne using Gibbs",
-#                "indicator", "Gibbs", "posterior_histogram_3_daphne")
-#
-# # joint_log_like plot for Gibbs:
-# plot_joint_loglik(logPs, "Joint Log-Likelihood plot for 3.daphne", "Gibbs", "Joint_log_lik_3_daphne")
+'''posterior distribution for IS:'''
+plot_histogram_IS(sample[:, 0].numpy(), weights.numpy(), "Posterior distribution of x in 5.daphne using IS",
+               "x", "IS", "posterior_histogram_x_5_daphne")
+plot_histogram_IS(sample[:, 1].numpy(), weights.numpy(), "Posterior distribution of y in 5.daphne using IS",
+                  "y", "IS", "posterior_histogram_y_5_daphne")
+
+sample, variables_dict, topological_sort= sample_from_joint(graph)
+vertices = graph[1]['V']
+edges = graph[1]['A']
+links = graph[1]['P']
+returnings = graph[2]
+latent, observed = latent_observed(links)
+sample, logPs = gibbs(latent, variables_dict, 10000, vertices, edges, links, returnings)
+mean = torch.mean(sample.float(), dim = 0)
+variance = torch.var(sample.float(), dim = 0)
+print('posterior mean is {}'.format(mean))
+print('posterior variance is {}'.format(variance))
+# posterior distribution for Gibbs:
+plot_histogram(sample.numpy(), "Posterior distribution of the indicator in 3.daphne using Gibbs",
+               "indicator", "Gibbs", "posterior_histogram_3_daphne")
+
+# joint_log_like plot for Gibbs:
+plot_joint_loglik(logPs, "Joint Log-Likelihood plot for 3.daphne", "Gibbs", "Joint_log_lik_3_daphne")
