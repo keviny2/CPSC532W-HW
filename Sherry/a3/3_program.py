@@ -42,7 +42,7 @@ latent, observed = latent_observed(links)
 
 
 t = time.time()
-sample_gibbs, variables_dict_set = gibbs(latent, variables_dict, 1500, edges, links, returnings)
+sample_gibbs, variables_dict_set = gibbs(latent, variables_dict, 10000, edges, links, returnings)
 print("\nGibbs sampling for 3.daphne took %f seconds" % (time.time() - t))
 mean = torch.mean(sample_gibbs.float(), dim = 0)
 print('\nposterior probability that the first and second datapoint are \nin the same cluster using MH Gibbs is {}'.format(mean))

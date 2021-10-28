@@ -32,7 +32,7 @@ def plot_histogram(sample, title, xlabel, type, file_name):
 
 def plot_histogram_IS(sample, weights, title, xlabel, type, file_name):
     fig, ax = plt.subplots(figsize = (8,6))
-    ax.hist(sample, weights = weights)
+    ax.hist(sample, weights = weights, bins = 100)
     ax.set_title(title)
     ax.set(ylabel="Frequency", xlabel=xlabel)
     fname = os.path.join("figs", type, file_name)

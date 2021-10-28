@@ -46,7 +46,7 @@
 
 Public GitHub repo: https://github.com/Xiaoxuan1121/CPSC532W/tree/main/a3
 \begin{enumerate}
-\item Program 1: the program has been run for 50000 times,  and the results are:
+\item Program 1: the program has been run for 50000 iterations for each method,  and the results are:
 \begin{enumerate}
 \item Importance Sampling:
 
@@ -118,7 +118,7 @@ Public GitHub repo: https://github.com/Xiaoxuan1121/CPSC532W/tree/main/a3
 \end{enumerate}
 
 
-\item Program 2:
+\item Program 2: First two methods were ran 50000 iterations,  HMC is ran 15000 iterations
 \begin{enumerate}
 \newpage
 \item Importance Sampling
@@ -252,13 +252,13 @@ Public GitHub repo: https://github.com/Xiaoxuan1121/CPSC532W/tree/main/a3
 
 \begin{figure}[!ht]
 	\centering
-	\includegraphics[scale=0.5]{../figs/Gibbs/joint_log_likelihood_2_daphne}
+	\includegraphics[scale=0.5]{../figs/HMC/joint_log_likelihood_2_daphne}
 	 \caption{Joint Log-likelihood plots for 2.daphne using HMC Sampling}
 \end{figure}
 \end{enumerate}
 
 \newpage
-\item Program 3:
+\item Program 3: Importance Sampling was ran 20000 iterations, and Gibbs sampling was ran 10000 iterations.
 \begin{enumerate}
 
 \item Importance Sampling
@@ -290,7 +290,7 @@ Public GitHub repo: https://github.com/Xiaoxuan1121/CPSC532W/tree/main/a3
 
 \end{enumerate}
 
-\item Program 4:
+\item Program 4: Both methods were ran 50000 iterations
 \begin{enumerate}
 \item Importance Sampling
 
@@ -302,7 +302,7 @@ Public GitHub repo: https://github.com/Xiaoxuan1121/CPSC532W/tree/main/a3
 \begin{figure}[!ht]
 	\centering
 	\includegraphics[scale=0.5]{../figs/IS/posterior_histogram_4_daphne}
-	 \caption{Posterior distribution fof raining for 4.daphne using Importance Sampling}
+	 \caption{Posterior distribution for raining for 4.daphne using Importance Sampling}
 \end{figure}
 
 \newpage
@@ -335,7 +335,7 @@ where $c$ indicates the center of this function and $z$ is a constant.  It has t
 \item Gibbs Sampling seems giving a not bad result.  The sum of posterior means of x and y is 7 but they are not around $3.5$.  It makes sure that posterior means are on the line $x + y = 7$. This may due to the order that we sample x and y: we sample for x and first and update y based on the resulted value of x.
 \item  HMC gives a bad result and it's not efficient.  The gradient could easily go to infinity and samples in the whole process get stuck at some numbers forever so we have to rerun it until the gradients stay at the range of finite numbers with luck.  It's achievable but not reliable to calculate posterior means in this way. 
 \end{enumerate}
-
+First two methods were ran 50000 iterations, and HMC was ran 10000 iterations.\\
 \hfill
 \begin{enumerate}
 \item Importance Sampling
@@ -472,5 +472,46 @@ where $c$ indicates the center of this function and $z$ is a constant.  It has t
 	 \caption{Joint Log-likelihood plots for 5.daphne using HMC Sampling}
 \end{figure}
 \end{enumerate}
+
+\newpage
+\item Code Snippets:
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.6]{../figs/IS_1}
+	\includegraphics[scale=0.6]{../figs/IS_2}
+	\caption{Code for Importance Sampling}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[scale=0.5]{../figs/Gibbs_1}
+	\caption{Code for MH gibbs sampling Part I}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{../figs/Gibbs_2}
+	\caption{Code for MH gibbs sampling Part II}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{../figs/HMC_1}
+	\caption{Code for HMC sampling part I}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{../figs/HMC_2}
+	\caption{Code for HMC sampling part II}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{../figs/HMC_3}
+	\caption{Code for HMC sampling part III}
+\end{figure}
+
 \end{enumerate}
 \end{document}

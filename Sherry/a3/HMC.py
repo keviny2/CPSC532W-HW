@@ -4,7 +4,9 @@ from torch import distributions as dist
 import copy
 
 def H(cal_X, cal_Y, links, R, M):
-    return U(cal_X, cal_Y, links) + 0.5 * torch.matmul(R.T, torch.matmul(torch.inverse(M), R))
+    U_p = U(cal_X, cal_Y, links)
+    K = 0.5 * torch.matmul(R.T, torch.matmul(torch.inverse(M), R))
+    return U_p + K
 
 def U(cal_X, cal_Y, links):
     logP = 0
@@ -13,7 +15,6 @@ def U(cal_X, cal_Y, links):
 
     for latent in cal_X:
         logP += deterministic_eval(evaluate(links[latent][1], {**cal_X, **cal_Y})).log_prob(cal_X[latent])
-
 
     return -logP
 
