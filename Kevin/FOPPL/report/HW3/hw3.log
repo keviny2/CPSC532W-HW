@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  26 OCT 2021 15:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  27 OCT 2021 17:52
 entering extended mode
 **./hw3.tex
 (hw3.tex
@@ -662,8 +662,7 @@ tex.def
 File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count291
 \l__pdf_internal_box=\box53
-)
-No file hw3.aux.
+) (hw3.aux)
 \openout1 = `hw3.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -787,6 +786,7 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 8.
 LaTeX Info: Redefining \pageref on input line 8.
 LaTeX Info: Redefining \nameref on input line 8.
+ (hw3.out) (hw3.out)
 \@outlinefile=\write3
 \openout3 = `hw3.out'.
 
@@ -919,35 +919,261 @@ LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
 (Font)              scaled to size 17.28pt on input line 16.
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
 (Font)              scaled to size 14.4pt on input line 17.
+<figures/program_1_time.png, id=99, 258.36525pt x 178.86826pt>
+File: figures/program_1_time.png Graphic file (type png)
+<use figures/program_1_time.png>
+Package pdftex.def Info: figures/program_1_time.png  used on input line 19.
+(pdftex.def)             Requested size: 193.77345pt x 134.15085pt.
+<figures/IS_program_1.png, id=101, 578.16pt x 433.62pt>
+File: figures/IS_program_1.png Graphic file (type png)
+<use figures/IS_program_1.png>
+Package pdftex.def Info: figures/IS_program_1.png  used on input line 24.
+(pdftex.def)             Requested size: 231.2599pt x 173.44492pt.
+<figures/MH_program_1.png, id=102, 578.16pt x 433.62pt>
+File: figures/MH_program_1.png Graphic file (type png)
+<use figures/MH_program_1.png>
+Package pdftex.def Info: figures/MH_program_1.png  used on input line 29.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/trace_MH_program_1.png, id=103, 578.16pt x 433.62pt>
+File: figures/trace_MH_program_1.png Graphic file (type png)
+<use figures/trace_MH_program_1.png>
+Package pdftex.def Info: figures/trace_MH_program_1.png  used on input line 30.
+
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/log_joint_MH_program_1.png, id=104, 520.94624pt x 204.765pt>
+File: figures/log_joint_MH_program_1.png Graphic file (type png)
+<use figures/log_joint_MH_program_1.png>
+Package pdftex.def Info: figures/log_joint_MH_program_1.png  used on input line
+ 31.
+(pdftex.def)             Requested size: 302.14903pt x 118.76376pt.
 [1
 
-{C:/Users/kevin/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2] (hw3.aux)
+{C:/Users/kevin/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./figures/progr
+am_1_time.png> <./figures/IS_program_1.png>]
+<figures/HMC_program_1.png, id=114, 578.16pt x 433.62pt>
+File: figures/HMC_program_1.png Graphic file (type png)
+<use figures/HMC_program_1.png>
+Package pdftex.def Info: figures/HMC_program_1.png  used on input line 36.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/trace_HMC_program_1.png, id=115, 578.16pt x 433.62pt>
+File: figures/trace_HMC_program_1.png Graphic file (type png)
+<use figures/trace_HMC_program_1.png>
+Package pdftex.def Info: figures/trace_HMC_program_1.png  used on input line 37
+.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/log_joint_HMC_program_1.png, id=116, 513.117pt x 201.75375pt>
+File: figures/log_joint_HMC_program_1.png Graphic file (type png)
+<use figures/log_joint_HMC_program_1.png>
+Package pdftex.def Info: figures/log_joint_HMC_program_1.png  used on input lin
+e 38.
+(pdftex.def)             Requested size: 297.60806pt x 117.01724pt.
+ [2 <./figures/MH_program_1.png> <./figures/trace_MH_program_1.png> <./figures/
+log_joint_MH_program_1.png>]
+<figures/program_2_time.png, id=124, 248.127pt x 299.9205pt>
+File: figures/program_2_time.png Graphic file (type png)
+<use figures/program_2_time.png>
+Package pdftex.def Info: figures/program_2_time.png  used on input line 47.
+(pdftex.def)             Requested size: 248.12637pt x 299.91975pt.
 
-Package rerunfilecheck Warning: File `hw3.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
+[3 <./figures/HMC_program_1.png> <./figures/trace_HMC_program_1.png> <./figures
+/log_joint_HMC_program_1.png>]
+<figures/IS_program_2.png, id=132, 578.16pt x 433.62pt>
+File: figures/IS_program_2.png Graphic file (type png)
+<use figures/IS_program_2.png>
+Package pdftex.def Info: figures/IS_program_2.png  used on input line 53.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/MH_program_2.png, id=133, 578.16pt x 433.62pt>
+File: figures/MH_program_2.png Graphic file (type png)
+<use figures/MH_program_2.png>
+Package pdftex.def Info: figures/MH_program_2.png  used on input line 59.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/trace_MH_program_2.png, id=134, 578.16pt x 433.62pt>
+File: figures/trace_MH_program_2.png Graphic file (type png)
+<use figures/trace_MH_program_2.png>
+Package pdftex.def Info: figures/trace_MH_program_2.png  used on input line 60.
 
-Package rerunfilecheck Info: Checksums for `hw3.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  E97793C6E253BF4DB9A19DCBD6D7C537;1646.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/log_joint_MH_program_2.png, id=135, 508.90125pt x 148.1535pt>
+File: figures/log_joint_MH_program_2.png Graphic file (type png)
+<use figures/log_joint_MH_program_2.png>
+Package pdftex.def Info: figures/log_joint_MH_program_2.png  used on input line
+ 61.
+(pdftex.def)             Requested size: 295.16293pt x 85.92908pt.
+ [4 <./figures/program_2_time.png> <./figures/IS_program_2.png>]
+<figures/HMC_program_2.png, id=142, 578.16pt x 433.62pt>
+File: figures/HMC_program_2.png Graphic file (type png)
+<use figures/HMC_program_2.png>
+Package pdftex.def Info: figures/HMC_program_2.png  used on input line 66.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/trace_HMC_program_2.png, id=143, 578.16pt x 433.62pt>
+File: figures/trace_HMC_program_2.png Graphic file (type png)
+<use figures/trace_HMC_program_2.png>
+Package pdftex.def Info: figures/trace_HMC_program_2.png  used on input line 67
+.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/log_joint_HMC_program_2.png, id=144, 511.9125pt x 143.3355pt>
+File: figures/log_joint_HMC_program_2.png Graphic file (type png)
+<use figures/log_joint_HMC_program_2.png>
+Package pdftex.def Info: figures/log_joint_HMC_program_2.png  used on input lin
+e 68.
+(pdftex.def)             Requested size: 296.90945pt x 83.13463pt.
+ [5 <./figures/MH_program_2.png> <./figures/trace_MH_program_2.png> <./figures/
+log_joint_MH_program_2.png>]
+<figures/program_3_time.png, id=152, 248.72925pt x 112.62074pt>
+File: figures/program_3_time.png Graphic file (type png)
+<use figures/program_3_time.png>
+Package pdftex.def Info: figures/program_3_time.png  used on input line 77.
+(pdftex.def)             Requested size: 248.72864pt x 112.62045pt.
+ [6 <./figures/HMC_program_2.png> <./figures/trace_HMC_program_2.png> <./figure
+s/log_joint_HMC_program_2.png>]
+<figures/IS_program_5.png, id=160, 578.16pt x 433.62pt>
+File: figures/IS_program_5.png Graphic file (type png)
+<use figures/IS_program_5.png>
+Package pdftex.def Info: figures/IS_program_5.png  used on input line 82.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/MH_program_5.png, id=161, 578.16pt x 433.62pt>
+File: figures/MH_program_5.png Graphic file (type png)
+<use figures/MH_program_5.png>
+Package pdftex.def Info: figures/MH_program_5.png  used on input line 87.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+[7 <./figures/program_3_time.png> <./figures/IS_program_5.png>]
+<figures/program_4_time.png, id=169, 243.91125pt x 111.41624pt>
+File: figures/program_4_time.png Graphic file (type png)
+<use figures/program_4_time.png>
+Package pdftex.def Info: figures/program_4_time.png  used on input line 95.
+(pdftex.def)             Requested size: 243.91064pt x 111.41597pt.
+<figures/IS_program_6.png, id=170, 578.16pt x 433.62pt>
+File: figures/IS_program_6.png Graphic file (type png)
+<use figures/IS_program_6.png>
+Package pdftex.def Info: figures/IS_program_6.png  used on input line 100.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+ [8 <./figures/MH_program_5.png> <./figures/program_4_time.png>]
+<figures/MH_program_6.png, id=177, 578.16pt x 433.62pt>
+File: figures/MH_program_6.png Graphic file (type png)
+<use figures/MH_program_6.png>
+Package pdftex.def Info: figures/MH_program_6.png  used on input line 105.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/program_5_time.png, id=178, 257.763pt x 396.2805pt>
+File: figures/program_5_time.png Graphic file (type png)
+<use figures/program_5_time.png>
+Package pdftex.def Info: figures/program_5_time.png  used on input line 113.
+(pdftex.def)             Requested size: 257.76237pt x 396.27953pt.
+ [9 <./figures/IS_program_6.png> <./figures/MH_program_6.png>]
+<figures/IS_program_7.png, id=185, 578.16pt x 433.62pt>
+File: figures/IS_program_7.png Graphic file (type png)
+<use figures/IS_program_7.png>
+Package pdftex.def Info: figures/IS_program_7.png  used on input line 118.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+ [10 <./figures/program_5_time.png>]
+<figures/MH_program_7.png, id=191, 578.16pt x 433.62pt>
+File: figures/MH_program_7.png Graphic file (type png)
+<use figures/MH_program_7.png>
+Package pdftex.def Info: figures/MH_program_7.png  used on input line 124.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/trace_MH_program_7.png, id=192, 578.16pt x 433.62pt>
+File: figures/trace_MH_program_7.png Graphic file (type png)
+<use figures/trace_MH_program_7.png>
+Package pdftex.def Info: figures/trace_MH_program_7.png  used on input line 125
+.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/log_joint_MH_program_7.png, id=193, 513.117pt x 141.52875pt>
+File: figures/log_joint_MH_program_7.png Graphic file (type png)
+<use figures/log_joint_MH_program_7.png>
+Package pdftex.def Info: figures/log_joint_MH_program_7.png  used on input line
+ 126.
+(pdftex.def)             Requested size: 297.60806pt x 82.08672pt.
+ [11 <./figures/IS_program_7.png>]
+<figures/HMC_program_7.png, id=199, 578.16pt x 433.62pt>
+File: figures/HMC_program_7.png Graphic file (type png)
+<use figures/HMC_program_7.png>
+Package pdftex.def Info: figures/HMC_program_7.png  used on input line 131.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/trace_HMC_program_7.png, id=200, 578.16pt x 433.62pt>
+File: figures/trace_HMC_program_7.png Graphic file (type png)
+<use figures/trace_HMC_program_7.png>
+Package pdftex.def Info: figures/trace_HMC_program_7.png  used on input line 13
+2.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/log_joint_HMC_program_7.png, id=201, 504.6855pt x 139.11975pt>
+File: figures/log_joint_HMC_program_7.png Graphic file (type png)
+<use figures/log_joint_HMC_program_7.png>
+Package pdftex.def Info: figures/log_joint_HMC_program_7.png  used on input lin
+e 133.
+(pdftex.def)             Requested size: 292.71779pt x 80.6895pt.
+ [12 <./figures/MH_program_7.png> <./figures/trace_MH_program_7.png> <./figures
+/log_joint_MH_program_7.png>] [13 <./figures/HMC_program_7.png> <./figures/trac
+e_HMC_program_7.png> <./figures/log_joint_HMC_program_7.png>]
+<code_snippets/importance_sample.png, id=217, 582.978pt x 239.09325pt>
+File: code_snippets/importance_sample.png Graphic file (type png)
+<use code_snippets/importance_sample.png>
+Package pdftex.def Info: code_snippets/importance_sample.png  used on input lin
+e 139.
+(pdftex.def)             Requested size: 291.48828pt x 119.54633pt.
+<code_snippets/gibbs_step.png, id=218, 582.37575pt x 489.027pt>
+File: code_snippets/gibbs_step.png Graphic file (type png)
+<use code_snippets/gibbs_step.png>
+Package pdftex.def Info: code_snippets/gibbs_step.png  used on input line 140.
+(pdftex.def)             Requested size: 291.18715pt x 244.5129pt.
+<code_snippets/accept(1).png, id=219, 582.978pt x 382.42876pt>
+File: code_snippets/accept(1).png Graphic file (type png)
+<use code_snippets/accept(1).png>
+Package pdftex.def Info: code_snippets/accept(1).png  used on input line 141.
+(pdftex.def)             Requested size: 291.48828pt x 191.2139pt.
+<code_snippets/accept(2).png, id=220, 585.387pt x 357.13425pt>
+File: code_snippets/accept(2).png Graphic file (type png)
+<use code_snippets/accept(2).png>
+Package pdftex.def Info: code_snippets/accept(2).png  used on input line 142.
+(pdftex.def)             Requested size: 292.69278pt x 178.56668pt.
+<code_snippets/hmc.png, id=221, 583.58025pt x 318.59026pt>
+File: code_snippets/hmc.png Graphic file (type png)
+<use code_snippets/hmc.png>
+Package pdftex.def Info: code_snippets/hmc.png  used on input line 143.
+(pdftex.def)             Requested size: 291.7894pt x 159.29474pt.
+<code_snippets/leapfrog.png, id=222, 583.58025pt x 396.88275pt>
+File: code_snippets/leapfrog.png Graphic file (type png)
+<use code_snippets/leapfrog.png>
+Package pdftex.def Info: code_snippets/leapfrog.png  used on input line 144.
+(pdftex.def)             Requested size: 291.7894pt x 198.44089pt.
+<code_snippets/U.png, id=223, 581.7735pt x 367.97475pt>
+File: code_snippets/U.png Graphic file (type png)
+<use code_snippets/U.png>
+Package pdftex.def Info: code_snippets/U.png  used on input line 145.
+(pdftex.def)             Requested size: 290.88603pt x 183.98692pt.
+<code_snippets/H.png, id=224, 583.58025pt x 221.02576pt>
+File: code_snippets/H.png Graphic file (type png)
+<use code_snippets/H.png>
+Package pdftex.def Info: code_snippets/H.png  used on input line 146.
+(pdftex.def)             Requested size: 291.7894pt x 110.5126pt.
+<code_snippets/dirac.png, id=225, 583.58025pt x 181.27725pt>
+File: code_snippets/dirac.png Graphic file (type png)
+<use code_snippets/dirac.png>
+Package pdftex.def Info: code_snippets/dirac.png  used on input line 147.
+(pdftex.def)             Requested size: 291.7894pt x 90.6384pt.
+ [14 <./code_snippets/importance_sample.png> <./code_snippets/gibbs_step.png> <
+./code_snippets/accept(1).png>] [15 <./code_snippets/accept(2).png> <./code_sni
+ppets/hmc.png> <./code_snippets/leapfrog.png>] [16 <./code_snippets/U.png> <./c
+ode_snippets/H.png> <./code_snippets/dirac.png>] (hw3.aux)
+Package rerunfilecheck Info: File `hw3.out' has not changed.
+(rerunfilecheck)             Checksum: 687DB273FAA3E06C3082958901E75B6A;2292.
  ) 
 Here is how much of TeX's memory you used:
- 14767 strings out of 478868
- 232534 string characters out of 2848809
- 566369 words of memory out of 3000000
- 32361 multiletter control sequences out of 15000+600000
+ 15092 strings out of 478868
+ 241711 string characters out of 2848809
+ 566524 words of memory out of 3000000
+ 32620 multiletter control sequences out of 15000+600000
  464504 words of font info for 98 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,6n,94p,499b,376s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,6n,94p,499b,453s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinus-type
 1/lbts_sfissr.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips
 /libertinus-type1/lbts_75t36g.enc}<C:/Users/kevin/AppData/Local/Programs/MiKTeX
 /fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><C:/Users/kevin/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/libertinus-type1/LibertinusSeri
 f-Regular.pfb>
-Output written on hw3.pdf (2 pages, 183186 bytes).
+Output written on hw3.pdf (16 pages, 1556052 bytes).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
- 28673 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 271 PDF objects out of 1000 (max. 8388607)
+ 41 named destinations out of 1000 (max. 500000)
+ 29060 words of extra memory for PDF output out of 29859 (max. 10000000)
 

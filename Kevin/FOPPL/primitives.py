@@ -125,11 +125,11 @@ def evaluate_primitive(ast):
         # return torch.sum(torch.tensor(ast[1:]))
         return ast[1] + ast[2]
     elif ast[0] == '-':
-        return ast[1] - torch.sum(torch.tensor(ast[2:]))
+        return ast[1] - ast[2]
     elif ast[0] == '*':
-        return torch.prod(torch.tensor(ast[1:]))
+        return ast[1] * ast[2]
     elif ast[0] == '/':
-        return ast[1] / torch.prod(torch.tensor(ast[2:]))
+        return ast[1] / ast[2]
     elif ast[0] == 'sqrt':
         return torch.sqrt(ast[1])
     elif ast[0] == '<':

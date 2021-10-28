@@ -5,6 +5,7 @@ import re
 import copy
 import torch
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class MHGibbsSampler(Sampler):
@@ -148,10 +149,23 @@ class MHGibbsSampler(Sampler):
             for i in range(len(parameter_names)):
                 parameter_traces.append(torch.FloatTensor([elem[i] for elem in samples]))
 
+        flag = False
         for i, obs in enumerate(parameter_traces):
             posterior_exp = torch.mean(obs)
             self.posterior_exp[parameter_names[i]] = posterior_exp
             print('Posterior Expectation {}:'.format(parameter_names[i]), posterior_exp)
+
+            if parameter_names == ['slope', 'bias']:
+                # if covariance already reported, continue, no need to print it out again!
+                if flag:
+                    continue
+
+                # compute covariance in the case of bayesian regression program
+                covariance = np.cov(np.array([parameter_traces[i].numpy() for i in range(len(parameter_traces))]))
+
+                print('posterior covariance of slope and bias:\n', covariance)
+                flag = True
+                continue
 
             posterior_var = torch.var(obs)
             self.posterior_var[parameter_names[i]] = posterior_var
@@ -175,9 +189,14 @@ class MHGibbsSampler(Sampler):
 
         # histograms
         for i, obs in enumerate(parameter_traces):
-            axs[i].set_title('{2} posterior exp: {0:.2f}    var: {1:.2f}'.format(self.posterior_exp[parameter_names[i]],
-                                                                         self.posterior_var[parameter_names[i]],
-                                                                         parameter_names[i]))
+            if parameter_names == ['slope', 'bias']:
+                axs[i].set_title('{1} posterior exp: {0:.2f}'.format(self.posterior_exp[parameter_names[i]],
+                                                                     parameter_names[i]))
+            else:
+                axs[i].set_title(
+                    '{2} posterior exp: {0:.2f}    var: {1:.2f}'.format(self.posterior_exp[parameter_names[i]],
+                                                                        self.posterior_var[parameter_names[i]],
+                                                                        parameter_names[i]))
             axs[i].hist(obs.numpy().flatten())
             axs[i].set(ylabel='frequency', xlabel=parameter_names[i])
 
@@ -189,11 +208,11 @@ class MHGibbsSampler(Sampler):
 
         if num in [1, 2, 7]:
 
+            # trace plots
             fig, axs = plt.subplots(len(parameter_names), figsize=(8, 6))
             if len(parameter_names) == 1:
                 axs = [axs]
 
-            # trace plots
             for i, obs in enumerate(parameter_traces):
                 axs[i].plot(obs[-num_points:].numpy().flatten())
                 axs[i].set(ylabel=parameter_names[i], xlabel='iterations')
@@ -207,19 +226,32 @@ class MHGibbsSampler(Sampler):
             plt.clf()
 
             # log joint density
+            fig, axs = plt.subplots(len(parameter_names) + 1, figsize=(8, 6))
+
+            # ============== FULL JOINT =======================
+            # axs[0].set_title('Full Joint')
+            axs[0].set(xlabel='iterations', ylabel='log joint density')
+
             log_p = self.compute_log_density(samples, num)
+            axs[0].plot(log_p.numpy().flatten())
 
-            # special case, don't want to render the wrong program number
+            # =============== INDIVIDUAL JOINTS =======================
+            # for i in range(1, len(parameter_names) + 1):
+            #     axs[i].set_title('Log joint for {}'.format(parameter_names[i - 1]))
+            #     axs[i].set(xlabel='iterations', ylabel='log joint density')
+            #
+            #     # ignore is a list which will tell us which parameters we want to ignore
+            #     # ex. say we only want to find P(slope | data) and ignore bias. ignore=[2] since sample2==bias
+            #     ignore = list(range(1, len(parameter_names) + 1))
+            #     ignore.remove(i)
+            #     log_p = self.compute_log_density(samples, num, ignore=ignore)
+            #     axs[i].plot(log_p.numpy().flatten())
+
             if num == 7:
-                plt.title('Log Joint Density for Program {0} using {1}'.format(5, self.method))
+                plt.suptitle('Log Joint Density Plots for Program {0} using {1}'.format(5, self.method))
             else:
-                plt.title('Log Joint Density for Program {0} using {1}'.format(num, self.method))
-
-            plt.xlabel('iterations')
-            plt.ylabel('log joint density')
-
-            plt.plot(log_p.numpy().flatten())
+                plt.suptitle('Log Joint Density Plots for Program {0} using {1}'.format(num, self.method))
+            plt.tight_layout()
 
             if save_plot:
                 plt.savefig('report/HW3/figures/log_joint_{0}_program_{1}'.format(self.method, num))
-

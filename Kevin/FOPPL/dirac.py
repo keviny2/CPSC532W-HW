@@ -1,5 +1,4 @@
 import torch
-import numpy as np
 
 
 class Dirac:
@@ -9,11 +8,10 @@ class Dirac:
 
         :param param: x + y
         """
-        self.param = torch.tensor(param)
+        self.param = param
+        self.log_norm_const = torch.log(torch.tensor(2)) + torch.lgamma(torch.tensor(5/4))
 
     def log_prob(self, obs):
-        log_norm_const = torch.log(torch.FloatTensor([2])) + torch.lgamma(torch.FloatTensor([9/8]))
-
-        log_prob = -(self.param - obs)**8 - log_norm_const
+        log_prob = -(self.param - obs)**4 - self.log_norm_const
         return log_prob
 

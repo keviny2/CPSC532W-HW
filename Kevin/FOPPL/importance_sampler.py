@@ -4,6 +4,8 @@ from utils import load_ast
 import matplotlib.pyplot as plt
 import copy
 import torch
+import numpy as np
+import math
 
 
 class ImportanceSampler(Sampler):
@@ -51,10 +53,25 @@ class ImportanceSampler(Sampler):
             for i in range(len(parameter_names)):
                 parameter_traces.append(torch.FloatTensor([elem[i] for elem in temp]))
 
+        flag = False  # flag to check if covariance already reported
         for i, obs in enumerate(parameter_traces):
+            # always want to get the posterior expectation of the latents
             posterior_exp = torch.dot(obs, torch.exp(weights)) / torch.sum(torch.exp(weights))
             self.posterior_exp[parameter_names[i]] = posterior_exp
             print('Posterior Expectation {}:'.format(parameter_names[i]), posterior_exp)
+
+            if parameter_names == ['slope', 'bias']:
+                # if covariance already reported, continue, no need to print it out again!
+                if flag:
+                    continue
+
+                # compute covariance in the case of bayesian regression program
+                covariance = np.cov(np.array([parameter_traces[i].numpy() for i in range(len(parameter_traces))]),
+                                    aweights=np.exp(weights.numpy()))
+
+                print('posterior covariance of slope and bias:\n', covariance)
+                flag = True
+                continue
 
             posterior_var = torch.dot(torch.pow((obs - posterior_exp), 2), torch.exp(weights)) / \
                             torch.sum(torch.exp(weights))
@@ -83,10 +100,22 @@ class ImportanceSampler(Sampler):
 
         # only need to plot histograms of posterior for IS
         for i, obs in enumerate(parameter_traces):
-            axs[i].set_title('{2} posterior exp: {0:.2f}    var: {1:.2f}'.format(self.posterior_exp[parameter_names[i]],
-                                                                         self.posterior_var[parameter_names[i]],
-                                                                         parameter_names[i]))
-            axs[i].hist(obs.numpy().flatten(), weights=torch.exp(weights).numpy().flatten())
+            if parameter_names == ['slope', 'bias']:
+                axs[i].set_title('{1} posterior exp: {0:.2f}'.format(self.posterior_exp[parameter_names[i]],
+                                                                     parameter_names[i]))
+            else:
+                axs[i].set_title('{2} posterior exp: {0:.2f}    var: {1:.2f}'.format(self.posterior_exp[parameter_names[i]],
+                                                                                     self.posterior_var[parameter_names[i]],
+                                                                                     parameter_names[i]))
+
+            if num == 5 or num == 6:
+                bin_size = 5
+            else:
+                bin_size = 2
+
+            axs[i].hist(obs.numpy().flatten(),
+                        weights=torch.exp(weights).numpy().flatten(),
+                        bins=bin_size * math.ceil(np.max(obs.numpy().flatten()) - np.min(obs.numpy().flatten())))
             axs[i].set(ylabel='frequency', xlabel=parameter_names[i])
 
         plt.suptitle('Histogram for Program {0} using {1}'.format(num, self.method))

@@ -98,11 +98,12 @@ class Sampler(ABC):
             self.plot_values(samples, ['x', 'y'], num_points, save_plot, num)
 
     @staticmethod
-    def compute_log_density(samples, num):
+    def compute_log_density(samples, num, ignore=None):
         """
         computes log density for a set of observations
         :param samples: set of observations
         :param num: identification for which program to run
+        :param ignore: list of indexes that indicate which parameters we want to ignore from computation
         :return: trace of log densities
         """
         # load the corresponding program
@@ -120,12 +121,20 @@ class Sampler(ABC):
             if x.size() == torch.Size([]) or x.size() == torch.Size([1]):
                 graph[1]['Y'][graph[2]] = x
             else:
+                # assuming that the x's will be in the same order as the naming
+                # (e.g. sample1, sample2 NOT sample2, sample1)
                 for i in range(len(x)):
                     graph[1]['Y']['sample{}'.format(i + 1)] = x[i]
 
             # iterate over nodes and compute log likelihood
             log_p = 0  # accumulator
             for node in graph[1]['V']:
+
+                # if ignore is specified, check if we want to ignore the node
+                if ignore is not None:
+                    if node in ['sample{}'.format(i) for i in ignore]:
+                        continue
+
                 # substitute variables with their values
                 raw_expression = graph[1]['P'][node]
                 expression = substitute_sampled_vertices(raw_expression, graph[1]['Y'])
