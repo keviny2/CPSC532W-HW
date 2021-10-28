@@ -231,31 +231,13 @@ class Dirac:
     def __init__(self, center):
         self.center = center
 
-    def sample(self):
-        center = self.center
-        u = torch.distributions.uniform.Uniform(0, 1).sample()
-        if u <= 0.5:
-            r = center - 5e-5 + 1e-4 * u
-            return r
-        if u > 0.5:
-            r = center + 5e-5 - 1e-4 * (1 - u)
-            return r
-
     def likelihood(self, r):
         center = self.center
-        if torch.abs(r - center) < 5e-5:
-            if r <= center:
-                lik = (r - (center - 5e-5)) * 2e8
-                return torch.tensor(lik)
-            if r > center:
-                lik = (5e-5 - (r - center)) * 2e8
-                return torch.tensor(lik)
-        else:
-            return torch.tensor(0)
+
+        return torch.tensor(torch.exp(-(r - center)**8) / (2 * torch.exp(torch.lgamma(torch.tensor(9 / 8)))))
 
     def log_prob(self, r):
-        lik = self.likelihood(r)
-        if lik == torch.tensor(0):
-            return torch.tensor(-999999)
-        else:
-            return torch.tensor(lik)
+        center = self.center
+
+        # return - (r - center)**8 - torch.log(torch.tensor(2)) - torch.lgamma(torch.tensor(9 / 8))
+        return - (r - center) ** 4 - torch.log(torch.tensor(2)) - torch.lgamma(torch.tensor(5 / 4))

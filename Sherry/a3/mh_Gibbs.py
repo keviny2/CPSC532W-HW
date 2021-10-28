@@ -8,7 +8,7 @@ def accept(x, cal_X, cal_X_prime, edges, links):
     q_prime = deterministic_eval(evaluate(links[x][1], cal_X_prime))
     log_alpha = q_prime.log_prob(cal_X[x]) - q.log_prob(cal_X_prime[x])
     free_variables = edges[x].copy()
-    free_variables.append(x)
+    # free_variables.append(x)
     for v in free_variables:
         if type(cal_X_prime[v]) is bool:
             cal_X_prime[v] = torch.tensor(float(cal_X_prime[v]))
@@ -40,12 +40,9 @@ def gibbs(X, cal_X, num_samples, edges, links, returnings):
         sample = deterministic_eval(evaluate(returnings, cal_X_prime))
         samples.append(sample)
         cal_X = cal_X_prime
-        # logP = joint_log_likelihood(vertices, links, cal_X_prime)
-        # logPs.append(logP)
         cal_Xs.append(cal_X)
     samples = torch.stack(samples)
     return samples, cal_Xs
-
 
 def joint_log_likelihood(vertices, links, variables_dict_set, num_samples):
     logPs = []

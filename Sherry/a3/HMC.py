@@ -1,6 +1,7 @@
 import torch
 from graph_based_sampling import deterministic_eval, evaluate
 from torch import distributions as dist
+import copy
 
 def H(cal_X, cal_Y, links, R, M):
     return U(cal_X, cal_Y, links) + 0.5 * torch.matmul(R.T, torch.matmul(torch.inverse(M), R))
@@ -9,6 +10,9 @@ def U(cal_X, cal_Y, links):
     logP = 0
     for observe in cal_Y:
         logP += deterministic_eval(evaluate(links[observe][1], {**cal_X, **cal_Y})).log_prob(cal_Y[observe])
+
+    for latent in cal_X:
+        logP += deterministic_eval(evaluate(links[latent][1], {**cal_X, **cal_Y})).log_prob(cal_X[latent])
 
 
     return -logP
@@ -20,6 +24,10 @@ def grad_U(cal_X, cal_Y, links):
     i = 0
     for latent in cal_X:
         grads[i] = (cal_X[latent].grad)
+        if torch.isinf(grads[i]):
+            grads[i] = torch.tensor(2**63 - 1)
+        if torch.isneginf(grads[i]):
+            grads[i] = torch.tensor(-2**63)
         i += 1
     return grads
 
@@ -48,18 +56,17 @@ def add_dict(cal_inside, cal_R):
 
 def HMC(cal_X, S, T, epsilon, M, cal_Y, links):
     samples = []
-    cal_Xs = []
+    cal_XYs = []
     for s in range(1, S + 1):
-        # print(s)
         R = dist.multivariate_normal.MultivariateNormal(torch.zeros(len(cal_X)), M).sample()
-        cal_X_prime, R_prime = leapfrog(cal_X, R, T, epsilon, cal_Y, links)
+        cal_X_prime, R_prime = leapfrog(copy.deepcopy(cal_X), R, T, epsilon, cal_Y, links)
         u = dist.uniform.Uniform(0, 1).sample()
         if u < torch.exp(-H(cal_X_prime, cal_Y, links, R_prime, M) + H(cal_X, cal_Y, links, R, M)):
             cal_X = cal_X_prime
         samples.append(cal_X)
-        cal_Xs.append(cal_X)
+        cal_XYs.append({**cal_X, **cal_Y})
 
-    return samples, cal_Xs
+    return samples, cal_XYs
 
 def joint_log_likelihood_HMC(vertices, links, variables_dict_set, num_samples):
     logPs = []
