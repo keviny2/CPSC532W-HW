@@ -12,7 +12,7 @@ import math
 
 class HMCSampler(Sampler):
 
-    def __init__(self, method, T, epsilon):
+    def __init__(self, T, epsilon):
         """
 
         :param method: sampling type
@@ -20,7 +20,7 @@ class HMCSampler(Sampler):
         :param epsilon: step size
         :param M: prior for sampling momentum
         """
-        super().__init__(method)
+        super().__init__('HMC')
         self.T = T
         self.epsilon = epsilon
         self.M = None
@@ -129,7 +129,7 @@ class HMCSampler(Sampler):
         U = self.U(X, Y, graph)
 
         # backpropagation
-        U.backward(gradient=torch.ones(U.size()))  # BUG: the sampler never accepts, maybe it has something to do with gradients getting messed up
+        U.backward(gradient=torch.ones(U.size()))
 
         # construct a list of the gradients for each latent variable
         grad = [X[node].grad for node in self.latent_vars]

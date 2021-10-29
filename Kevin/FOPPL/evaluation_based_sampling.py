@@ -53,6 +53,27 @@ def evaluate_program_helper(ast, sig, variable_bindings):
             if variable_bindings['sampler'] == 'IS':
                 d, sig = evaluate_program_helper(ast[1], sig, variable_bindings)
                 return d.sample(), sig
+            if variable_bindings['sampler'] == 'BBVI':
+                # form is ['sample', v, e]
+                v = ast[1]
+
+                d, sig = evaluate_program_helper(ast[2], sig, variable_bindings)
+
+                # TODO: I think v \in dom(sig(Q)) means on line 6 of Alg 11 on pg. 134 is equivalent to checking
+                #  if the key exists
+                if v not in sig['Q']:
+                    sig['Q'][v] = torch.distributions.Normal # TODO: this is a place holder for the prior...
+
+                c = sig['Q'][v].sample()
+
+                # TODO: need to implement grad_log_prob for primitive distributions
+                # calculating the function: G(v) = \grad_{\lambda_v} \log{q(X_v | \lambda_v}
+                # see line 9 of Alg. 11 on pg. 134 of text
+                sig['G'][v] = sig['Q'][v].grad_log_prob(c)
+
+                logW_v = d.log_prob(c) - sig['Q'][v].grad_log_prob(c)
+                sig['logW'] += logW_v
+                return c, sig
             else:
                 d, sig = evaluate_program_helper(ast[1], sig, variable_bindings)
                 return d.sample(), sig
@@ -60,6 +81,15 @@ def evaluate_program_helper(ast, sig, variable_bindings):
             if variable_bindings['sampler'] == 'IS':
                 d1, sig = evaluate_program_helper(ast[1], sig, variable_bindings)
                 c2, sig = evaluate_program_helper(ast[2], sig, variable_bindings)
+                try:
+                    sig['logW'] += d1.log_prob(c2)
+                except KeyError:
+                    raise KeyError('There is no key "logW" in sig')
+                return c2, sig
+            if variable_bindings['sampler'] == 'BBVI':
+                # form is ['observe', v, e1, e2]
+                d1, sig = evaluate_program_helper(ast[2], sig, variable_bindings)
+                c2, sig = evaluate_program_helper(ast[3], sig, variable_bindings)
                 try:
                     sig['logW'] += d1.log_prob(c2)
                 except KeyError:

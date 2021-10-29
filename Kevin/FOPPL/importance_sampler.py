@@ -10,8 +10,8 @@ import math
 
 class ImportanceSampler(Sampler):
 
-    def __init__(self, method):
-        super().__init__(method)
+    def __init__(self):
+        super().__init__('IS')
 
     def sample(self, num_samples, num):
         """
@@ -24,7 +24,7 @@ class ImportanceSampler(Sampler):
         sig = {'logW': 0}
         samples = []
         for i in range(num_samples):
-            r_i, sig_i = evaluate_program(ast, sig, 'IS')
+            r_i, sig_i = evaluate_program(ast, sig, self.method)
             logW_i = copy.deepcopy(sig['logW'])
             samples.append([r_i, logW_i])
             sig['logW'] = 0

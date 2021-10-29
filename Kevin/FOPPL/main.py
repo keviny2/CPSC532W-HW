@@ -2,30 +2,21 @@ from importance_sampler import ImportanceSampler
 from mh_gibbs_sampler import MHGibbsSampler
 from hmc import HMCSampler
 import time
-
-nth = {
-    1: "first",
-    2: "second",
-    3: "third",
-    4: "fourth",
-    5: "fifth",
-    6: "sixth",
-    7: "seventh",
-    8: "eighth",
-    9: "ninth",
-    10: "tenth"
-}
+from utils import nth
 
 
 if __name__ == "__main__":
+    """
+    script for hw3 
+    """
     daphne_input_nums = [1, 2, 5, 6, 7]
     num_samples = 80000
     num_points = 80000  # number of points to plot
 
     debug_start = 0
-    importance_sampler = ImportanceSampler('IS')
-    mh_gibbs_sampler = MHGibbsSampler('MH')
-    hmc_sampler = HMCSampler('HMC', T=10, epsilon=0.1)  # TODO: find better initializations
+    importance_sampler = ImportanceSampler()
+    mh_gibbs_sampler = MHGibbsSampler()
+    hmc_sampler = HMCSampler(T=10, epsilon=0.1)
     for idx, num in enumerate(daphne_input_nums[debug_start:], 1):
         print()
 

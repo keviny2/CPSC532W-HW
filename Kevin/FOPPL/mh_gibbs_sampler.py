@@ -9,8 +9,8 @@ import numpy as np
 
 
 class MHGibbsSampler(Sampler):
-    def __init__(self, method):
-        super().__init__(method)
+    def __init__(self):
+        super().__init__('MH')
         self.Q = {}
 
     def sample(self, num_samples, num, summary=True, plot=True):
