@@ -3,6 +3,7 @@ from tests import is_tol, run_prob_test,load_truth
 from primitives import primitives_list, evaluate_primitive
 import torch
 from utils import load_ast, get_distribution, distributions
+from distributions import Normal
 
 
 functions = {}
@@ -53,25 +54,28 @@ def evaluate_program_helper(ast, sig, variable_bindings):
             if variable_bindings['sampler'] == 'IS':
                 d, sig = evaluate_program_helper(ast[1], sig, variable_bindings)
                 return d.sample(), sig
-            if variable_bindings['sampler'] == 'BBVI':
+            if variable_bindings['sampler'] == 'BBVI' and len(ast) == 3:
                 # form is ['sample', v, e]
                 v = ast[1]
 
                 d, sig = evaluate_program_helper(ast[2], sig, variable_bindings)
 
-                # TODO: I think v \in dom(sig(Q)) means on line 6 of Alg 11 on pg. 134 is equivalent to checking
+                # NOTE: I think v \in dom(sig(Q)) means on line 6 of Alg 11 on pg. 134 is equivalent to checking
                 #  if the key exists
                 if v not in sig['Q']:
-                    sig['Q'][v] = torch.distributions.Normal # TODO: this is a place holder for the prior...
+                    sig['Q'][v] = Normal(0, 1).make_copy_with_grads()
 
                 c = sig['Q'][v].sample()
 
-                # TODO: need to implement grad_log_prob for primitive distributions
                 # calculating the function: G(v) = \grad_{\lambda_v} \log{q(X_v | \lambda_v}
                 # see line 9 of Alg. 11 on pg. 134 of text
-                sig['G'][v] = sig['Q'][v].grad_log_prob(c)
+                log_prob = sig['Q'][v].log_prob(c)
 
-                logW_v = d.log_prob(c) - sig['Q'][v].grad_log_prob(c)
+                # backpropagate then store gradients for each parameter into sig['G']
+                log_prob.backwards()
+                sig['G'][v] = [p.grad for p in sig['Q'][v].Parameters()]
+
+                logW_v = d.log_prob(c) - sig['Q'][v].log_prob(c)
                 sig['logW'] += logW_v
                 return c, sig
             else:
@@ -86,7 +90,7 @@ def evaluate_program_helper(ast, sig, variable_bindings):
                 except KeyError:
                     raise KeyError('There is no key "logW" in sig')
                 return c2, sig
-            if variable_bindings['sampler'] == 'BBVI':
+            if variable_bindings['sampler'] == 'BBVI' and len(ast) == 4:
                 # form is ['observe', v, e1, e2]
                 d1, sig = evaluate_program_helper(ast[2], sig, variable_bindings)
                 c2, sig = evaluate_program_helper(ast[3], sig, variable_bindings)

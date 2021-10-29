@@ -1,24 +1,33 @@
 from importance_sampler import ImportanceSampler
 from mh_gibbs_sampler import MHGibbsSampler
 from hmc import HMCSampler
+from bbvi import BBVI
 import time
 from utils import nth
 
 
 if __name__ == "__main__":
-    """
-    script for hw3 
-    """
     daphne_input_nums = [1, 2, 5, 6, 7]
-    num_samples = 80000
+    num_samples = 80
     num_points = 80000  # number of points to plot
 
     debug_start = 0
     importance_sampler = ImportanceSampler()
     mh_gibbs_sampler = MHGibbsSampler()
     hmc_sampler = HMCSampler(T=10, epsilon=0.1)
+    bbvi = BBVI()
     for idx, num in enumerate(daphne_input_nums[debug_start:], 1):
         print()
+
+        start = time.time()
+        samples, bbvi_loss = bbvi.sample(T=num_samples, L=int(1e3), num=num)
+        end = time.time()
+        print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
+
+        bbvi.summary(num, samples)
+        bbvi.plot(num, samples, num_points, save_plot=True)
+
+        # ================================HW3=========================================
 
         # ============ IS ===============
         start = time.time()
