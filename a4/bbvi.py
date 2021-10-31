@@ -7,7 +7,8 @@ def optimizer_step(Q, hat_g):
     for v in hat_g:
         lambda_v = Q[v].Parameters()
         optimizer = torch.optim.Adam(lambda_v, lr=1e-2)
-        #Todo: call logP.backward() first but don't know what logP is
+        nlp = -Q[v].log_prob(hat_g[v])
+        nlp.backward()
         optimizer.step()
         optimizer.zero_grad()
 
@@ -22,23 +23,23 @@ def elbo_gradients(Gs, logWs):
             if key not in domains:
                 domains.append(key)
 
+    dict_hat_g = {}
     for v in domains:
         Fs = []
-        Gs = []
+        gs = []
         for l in range(L):
             if v in Gs[l]:
                 F = Gs[l][v] * logWs[l]
                 Fs.append(F)
-                Gs.append(Gs[l][v])
+                gs.append(Gs[l][v])
             else:
                 Fs.append(0)
-                Gs.append(0)
-        Fs = torch.stack(Fs)
-        Gs = torch.stack(Gs)
-        hat_b = torch.sum(torch.tensor(np.cov(Fs, Gs))) / torch.sum(torch.var(Gs, dim = 0))
-        hat_g = torch.sum(Fs - torch.matmul(hat_b.T, Gs)) / L
+                gs.append(0)
+        Fs = torch.stack(Fs).detach()
+        gs = torch.stack(gs).detach()
 
-        return hat_g
+        hat_b = torch.sum(torch.tensor(np.cov(Fs.numpy(), gs.numpy()))) / torch.sum(torch.var(gs, dim = 0))
+        hat_g = torch.sum(Fs - hat_b * gs) / L
 
 
 def bbvi(T, L, ast):
@@ -53,7 +54,7 @@ def bbvi(T, L, ast):
 
         for l in range(L):
             r, sigma = evaluate_program_with_sigma(ast, sigma)
-            G = sigma['G']
+            G = sigma['G'].copy()
             logW = sigma['logW']
             Gs.append(G)
             logWs.append(logW)

@@ -1,6 +1,7 @@
 import torch
 from torch import distributions
 import numpy as np
+import distributions
 
 primitives_operations = ['+', '-', '*', '/', 'sqrt', 'vector', 'hash-map', 'get', 'put', 'first', 'second', 'rest',
                          'last', 'append', '<', '>', 'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-repmat',
@@ -95,35 +96,31 @@ def primitives_evaluation(ast):
 
 def distributions_evaluation(ast):
     if ast[0] == 'normal':
-        dist = distributions.normal.Normal(float(ast[1]), float(ast[2]))
+        dist = distributions.Normal(ast[1], ast[2])
         return dist
     elif ast[0] == 'beta':
-        dist = distributions.beta.Beta(float(ast[1]), float(ast[2]))
+        dist = distributions.beta.Beta(ast[1], ast[2])
         return dist
     elif ast[0] == 'exponential':
-        dist = distributions.exponential.Exponential(float(ast[1]))
+        dist = distributions.exponential.Exponential(ast[1])
         return dist
     elif ast[0] == 'uniform':
-        dist = distributions.uniform.Uniform(float(ast[1]), float(ast[2]))
+        dist = distributions.uniform.Uniform(ast[1], ast[2])
         return dist
     elif ast[0] == 'discrete':
-        for i in range(len(ast[1])):
-            ast[1][i] = float(ast[1][i])
-        dist = distributions.categorical.Categorical(ast[1])
+        dist = distributions.Categorical(ast[1])
         return dist
     elif ast[0] == 'gamma':
-        dist = distributions.gamma.Gamma(float(ast[1]), float(ast[2]))
+        dist = distributions.Gamma(ast[1], ast[2])
         return dist
     elif ast[0] == 'dirichlet':
-        for i in range(len(ast[1])):
-            ast[1][i] = float(ast[1][i])
-        dist = distributions.dirichlet.Dirichlet(ast[1])
+        dist = distributions.Dirichlet(ast[1])
         return dist
     elif ast[0] == 'flip':
-        dist = distributions.bernoulli.Bernoulli(float(ast[1]))
+        dist = distributions.Bernoulli(ast[1])
         return dist
     elif ast[0] == 'dirac':
-        dist = Dirac(float(ast[1]))
+        dist = Dirac(ast[1])
         return dist
     else:
         print("need define distribution for: %s" % ast[0])

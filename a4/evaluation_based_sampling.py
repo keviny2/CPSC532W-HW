@@ -46,7 +46,7 @@ def evaluate_variable(ast, variables_dict, functions_dict, sigma):
         elif type(ast) is torch.Tensor:
             return ast, sigma
         elif type(ast) is int:
-            return torch.tensor(ast), sigma
+            return torch.tensor(float(ast)), sigma
         elif type(ast) is float:
             return torch.tensor(ast), sigma
         elif type(ast) is bool:
@@ -87,9 +87,14 @@ def conditions_evaluation(ast, variables_dict, functions_dict, sigma):
         # return sample, sigma
 
         p, sigma = evaluate_variable(ast[1], variables_dict, functions_dict, sigma)
-        v = p.copy()
-        if v not in sigma['Q']:
-            sigma['Q'][v] = p
+        v = p
+        indicator = False
+        for key in sigma['Q'].keys():
+            if key.Parameters() == v.Parameters():
+                indicator = True
+                v = key
+        if not indicator:
+            sigma['Q'][v] = p.make_copy_with_grads()
         c = sigma['Q'][v].sample()
         logP = sigma['Q'][v].log_prob(c)
         logP.backward()

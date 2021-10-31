@@ -162,6 +162,7 @@ if __name__ == '__main__':
     
     #the function .Parameters() returns a list of parameters that you can pass to an optimizer
     optimizer = torch.optim.Adam(dg.Parameters(), lr=1e-2)
+    print(optimizer)
     
     #do the optimization. Here we're maximizing the log_prob of some data at 2.0
     #the scale should move to 2.0 as well,
