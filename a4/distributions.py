@@ -11,6 +11,7 @@ class Normal(dist.Normal):
             self.optim_scale = torch.log(torch.exp(scale) - 1).clone().detach().requires_grad_()
         
         
+
         super().__init__(loc, torch.nn.functional.softplus(self.optim_scale))
     
     def Parameters(self):
@@ -173,6 +174,7 @@ if __name__ == '__main__':
         nlp.backward()
         optimizer.step()
         optimizer.zero_grad()
+        print(dg.Parameters())
     
     #check the result is correct:
     print(dg.Parameters())

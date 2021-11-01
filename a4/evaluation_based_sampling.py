@@ -5,7 +5,15 @@ from primitives import primitives_evaluation, distributions_evaluation
 import numpy as np
 import distributions
 
-def evaluate_program(ast):
+
+# x = 0
+# def variable_name():
+#     global x
+#     x += 1
+#     return "v_{}".format(x)
+
+
+def evaluate_program(ast, x):
     variables_dict = {}
     functions_dict = {}
     sigma = {}
@@ -19,9 +27,9 @@ def evaluate_program(ast):
         ast = ast[1]
     else:
         ast = ast[0]
-    return evaluate_variable(ast, variables_dict, functions_dict, sigma)
+    return evaluate_variable(ast, variables_dict, functions_dict, sigma, x)
 
-def evaluate_program_with_sigma(ast, sigma):
+def evaluate_program_with_sigma(ast, sigma, x):
     variables_dict = {}
     functions_dict = {}
 
@@ -31,7 +39,7 @@ def evaluate_program_with_sigma(ast, sigma):
         ast = ast[1]
     else:
         ast = ast[0]
-    return evaluate_variable(ast, variables_dict, functions_dict, sigma)
+    return evaluate_variable(ast, variables_dict, functions_dict, sigma, x)
 
 primitives_operations = ['+', '-', '*', '/', 'sqrt', 'vector', 'hash-map', 'get', 'put', 'first', 'second', 'rest',
                          'last', 'append', '<', '<=', '>', '>=', '=', 'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add',
@@ -39,7 +47,7 @@ primitives_operations = ['+', '-', '*', '/', 'sqrt', 'vector', 'hash-map', 'get'
 distribution_types = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'gamma', 'dirichlet', 'flip', 'dirac']
 condition_types = ['sample', 'let', 'if', 'defn', 'observe']
 
-def evaluate_variable(ast, variables_dict, functions_dict, sigma):
+def evaluate_variable(ast, variables_dict, functions_dict, sigma, x):
     if type(ast) is not list:
         if ast in primitives_operations:
             return ast, sigma
@@ -62,11 +70,11 @@ def evaluate_variable(ast, variables_dict, functions_dict, sigma):
 
     elif type(ast) is list:
         if ast[0] in condition_types:
-            return conditions_evaluation(ast, variables_dict, functions_dict, sigma)
+            return conditions_evaluation(ast, variables_dict, functions_dict, sigma, x)
         else:
             sub_ast = []
             for elem in ast:
-                elem, sigma = evaluate_variable(elem, variables_dict, functions_dict, sigma)
+                elem, sigma = evaluate_variable(elem, variables_dict, functions_dict, sigma, x)
                 sub_ast.append(elem)
             if sub_ast[0] in primitives_operations:
                 return primitives_evaluation(sub_ast), sigma
@@ -77,23 +85,18 @@ def evaluate_variable(ast, variables_dict, functions_dict, sigma):
                 values = sub_ast[1:]
                 for i in range(len(variables)):
                     variables_dict[variables[i]] = values[i]
-                return evaluate_variable(sub_ast[0][2], variables_dict, functions_dict, sigma)
+                return evaluate_variable(sub_ast[0][2], variables_dict, functions_dict, sigma, x)
 
 
-def conditions_evaluation(ast, variables_dict, functions_dict, sigma):
+def conditions_evaluation(ast, variables_dict, functions_dict, sigma, x):
     if ast[0] == 'sample':
         # object, sigma = evaluate_variable(ast[1], variables_dict, functions_dict, sigma)
         # sample = object.sample()
         # return sample, sigma
 
-        p, sigma = evaluate_variable(ast[1], variables_dict, functions_dict, sigma)
-        v = p
-        indicator = False
-        for key in sigma['Q'].keys():
-            if key.Parameters() == v.Parameters():
-                indicator = True
-                v = key
-        if not indicator:
+        p, sigma = evaluate_variable(ast[1], variables_dict, functions_dict, sigma, x)
+        v = "v_{}".format(x)
+        if v not in sigma['Q']:
             sigma['Q'][v] = p.make_copy_with_grads()
         c = sigma['Q'][v].sample()
         logP = sigma['Q'][v].log_prob(c)
@@ -111,29 +114,29 @@ def conditions_evaluation(ast, variables_dict, functions_dict, sigma):
 
 
     elif ast[0] == 'let':
-        variable_value, sigma = evaluate_variable(ast[1][1], variables_dict, functions_dict, sigma)
+        variable_value, sigma = evaluate_variable(ast[1][1], variables_dict, functions_dict, sigma, x)
         variables_dict[ast[1][0]] = variable_value
-        return evaluate_variable(ast[2], variables_dict, functions_dict, sigma)
+        return evaluate_variable(ast[2], variables_dict, functions_dict, sigma, x)
 
     elif ast[0] == 'if':
-        boolean, sigma = evaluate_variable(ast[1], variables_dict, functions_dict, sigma)
+        boolean, sigma = evaluate_variable(ast[1], variables_dict, functions_dict, sigma,x)
         if boolean:
-            variable_type, sigma = evaluate_variable(ast[2], variables_dict, functions_dict, sigma)
+            variable_type, sigma = evaluate_variable(ast[2], variables_dict, functions_dict, sigma, x)
             return variable_type, sigma
         else:
-            variable_type, sigma = evaluate_variable(ast[3], variables_dict, functions_dict, sigma)
+            variable_type, sigma = evaluate_variable(ast[3], variables_dict, functions_dict, sigma, x)
             return variable_type, sigma
 
     elif ast[0] == 'observe':
-        dist, sigma = evaluate_variable(ast[1], variables_dict, functions_dict, sigma)
-        observation, sigma = evaluate_variable(ast[2], variables_dict, functions_dict, sigma)
+        dist, sigma = evaluate_variable(ast[1], variables_dict, functions_dict, sigma, x)
+        observation, sigma = evaluate_variable(ast[2], variables_dict, functions_dict, sigma, x)
         if type(observation) is not torch.Tensor:
             observation = torch.tensor(float(observation))
         sigma['logW'] = sigma['logW'] + dist.log_prob(observation)
         return observation, sigma
 
-def get_stream(ast):
+def get_stream(ast, x):
     """Return a stream of prior samples"""
     while True:
-        yield evaluate_program(ast)
+        yield evaluate_program(ast, x)
 
