@@ -9,7 +9,7 @@ from utils import nth
 if __name__ == "__main__":
     daphne_input_nums = [1, 2, 5, 6, 7]
     num_samples = int(1e4)
-    num_points = 80000  # number of points to plot
+    num_points = 10000  # number of points to plot
 
     debug_start = 0
     importance_sampler = ImportanceSampler()
@@ -20,7 +20,7 @@ if __name__ == "__main__":
         print()
 
         start = time.time()
-        samples, bbvi_loss = bbvi.sample(T=num_samples, L=int(1e2), num=num)
+        samples, bbvi_loss = bbvi.sample(T=num_samples, L=int(1e1), num=num)
         end = time.time()
         print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
 

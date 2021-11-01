@@ -25,6 +25,8 @@ class BBVI(Sampler):
         :return:
         """
         for v in list(g_hat.keys()):
+            nlp = -sig['Q'][v].log_prob(g_hat[v])
+            nlp.backward()
             sig['O'][v].step()
             sig['O'][v].zero_grad()
 
@@ -81,23 +83,26 @@ class BBVI(Sampler):
         ast = create_fresh_variables(ast)
 
         sig = {
-            'logW': 0,
-            'Q': {},
-            'G': {},
             'O': {},   # map to optimizer for each variable
             'family': self.family,
             'optimizer': self.optimizer,  # optimizer type (e.g. Adam)
             'lr': self.lr
         }
 
+        torch.autograd.set_detect_anomaly(True)
+
         samples = []
         bbvi_loss = []
         for t in range(T):
+            sig['G'] = {}
+            sig['Q'] = {}
             G_t = []  # each element of G_t will contain the gradient FOR EACH parameter
                          # (so if family is normal, there will be 2 parameters; one for loc and one for scale)
             logW_t = []
             r_t = []
             for l in range(L):
+                sig['logW'] = 0
+
                 # r_tl is the return value of the expression (won't have a value for each parameter)
                 r_tl, sig_tl = evaluate_program(ast, sig, self.method)
 

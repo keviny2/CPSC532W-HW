@@ -3,7 +3,7 @@ from tests import is_tol, run_prob_test,load_truth
 from primitives import primitives_list, evaluate_primitive
 import torch
 from utils import load_ast, get_distribution, distributions
-import torchviz
+# import torchviz
 
 
 functions = {}
