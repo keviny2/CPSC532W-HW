@@ -1,6 +1,7 @@
 from evaluation_based_sampling import evaluate_program
 from sampler import Sampler
-from utils import load_ast, cov
+from utils import load_ast, cov, create_fresh_variables, clone
+from distributions import Normal
 
 import torch
 
@@ -10,22 +11,22 @@ class BBVI(Sampler):
     class for black-box variational inference
     """
 
-    def __init__(self, lr=1e-2):
+    def __init__(self, lr=1e-2, family=Normal, optimizer=torch.optim.Adam):
         super().__init__('BBVI')
         self.lr = lr
+        self.family = family
+        self.optimizer = optimizer
 
-    def optimizer_step(self, Q, g_hat):
+    def optimizer_step(self, sig, g_hat):
         """
 
-        :param Q: maps variables to their corresponding distributions
+        :param sig: map containing state of bbvi
         :param g_hat:
         :return:
         """
         for v in list(g_hat.keys()):
-            optimizer = torch.optim.Adam(Q[v].Parameters(), lr=self.lr)
-            g_hat[v].backward()
-            optimizer.step()
-            optimizer.zero_grad()
+            sig['O'][v].step()
+            sig['O'][v].zero_grad()
 
     def elbo_gradients(self, G, logW):
         """
@@ -40,25 +41,23 @@ class BBVI(Sampler):
         # obtain the union of all gradient maps
         union = []
         for G_i in G:
-            union += G_i
+            union += list(G_i.keys())
         union = list(set(union))
 
         # dictionary containing our gradient estimates for each variable v
         g_hat = {}
 
-        # create a list of empty dictionaries
-        F = [{} for i in range(L)]
         for v in union:
             # tensors for computing b_hat afterwards
             F_one_to_L_v = torch.empty(0)
             G_one_to_L_v = torch.empty(0)
             for l in range(L):
                 if v in list(G[l].keys()):
-                    F[l][v] = G[l][v] * logW[l]  # TODO: I think the textbook has a typo on this one
+                    F_l_v = G[l][v] * logW[l]  # TODO: I think the textbook has a typo on this one
                 else:
-                    F[l][v], G[l][v] = 0, 0
-                # saving each F[l][v] and G[l][v] for future computations
-                F_one_to_L_v = torch.cat((F_one_to_L_v, F[l][v]), 0)
+                    F_l_v, G[l][v] = 0, 0
+                # saving each F_l_v and G[l][v] for future computations
+                F_one_to_L_v = torch.cat((F_one_to_L_v, F_l_v), 0)
                 G_one_to_L_v = torch.cat((G_one_to_L_v, G[l][v]), 0)
 
             # this is just the equations on line 16 & 17 in Alg. 12
@@ -79,85 +78,44 @@ class BBVI(Sampler):
         print('=' * 10, 'Black-Box Variational Inference', '=' * 10)
 
         ast = load_ast('programs/saved_asts/hw3/program{}.pkl'.format(num))
+        ast = create_fresh_variables(ast)
 
         sig = {
             'logW': 0,
             'Q': {},
-            'G': {}
+            'G': {},
+            'O': {},   # map to optimizer for each variable
+            'family': self.family,
+            'optimizer': self.optimizer,  # optimizer type (e.g. Adam)
+            'lr': self.lr
         }
 
         samples = []
         bbvi_loss = []
         for t in range(T):
-            G_t = torch.empty(0)
-            logW_t = torch.empty(0)
-            r_t = torch.empty(0)
+            G_t = []  # each element of G_t will contain the gradient FOR EACH parameter
+                         # (so if family is normal, there will be 2 parameters; one for loc and one for scale)
+            logW_t = []
+            r_t = []
             for l in range(L):
-                # BUG: sig_tl['G'] will be empty because there was no 'sample' statement that had
-                # a variable as one of its arguments
+                # r_tl is the return value of the expression (won't have a value for each parameter)
                 r_tl, sig_tl = evaluate_program(ast, sig, self.method)
-                G_tl, logW_tl = sig_tl['G'], sig_tl['logW']
+
+                G_tl = clone(sig_tl['G'])
+                logW_tl = sig_tl['logW'].clone()
 
                 # add to return list
                 samples.append([r_tl, logW_tl])
 
                 # add to list for self.elbo_gradient and self.optimizer_step functions
-                G_t = torch.cat((G_t, G_tl), 0)
-                logW_t = torch.cat((logW_t, logW_tl), 0)
-                r_t = torch.cat((r_t, r_tl), 0)
+                G_t.append(G_tl)
+                logW_t.append(logW_tl)
+                r_t.append(r_tl)
 
             g_hat = self.elbo_gradients(G_t, logW_t)
-            bbvi_loss.append(g_hat)  # store loss value for plotting afterwards
+            bbvi_loss.append(g_hat)
 
-            sig['Q'] = self.optimizer_step(sig['Q'], g_hat)
+            self.optimizer_step(sig, g_hat)
 
         return samples, bbvi_loss
-
-    def plot_values(self, samples, parameter_names):
-        # separate parameter observations and weights from samples
-        temp = [elem[0] for elem in samples]
-        weights = torch.FloatTensor([elem[1] for elem in samples])
-
-        # initialize empty list that will contain lists of parameter observations
-        parameter_traces = []
-
-        # checks if samples only contains a single parameter
-        if temp[0].size() == torch.Size([]):
-            parameter_traces.append(torch.FloatTensor(temp))
-        else:
-            for i in range(len(parameter_names)):
-                parameter_traces.append(torch.FloatTensor([elem[i] for elem in temp]))
-
-        fig, axs = plt.subplots(len(parameter_names), figsize=(8, 6))
-        if len(parameter_names) == 1:
-            axs = [axs]
-
-        # only need to plot histograms of posterior for IS
-        for i, obs in enumerate(parameter_traces):
-            if parameter_names == ['slope', 'bias']:
-                axs[i].set_title('{1} posterior exp: {0:.2f}'.format(self.posterior_exp[parameter_names[i]],
-                                                                     parameter_names[i]))
-            else:
-                axs[i].set_title('{2} posterior exp: {0:.2f}    var: {1:.2f}'.format(self.posterior_exp[parameter_names[i]],
-                                                                                     self.posterior_var[parameter_names[i]],
-                                                                                     parameter_names[i]))
-
-            if num == 5 or num == 6:
-                bin_size = 5
-            else:
-                bin_size = 2
-
-            axs[i].hist(obs.numpy().flatten(),
-                        weights=torch.exp(weights).numpy().flatten(),
-                        bins=bin_size * math.ceil(np.max(obs.numpy().flatten()) - np.min(obs.numpy().flatten())))
-            axs[i].set(ylabel='frequency', xlabel=parameter_names[i])
-
-        plt.suptitle('Histogram for Program {0} using {1}'.format(num, self.method))
-        plt.tight_layout()
-
-        if save_plot:
-            plt.savefig('report/HW3/figures/{0}_program_{1}'.format(self.method, num))
-
-
-
 

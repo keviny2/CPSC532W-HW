@@ -1,5 +1,7 @@
 import pickle
 import torch
+import random
+import string
 from torch.distributions import normal, beta, exponential, uniform, categorical, bernoulli, gamma, dirichlet
 from dirac import Dirac
 
@@ -23,6 +25,22 @@ nth = {
     9: "ninth",
     10: "tenth"
 }
+
+def clone(dict):
+    """
+    utility function to clone a dictionary containing lists of tensors for bbvi alg.
+    :param dict: dictionary to clone
+    :return: cloned dictionary
+    """
+
+    ret = {}
+    keys = list(dict.keys())
+    for key in keys:
+        curr = dict[key]
+        cloned = torch.FloatTensor([elem.clone().detach() for elem in curr])
+        ret[key] = cloned
+
+    return ret
 
 
 def cov(x, rowvar=False, bias=False, ddof=None, aweights=None):
@@ -148,3 +166,23 @@ def substitute_sampled_vertices(expression, variable_bindings):
     return [substitute_sampled_vertices(sub_expression, variable_bindings) for sub_expression in expression]
 
 
+def generate_random_string(length):
+   letters = string.ascii_lowercase
+   return ''.join(random.choice(letters) for i in range(length))
+
+
+def create_fresh_variables(expression, length=10):
+    """
+
+    given an expression, substitute sample and observe statements so that they include a fresh variable
+    :param expression: an ast
+    :return:
+    """
+    if type(expression) is not list:
+        return expression
+    if expression[0] == 'sample':
+        expression.insert(1, generate_random_string(length))
+    if expression[0] == 'observe':
+        expression.insert(1, generate_random_string(length))
+
+    return [create_fresh_variables(sub_expression) for sub_expression in expression]
