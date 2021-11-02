@@ -3,6 +3,7 @@ import re
 import torch
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 from utils import load_ast, substitute_sampled_vertices
 from graph_based_sampling import deterministic_eval
 
@@ -36,7 +37,7 @@ class Sampler(ABC):
         """
         if self.method in ['IS', 'BBVI']:
             self.compute_statistics_weights(samples, parameter_names)
-        if self.method in ['MH', 'HMC']:
+        elif self.method in ['MH', 'HMC']:
             self.compute_statistics_trace(samples, parameter_names)
         else:
             raise ValueError('Invalid sampler type')
@@ -132,9 +133,10 @@ class Sampler(ABC):
         """
         if self.method in ['IS', 'BBVI']:
             self.plot_values_weights(samples, parameter_names, num_points, save_plot, num)
-        if self.method in ['MH', 'HMC']:
+        elif self.method in ['MH', 'HMC']:
             self.plot_values_trace(samples, parameter_names, num_points, save_plot, num)
-        raise NotImplementedError('subclasses must override this method!')
+        else:
+            raise NotImplementedError('subclasses must override this method!')
 
     def plot_values_trace(self, samples, parameter_names, num_points, save_plot, num):
         parameter_traces = []
@@ -263,7 +265,7 @@ class Sampler(ABC):
         plt.tight_layout()
 
         if save_plot:
-            plt.savefig('report/HW3/figures/{0}_program_{1}'.format(self.method, num))
+            plt.savefig('report/HW4/figures/{0}_program_{1}'.format(self.method, num))
 
     def summary(self, num, samples):
         """

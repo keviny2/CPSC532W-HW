@@ -1,7 +1,12 @@
 from evaluation_based_sampling import evaluate_program
 from sampler import Sampler
-from utils import load_ast, cov, create_fresh_variables, clone
+from utils import load_ast, create_fresh_variables, clone
 from distributions import Normal
+import numpy as np
+import matplotlib.pyplot as plt
+import wandb
+import os
+import torchviz
 
 import torch
 
@@ -11,11 +16,30 @@ class BBVI(Sampler):
     class for black-box variational inference
     """
 
-    def __init__(self, lr=1e-2, family=Normal, optimizer=torch.optim.Adam):
+    def __init__(self,
+                 lr=1e-2,
+                 family=Normal(torch.FloatTensor([1]),
+                               torch.FloatTensor([3])),
+                 optimizer=torch.optim.Adam):
+
         super().__init__('BBVI')
         self.lr = lr
         self.family = family
         self.optimizer = optimizer
+
+    def plot_elbo(self, elbo_trace, num):
+        """
+        plot the elbo
+        :param elbo_trace:
+        :return:
+        """
+        fig = plt.figure()
+        plt.plot(elbo_trace)
+        fig.suptitle('ELBO plot')
+        plt.xlabel('Iterations')
+        plt.ylabel('ELBO')
+        fig.savefig('report/HW4/figures/elbo_program_{}'.format(num))
+
 
     def optimizer_step(self, sig, g_hat):
         """
@@ -25,10 +49,13 @@ class BBVI(Sampler):
         :return:
         """
         for v in list(g_hat.keys()):
-            nlp = -sig['Q'][v].log_prob(g_hat[v])
-            nlp.backward()
+            parameters = sig['Q'][v].Parameters()
+            for idx, param in enumerate(parameters):
+                param.grad = torch.FloatTensor([-g_hat[v][idx]])
+
             sig['O'][v].step()
             sig['O'][v].zero_grad()
+        return sig['Q']
 
     def elbo_gradients(self, G, logW):
         """
@@ -38,6 +65,7 @@ class BBVI(Sampler):
         :param logW: list of logW of importance weight
         :return: dictionary g_hat that contains gradient components for each variable v
         """
+
         L = len(G)
 
         # obtain the union of all gradient maps
@@ -48,7 +76,6 @@ class BBVI(Sampler):
 
         # dictionary containing our gradient estimates for each variable v
         g_hat = {}
-
         for v in union:
             # tensors for computing b_hat afterwards
             F_one_to_L_v = torch.empty(0)
@@ -62,12 +89,23 @@ class BBVI(Sampler):
                 F_one_to_L_v = torch.cat((F_one_to_L_v, F_l_v), 0)
                 G_one_to_L_v = torch.cat((G_one_to_L_v, G[l][v]), 0)
 
-            # this is just the equations on line 16 & 17 in Alg. 12
-            b_hat = torch.sum(cov(torch.cat((F_one_to_L_v, G_one_to_L_v), 0))) / torch.sum(torch.var(G_one_to_L_v))
-            g_hat[v] = torch.sum(F_one_to_L_v - b_hat * G_one_to_L_v) / L
+            # reshape the tensors
+            num_params = int(len(F_one_to_L_v) / L)  # compute the number of parameters
+            F_one_to_L_v = torch.reshape(F_one_to_L_v, (L, num_params))
+            G_one_to_L_v = torch.reshape(G_one_to_L_v, (L, num_params))
+
+            # line 16 & 17 in Alg. 12 seem to be incorrect; this is following equations 4.41-4.44 instead
+            b_hat = torch.empty(0)
+            for d in range(F_one_to_L_v.size()[1]):
+                F_v_d = F_one_to_L_v[:, d]
+                G_v_d = G_one_to_L_v[:, d]
+                cov_F_G = np.cov(F_v_d.numpy(), G_v_d.numpy())
+                b_hat = torch.cat((b_hat, torch.FloatTensor([cov_F_G[0, 1] / cov_F_G[1, 1]])), 0)
+
+            g_hat[v] = torch.sum(F_one_to_L_v - b_hat * G_one_to_L_v, dim=0) / L
         return g_hat
 
-    def sample(self, T, L, num):
+    def sample(self, T, L, num, print_progress=True):
         """
         perform black-box variational inference
 
@@ -84,43 +122,61 @@ class BBVI(Sampler):
 
         sig = {
             'O': {},   # map to optimizer for each variable
+            'Q': {},
             'family': self.family,
             'optimizer': self.optimizer,  # optimizer type (e.g. Adam)
             'lr': self.lr
         }
 
         torch.autograd.set_detect_anomaly(True)
+        # os.environ['WANDB_DISABLE_CODE'] = 'True'
+        # wandb.init()
 
         samples = []
         bbvi_loss = []
         for t in range(T):
-            sig['G'] = {}
-            sig['Q'] = {}
+
+            # ========== PRINTING PURPOSES =============
+            if print_progress:
+                if t % 100 == 0:
+                    print('=' * 5, 'Iteration {}'.format(t), '=' * 5)
+
+                    for key in list(sig['Q'].keys()):
+                        print('parameter estimates: {}'.format(sig['Q'][key].Parameters()))
+
             G_t = []  # each element of G_t will contain the gradient FOR EACH parameter
                          # (so if family is normal, there will be 2 parameters; one for loc and one for scale)
-            logW_t = []
-            r_t = []
+
+            sig['logW_list'] = []  # reset sig['logW_list'] after updating the parameter
+
             for l in range(L):
+                # reset sig['logW'] at each iteration
                 sig['logW'] = 0
+                sig['G'] = {}
 
                 # r_tl is the return value of the expression (won't have a value for each parameter)
                 r_tl, sig_tl = evaluate_program(ast, sig, self.method)
 
                 G_tl = clone(sig_tl['G'])
-                logW_tl = sig_tl['logW'].clone()
 
                 # add to return list
-                samples.append([r_tl, logW_tl])
+                samples.append([r_tl, sig_tl['logW'].clone().detach()])
 
                 # add to list for self.elbo_gradient and self.optimizer_step functions
                 G_t.append(G_tl)
-                logW_t.append(logW_tl)
-                r_t.append(r_tl)
+                sig['logW_list'].append(sig_tl['logW'].clone().detach())
 
-            g_hat = self.elbo_gradients(G_t, logW_t)
-            bbvi_loss.append(g_hat)
+            g_hat = self.elbo_gradients(G_t, sig['logW_list'])
+            bbvi_loss.append(torch.mean(torch.tensor(sig['logW_list'])))  # make a copy of the ELBO
 
-            self.optimizer_step(sig, g_hat)
+            sig['Q'] = self.optimizer_step(sig, g_hat)
+
+            wandb.log({
+                'ELBO': torch.mean(torch.tensor(sig['logW_list'])),
+                'mu': next(iter(sig['Q'].values()))
+            })
+
+        print('Variational distribution: {}'.format(sig['Q']))
 
         return samples, bbvi_loss
 

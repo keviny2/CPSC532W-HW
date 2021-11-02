@@ -3,7 +3,6 @@ from tests import is_tol, run_prob_test,load_truth
 from primitives import primitives_list, evaluate_primitive
 import torch
 from utils import load_ast, get_distribution, distributions
-# import torchviz
 
 
 functions = {}
@@ -63,18 +62,22 @@ def evaluate_program_helper(ast, sig, variable_bindings):
                 # NOTE: I think v \in dom(sig(Q)) means on line 6 of Alg 11 on pg. 134 is equivalent to checking
                 #  if the key exists
                 if v not in list(sig['Q'].keys()):
-                    sig['Q'][v] = sig['family'](torch.FloatTensor([0]), torch.FloatTensor([1])).make_copy_with_grads()
+                    sig['Q'][v] = sig['family'].make_copy_with_grads()
                     sig['O'][v] = sig['optimizer'](sig['Q'][v].Parameters(), lr=sig['lr'])
 
                 c = sig['Q'][v].sample()
 
                 # calculating the function: G(v) = \grad_{\lambda_v} \log{q(X_v | \lambda_v}
                 # see line 9 of Alg. 11 on pg. 134 of text
+
                 log_prob = sig['Q'][v].log_prob(c)
 
                 # backpropagate then store gradients for each parameter into sig['G']
                 log_prob.backward()
-                sig['G'][v] = torch.FloatTensor([p.grad for p in sig['Q'][v].Parameters()])
+
+                # store gradients
+                sig['G'][v] = torch.FloatTensor([p.grad.clone().detach() for p in sig['Q'][v].Parameters()])
+                sig['O'][v].zero_grad()
 
                 logW_v = d.log_prob(c) - sig['Q'][v].log_prob(c)
                 sig['logW'] += logW_v

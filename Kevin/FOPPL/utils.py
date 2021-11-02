@@ -26,6 +26,7 @@ nth = {
     10: "tenth"
 }
 
+
 def clone(dict):
     """
     utility function to clone a dictionary containing lists of tensors for bbvi alg.
@@ -37,7 +38,11 @@ def clone(dict):
     keys = list(dict.keys())
     for key in keys:
         curr = dict[key]
-        cloned = torch.FloatTensor([elem.clone().detach() for elem in curr])
+
+        if curr.size() == torch.Size([]):
+            cloned = curr.clone().detach()
+        else:
+            cloned = torch.FloatTensor([elem.clone().detach() for elem in curr])
         ret[key] = cloned
 
     return ret
