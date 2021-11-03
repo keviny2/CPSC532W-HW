@@ -1,11 +1,10 @@
 from evaluation_based_sampling import evaluate_program
+from graph_based_sampling import sample_from_joint, topological_sort
 from sampler import Sampler
 from utils import load_ast, create_fresh_variables, clone
-from distributions import Normal
 import numpy as np
 import matplotlib.pyplot as plt
 import wandb
-import os
 import torchviz
 
 import torch
@@ -18,13 +17,10 @@ class BBVI(Sampler):
 
     def __init__(self,
                  lr=1e-2,
-                 family=Normal(torch.FloatTensor([1]),
-                               torch.FloatTensor([3])),
                  optimizer=torch.optim.Adam):
 
         super().__init__('BBVI')
         self.lr = lr
-        self.family = family
         self.optimizer = optimizer
 
     def plot_elbo(self, elbo_trace, num):
@@ -67,6 +63,7 @@ class BBVI(Sampler):
         """
 
         L = len(G)
+        num_params = len(list(G[0].values())[0])  # get number of parameters
 
         # obtain the union of all gradient maps
         union = []
@@ -82,6 +79,7 @@ class BBVI(Sampler):
             G_one_to_L_v = torch.empty(0)
             for l in range(L):
                 if v in list(G[l].keys()):
+                    # BUG: dirichlet parameters become very sparse (e.g. [1, 0, 0])....
                     F_l_v = G[l][v] * logW[l]  # TODO: I think the textbook has a typo on this one
                 else:
                     F_l_v, G[l][v] = 0, 0
@@ -90,7 +88,6 @@ class BBVI(Sampler):
                 G_one_to_L_v = torch.cat((G_one_to_L_v, G[l][v]), 0)
 
             # reshape the tensors
-            num_params = int(len(F_one_to_L_v) / L)  # compute the number of parameters
             F_one_to_L_v = torch.reshape(F_one_to_L_v, (L, num_params))
             G_one_to_L_v = torch.reshape(G_one_to_L_v, (L, num_params))
 
@@ -117,20 +114,18 @@ class BBVI(Sampler):
 
         print('=' * 10, 'Black-Box Variational Inference', '=' * 10)
 
-        ast = load_ast('programs/saved_asts/hw3/program{}.pkl'.format(num))
-        ast = create_fresh_variables(ast)
+        ast = load_ast('programs/saved_asts/hw3/program{}_graph.pkl'.format(num))
+        sampling_order = topological_sort(ast)
+        # ast = create_fresh_variables(ast)
 
         sig = {
             'O': {},   # map to optimizer for each variable
             'Q': {},
-            'family': self.family,
             'optimizer': self.optimizer,  # optimizer type (e.g. Adam)
             'lr': self.lr
         }
 
         torch.autograd.set_detect_anomaly(True)
-        # os.environ['WANDB_DISABLE_CODE'] = 'True'
-        # wandb.init()
 
         samples = []
         bbvi_loss = []
@@ -155,7 +150,8 @@ class BBVI(Sampler):
                 sig['G'] = {}
 
                 # r_tl is the return value of the expression (won't have a value for each parameter)
-                r_tl, sig_tl = evaluate_program(ast, sig, self.method)
+                # r_tl, sig_tl = evaluate_program(ast, sig, self.method)
+                r_tl, sig_tl = sample_from_joint(ast, sampling_order)
 
                 G_tl = clone(sig_tl['G'])
 
@@ -170,11 +166,6 @@ class BBVI(Sampler):
             bbvi_loss.append(torch.mean(torch.tensor(sig['logW_list'])))  # make a copy of the ELBO
 
             sig['Q'] = self.optimizer_step(sig, g_hat)
-
-            wandb.log({
-                'ELBO': torch.mean(torch.tensor(sig['logW_list'])),
-                'mu': next(iter(sig['Q'].values()))
-            })
 
         print('Variational distribution: {}'.format(sig['Q']))
 

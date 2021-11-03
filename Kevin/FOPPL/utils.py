@@ -3,6 +3,7 @@ import torch
 import random
 import string
 from torch.distributions import normal, beta, exponential, uniform, categorical, bernoulli, gamma, dirichlet
+from distributions import Normal, Bernoulli, Gamma, Dirichlet, Categorical
 from dirac import Dirac
 
 distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'flip', 'gamma', 'dirichlet', 'dirac']
@@ -107,7 +108,7 @@ def get_distribution(dist_type, parameters):
             params.append(param)
 
     if dist_type == 'normal':
-        return normal.Normal(params[0], params[1])
+        return Normal(torch.FloatTensor([params[0]]), torch.FloatTensor([params[1]]))
     if dist_type == 'beta':
         return beta.Beta(params[0], params[1])
     if dist_type == 'exponential':
@@ -115,13 +116,13 @@ def get_distribution(dist_type, parameters):
     if dist_type == 'uniform':
         return uniform.Uniform(params[0], params[1])
     if dist_type == 'discrete':
-        return categorical.Categorical(probs=params[0])
+        return Categorical(probs=torch.FloatTensor(params[0]))
     if dist_type == 'flip':
-        return bernoulli.Bernoulli(params[0])
+        return Bernoulli(torch.FloatTensor([params[0]]))
     if dist_type == 'gamma':
-        return gamma.Gamma(params[0], params[1])
+        return Gamma(torch.FloatTensor([params[0]]), torch.FloatTensor([params[1]]))
     if dist_type == 'dirichlet':
-        return dirichlet.Dirichlet(params[0])
+        return Dirichlet(torch.FloatTensor(params[0]))
     if dist_type == 'dirac':
         return Dirac(params[0])
 

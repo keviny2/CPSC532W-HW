@@ -62,7 +62,8 @@ def evaluate_program_helper(ast, sig, variable_bindings):
                 # NOTE: I think v \in dom(sig(Q)) means on line 6 of Alg 11 on pg. 134 is equivalent to checking
                 #  if the key exists
                 if v not in list(sig['Q'].keys()):
-                    sig['Q'][v] = sig['family'].make_copy_with_grads()
+                    dist, sig = evaluate_program_helper(ast[2], sig, variable_bindings)
+                    sig['Q'][v] = dist.make_copy_with_grads()
                     sig['O'][v] = sig['optimizer'](sig['Q'][v].Parameters(), lr=sig['lr'])
 
                 c = sig['Q'][v].sample()
@@ -76,7 +77,10 @@ def evaluate_program_helper(ast, sig, variable_bindings):
                 log_prob.backward()
 
                 # store gradients
-                sig['G'][v] = torch.FloatTensor([p.grad.clone().detach() for p in sig['Q'][v].Parameters()])
+                if len(sig['Q'][v].Parameters()[0]) > 1:  # check if the parameter is already a list itself
+                    sig['G'][v] = sig['Q'][v].Parameters()[0].grad.clone().detach()
+                else:
+                    sig['G'][v] = torch.FloatTensor([p.grad.clone().detach() for p in sig['Q'][v].Parameters()])
                 sig['O'][v].zero_grad()
 
                 logW_v = d.log_prob(c) - sig['Q'][v].log_prob(c)
