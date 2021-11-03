@@ -13,6 +13,7 @@ import distributions
 #     return "v_{}".format(x)
 
 
+
 def evaluate_program(ast, x):
     variables_dict = {}
     functions_dict = {}

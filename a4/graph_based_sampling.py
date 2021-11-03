@@ -3,20 +3,22 @@ from torch import distributions as dist
 from daphne import daphne
 from evaluation_based_sampling import evaluate_program
 import numpy as np
+import distributions
+
 
 import primitives
 from tests import is_tol, run_prob_test,load_truth
 
 # Put all function mappings from the deterministic language environment to your
 # Python evaluation context here:
-env = {'normal': dist.Normal,
+env = {'normal': distributions.Normal,
        'beta': dist.Beta,
        'exponential': dist.Exponential,
        'uniform': dist.Uniform,
-       'discrete': dist.Categorical,
-       'gamma': dist.Gamma,
-       'flip': dist.Bernoulli,
-       'dirichlet': dist.Dirichlet,
+       'discrete': distributions.Categorical,
+       'gamma': distributions.Gamma,
+       'flip': distributions.Bernoulli,
+       'dirichlet': distributions.Dirichlet,
        'dirac': primitives.Dirac,
        '+': primitives.plus,
        '*': torch.multiply,
@@ -74,6 +76,11 @@ def sample_from_joint(graph):
     returnings = graph[2]
     variables_dict = {}
 
+    sigma = {}
+    sigma['logW'] = 0
+    sigma['Q'] = {}
+    sigma['G'] = {}
+
     unique_vertices = []
     degrees = {}
     for vertex in vertices:
@@ -118,29 +125,55 @@ def sample_from_joint(graph):
     return deterministic_eval(record), variables_dict, topological_orderings
 
 
-def sample_from_joint_with_sorted(graph, topological_orderings):
+def sample_from_joint_with_sorted(graph, topological_orderings, x, sigma):
     links = graph[1]['P']
     returnings = graph[2]
     variables_dict = {}
 
-
     for vertex in topological_orderings:
         link = links[vertex]
         if link[0] == 'sample*':
-            record = evaluate(link[1], variables_dict)
-            dist = deterministic_eval(record)
-            value = dist.sample()
-            variables_dict[vertex] = value
+
+            # record = evaluate(link[1], variables_dict)
+            # dist = deterministic_eval(record)
+            # value = dist.sample()
+
+            v = 'v_{}'.format(x)
+            link.insert(1, v)
+            record = evaluate(link[2], variables_dict)
+            p = deterministic_eval(record)
+            if v not in sigma['Q']:
+                sigma['Q'][v] = p.make_copy_with_grads()
+
+            c = sigma['Q'][v].sample()
+            variables_dict[vertex] = c
+            logP = sigma['Q'][v].log_prob(c)
+            logP.backward()
+            params = sigma['Q'][v].Parameters()
+            grads = torch.zeros(len(params))
+            i = 0
+            for param in params:
+                grads[i] = param.grad
+                i += 1
+            sigma['G'][v] = grads
+            logW_v = p.log_prob(c) - sigma['Q'][v].log_prob(c)
+            sigma['logW'] += logW_v
+            x += 1
 
         elif link[0] == 'observe*':
-            record = evaluate(link[2], variables_dict)
-            value = deterministic_eval(record)
-            variables_dict[vertex] = value
+            # record = evaluate(link[2], variables_dict)
+            # value = deterministic_eval(record)
+            # variables_dict[vertex] = value
+
+            d = deterministic_eval(evaluate(link[1], variables_dict))
+            c = deterministic_eval(evaluate(link[2], variables_dict))
+            variables_dict[vertex] = c
+            if type(c) is not torch.Tensor:
+                c = torch.tensor(float(c))
+            sigma['logW'] += d.log_prob(c)
 
     record = evaluate(returnings, variables_dict)
-    return deterministic_eval(record), variables_dict
-
-
+    return deterministic_eval(record), sigma
 
 
 def evaluate(exp, variables_dict):
