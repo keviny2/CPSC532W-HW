@@ -144,11 +144,14 @@ def evaluate_primitive(ast):
         return ast[1] or ast[2]
     if ast[0] == 'vector':
         try:
-            for i in range(1, len(ast)):
-                ast[i] = ast[i].clone().detach()
-            return torch.stack(ast[1:])
+            # for i in range(1, len(ast)):
+            #     try:
+            #         _ = ast[i].Parameters()
+            #     except:
+            #         ast[i] = ast[i].clone().detach()
+            return torch.cat(ast[1:])
         except:
-            return ast[1:]
+            return torch.FloatTensor(ast[1:])
     elif ast[0] == 'hash-map':
         ret = {}
         for idx, elem in enumerate(ast[1:]):

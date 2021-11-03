@@ -7,11 +7,11 @@ from utils import nth
 
 
 if __name__ == "__main__":
-    daphne_input_nums = [1, 2, 5, 6, 7]
-    num_samples = int(1e2)
+    daphne_input_nums = [1, 2, 5, 4, 8]
+    num_samples = int(4e3)
     num_points = 10000  # number of points to plot
 
-    debug_start = 0
+    debug_start = 3
     importance_sampler = ImportanceSampler()
     mh_gibbs_sampler = MHGibbsSampler()
     hmc_sampler = HMCSampler(T=10, epsilon=0.1)
@@ -25,7 +25,7 @@ if __name__ == "__main__":
         print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
 
         bbvi.summary(num, samples)
-        bbvi.plot(num, samples, num_points, save_plot=True)
+        bbvi.plot(num, samples, num_points, save_plot=True, program_num=idx)
         bbvi.plot_elbo(bbvi_loss, num)
 
         # ================================HW3=========================================

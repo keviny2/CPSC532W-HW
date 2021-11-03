@@ -7,8 +7,8 @@ from utils import nth
 
 
 if __name__ == "__main__":
-    daphne_input_nums = [1, 2, 5, 6, 7]
-    num_samples = int(1e2)
+    daphne_input_nums = [1, 2, 5, 4, 8]
+    num_samples = int(1e3)
     num_points = 10000  # number of points to plot
 
     debug_start = 0
@@ -25,78 +25,78 @@ if __name__ == "__main__":
         print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
 
         bbvi.summary(num, samples)
-        bbvi.plot(num, samples, num_points, save_plot=True)
-        bbvi.plot_elbo_test(bbvi_loss, num)
+        bbvi.plot(num, samples, num_points, save_plot=True, program_num=idx)
+        bbvi.plot_elbo(bbvi_loss, num)
 
         # ================================HW3=========================================
 
-        # ============ IS ===============
-        start = time.time()
-        samples = importance_sampler.sample(num_samples, num)
-        end = time.time()
-        print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
-
-        importance_sampler.summary(num, samples)
-        importance_sampler.plot(num, samples, num_points, save_plot=True)
-
-
-        # ============ MH-Gibbs ===============
-        if num == 2:
-            num_samples = 25000
-
-        if num == 5:
-            num_samples = 3000
-
-        if num == 6:
-            num_samples = 6000
-
-        if num == 7:
-            num_samples = 20000
-
-        start = time.time()
-        samples = mh_gibbs_sampler.sample(num_samples, num)
-        end = time.time()
-        print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
-
-        mh_gibbs_sampler.summary(num, samples)
-        mh_gibbs_sampler.plot(num, samples, num_points, save_plot=True)
-
-        # ============ HMC ===============
-        if num in [5, 6]:
-            num_samples = 100000
-            continue
-
-        if num == 1:
-            num_samples = 20000
-
-        if num == 2:
-            num_samples = 10000
-
-        if num == 7:
-            num_samples = 20000
-
-        # HMC
-        attempt = 1
-        while True:
-            try:
-                print(nth[attempt], 'attempt')
-                start = time.time()
-                samples = hmc_sampler.sample(num_samples, num)
-                end = time.time()
-            except ValueError:
-                attempt += 1
-                continue
-            break
-
-        print('Took {0} seconds to finish Program {1}'.format(end - start, num))
-
+        # # ============ IS ===============
         # start = time.time()
-        # samples = hmc_sampler.sample(num_samples, num)
+        # samples = importance_sampler.sample(num_samples, num)
         # end = time.time()
         # print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
-
-        hmc_sampler.summary(num, samples)
-        hmc_sampler.plot(num, samples, num_points, save_plot=True)
-
-        num_samples = 100000
-
+        #
+        # importance_sampler.summary(num, samples)
+        # importance_sampler.plot(num, samples, num_points, save_plot=True)
+        #
+        #
+        # # ============ MH-Gibbs ===============
+        # if num == 2:
+        #     num_samples = 25000
+        #
+        # if num == 5:
+        #     num_samples = 3000
+        #
+        # if num == 6:
+        #     num_samples = 6000
+        #
+        # if num == 7:
+        #     num_samples = 20000
+        #
+        # start = time.time()
+        # samples = mh_gibbs_sampler.sample(num_samples, num)
+        # end = time.time()
+        # print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
+        #
+        # mh_gibbs_sampler.summary(num, samples)
+        # mh_gibbs_sampler.plot(num, samples, num_points, save_plot=True)
+        #
+        # # ============ HMC ===============
+        # if num in [5, 6]:
+        #     num_samples = 100000
+        #     continue
+        #
+        # if num == 1:
+        #     num_samples = 20000
+        #
+        # if num == 2:
+        #     num_samples = 10000
+        #
+        # if num == 7:
+        #     num_samples = 20000
+        #
+        # # HMC
+        # attempt = 1
+        # while True:
+        #     try:
+        #         print(nth[attempt], 'attempt')
+        #         start = time.time()
+        #         samples = hmc_sampler.sample(num_samples, num)
+        #         end = time.time()
+        #     except ValueError:
+        #         attempt += 1
+        #         continue
+        #     break
+        #
+        # print('Took {0} seconds to finish Program {1}'.format(end - start, num))
+        #
+        # # start = time.time()
+        # # samples = hmc_sampler.sample(num_samples, num)
+        # # end = time.time()
+        # # print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
+        #
+        # hmc_sampler.summary(num, samples)
+        # hmc_sampler.plot(num, samples, num_points, save_plot=True)
+        #
+        # num_samples = 100000
+        #

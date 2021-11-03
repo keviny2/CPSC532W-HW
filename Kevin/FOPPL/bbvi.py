@@ -1,7 +1,6 @@
 from evaluation_based_sampling import evaluate_program
-from graph_based_sampling import sample_from_joint, topological_sort
 from sampler import Sampler
-from utils import load_ast, create_fresh_variables, clone
+from utils import load_ast, create_fresh_variables, clone, save_ast
 import numpy as np
 import matplotlib.pyplot as plt
 import wandb
@@ -35,7 +34,6 @@ class BBVI(Sampler):
         plt.xlabel('Iterations')
         plt.ylabel('ELBO')
         fig.savefig('report/HW4/figures/elbo_program_{}'.format(num))
-
 
     def optimizer_step(self, sig, g_hat):
         """
@@ -82,7 +80,7 @@ class BBVI(Sampler):
                     # BUG: dirichlet parameters become very sparse (e.g. [1, 0, 0])....
                     F_l_v = G[l][v] * logW[l]  # TODO: I think the textbook has a typo on this one
                 else:
-                    F_l_v, G[l][v] = 0, 0
+                    F_l_v, G[l][v] = torch.zeros(num_params), torch.zeros(num_params)
                 # saving each F_l_v and G[l][v] for future computations
                 F_one_to_L_v = torch.cat((F_one_to_L_v, F_l_v), 0)
                 G_one_to_L_v = torch.cat((G_one_to_L_v, G[l][v]), 0)
@@ -114,9 +112,8 @@ class BBVI(Sampler):
 
         print('=' * 10, 'Black-Box Variational Inference', '=' * 10)
 
-        ast = load_ast('programs/saved_asts/hw3/program{}_graph.pkl'.format(num))
-        sampling_order = topological_sort(ast)
-        # ast = create_fresh_variables(ast)
+        ast = load_ast('programs/saved_asts/hw3/program{}.pkl'.format(num))
+        ast = create_fresh_variables(ast)
 
         sig = {
             'O': {},   # map to optimizer for each variable
@@ -150,8 +147,7 @@ class BBVI(Sampler):
                 sig['G'] = {}
 
                 # r_tl is the return value of the expression (won't have a value for each parameter)
-                # r_tl, sig_tl = evaluate_program(ast, sig, self.method)
-                r_tl, sig_tl = sample_from_joint(ast, sampling_order)
+                r_tl, sig_tl = evaluate_program(ast, sig, self.method)
 
                 G_tl = clone(sig_tl['G'])
 

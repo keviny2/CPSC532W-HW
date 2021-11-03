@@ -123,7 +123,7 @@ class Sampler(ABC):
             print('Posterior Variance {}:'.format(parameter_names[i]), posterior_var)
 
 
-    def plot_values(self, samples, parameter_names, num_points, save_plot, num):
+    def plot_values(self, samples, parameter_names, num_points, save_plot, num, program_num):
         """
         method to construct likelihood plots and histograms of the posterior
 
@@ -132,13 +132,13 @@ class Sampler(ABC):
         :return:
         """
         if self.method in ['IS', 'BBVI']:
-            self.plot_values_weights(samples, parameter_names, num_points, save_plot, num)
+            self.plot_values_weights(samples, parameter_names, num_points, save_plot, num, program_num)
         elif self.method in ['MH', 'HMC']:
-            self.plot_values_trace(samples, parameter_names, num_points, save_plot, num)
+            self.plot_values_trace(samples, parameter_names, num_points, save_plot, num, program_num)
         else:
             raise NotImplementedError('subclasses must override this method!')
 
-    def plot_values_trace(self, samples, parameter_names, num_points, save_plot, num):
+    def plot_values_trace(self, samples, parameter_names, num_points, save_plot, num, program_num):
         parameter_traces = []
 
         # checks if samples only contains a single parameter
@@ -221,7 +221,7 @@ class Sampler(ABC):
             if save_plot:
                 plt.savefig('report/HW3/figures/log_joint_{0}_program_{1}'.format(self.method, num))
 
-    def plot_values_weights(self, samples, parameter_names, num_points, save_plot, num):
+    def plot_values_weights(self, samples, parameter_names, num_points, save_plot, num, program_num):
 
         # separate parameter observations and weights from samples
         temp = [elem[0] for elem in samples]
@@ -261,11 +261,11 @@ class Sampler(ABC):
                         bins=bin_size * math.ceil(np.max(obs.numpy().flatten()) - np.min(obs.numpy().flatten())))
             axs[i].set(ylabel='frequency', xlabel=parameter_names[i])
 
-        plt.suptitle('Histogram for Program {0} using {1}'.format(num, self.method))
+        plt.suptitle('Histogram for Program {0} using {1}'.format(program_num, self.method))
         plt.tight_layout()
 
         if save_plot:
-            plt.savefig('report/HW4/figures/{0}_program_{1}'.format(self.method, num))
+            plt.savefig('report/HW4/figures/{0}_program_{1}'.format(self.method, program_num))
 
     def summary(self, num, samples):
         """
@@ -290,7 +290,7 @@ class Sampler(ABC):
         if num == 7:
             self.compute_statistics(samples, ['x', 'y'])
 
-    def plot(self, num, samples, num_points, save_plot):
+    def plot(self, num, samples, num_points, save_plot, program_num):
         """
         constructs plots
 
@@ -300,23 +300,24 @@ class Sampler(ABC):
         :param save_plot: True if we save the plot
         """
         if num == 1:
-            self.plot_values(samples, ['mu'], num_points, save_plot, num)
+            self.plot_values(samples, ['mu'], num_points, save_plot, num, program_num)
 
         if num == 2:
-            self.plot_values(samples, ['slope', 'bias'], num_points, save_plot, num)
+            self.plot_values(samples, ['slope', 'bias'], num_points, save_plot, num, program_num)
 
         if num == 5:
             self.plot_values(samples,
                              ['z[1] == z[2]'],
                              num_points,
                              save_plot,
-                             num)
+                             num,
+                             program_num)
 
         if num == 6:
-            self.plot_values(samples, ['is-raining'], num_points, save_plot, num)
+            self.plot_values(samples, ['is-raining'], num_points, save_plot, num, program_num)
 
         if num == 7:
-            self.plot_values(samples, ['x', 'y'], num_points, save_plot, num)
+            self.plot_values(samples, ['x', 'y'], num_points, save_plot, num, program_num)
 
     @staticmethod
     def compute_log_density(samples, num, ignore=None):

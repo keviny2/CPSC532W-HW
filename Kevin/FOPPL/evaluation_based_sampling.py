@@ -214,11 +214,11 @@ def run_probabilistic_tests():
 
 if __name__ == '__main__':
 
-    run_deterministic_tests()
-    
-    run_probabilistic_tests()
+    # run_deterministic_tests()
+    #
+    # run_probabilistic_tests()
 
-    debug_start = 1
+    debug_start = 3
     for i in range(debug_start,5):
         # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/FOPPL/programs/{}.daphne'.format(i)])
 
