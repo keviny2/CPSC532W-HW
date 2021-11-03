@@ -11,7 +11,7 @@ if __name__ == "__main__":
     num_samples = int(4e3)
     num_points = 10000  # number of points to plot
 
-    debug_start = 3
+    debug_start = 0
     importance_sampler = ImportanceSampler()
     mh_gibbs_sampler = MHGibbsSampler()
     hmc_sampler = HMCSampler(T=10, epsilon=0.1)
@@ -22,11 +22,11 @@ if __name__ == "__main__":
         start = time.time()
         samples, bbvi_loss = bbvi.sample(T=num_samples, L=int(1e1), num=num)
         end = time.time()
-        print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, num))
+        print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, idx))
 
         bbvi.summary(num, samples)
         bbvi.plot(num, samples, num_points, save_plot=True, program_num=idx)
-        bbvi.plot_elbo(bbvi_loss, num)
+        bbvi.plot_elbo(bbvi_loss, idx)
 
         # ================================HW3=========================================
 

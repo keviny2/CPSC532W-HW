@@ -3,8 +3,6 @@ from sampler import Sampler
 from utils import load_ast, create_fresh_variables, clone, save_ast
 import numpy as np
 import matplotlib.pyplot as plt
-import wandb
-import torchviz
 
 import torch
 
@@ -22,7 +20,7 @@ class BBVI(Sampler):
         self.lr = lr
         self.optimizer = optimizer
 
-    def plot_elbo(self, elbo_trace, num):
+    def plot_elbo(self, elbo_trace, program_num):
         """
         plot the elbo
         :param elbo_trace:
@@ -30,10 +28,10 @@ class BBVI(Sampler):
         """
         fig = plt.figure()
         plt.plot(elbo_trace)
-        fig.suptitle('ELBO plot')
+        fig.suptitle('ELBO plot for program {0} \n max: {1:.2f}'.format(program_num, np.max(elbo_trace)))
         plt.xlabel('Iterations')
         plt.ylabel('ELBO')
-        fig.savefig('report/HW4/figures/elbo_program_{}'.format(num))
+        fig.savefig('report/HW4/figures/elbo_program_{}'.format(program_num))
 
     def optimizer_step(self, sig, g_hat):
         """
