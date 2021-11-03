@@ -151,7 +151,14 @@ def evaluate_primitive(ast):
             #         ast[i] = ast[i].clone().detach()
             return torch.cat(ast[1:])
         except:
-            return torch.FloatTensor(ast[1:])
+            try:
+                ret = []
+                for elem in ast[1:]:
+                    _ = elem.Parameters()
+                    ret.append(elem)
+                return ret
+            except:
+                return torch.FloatTensor(ast[1:])
     elif ast[0] == 'hash-map':
         ret = {}
         for idx, elem in enumerate(ast[1:]):
