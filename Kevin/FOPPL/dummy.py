@@ -11,7 +11,7 @@ if __name__ == "__main__":
     num_samples = int(4000)
     num_points = 10000  # number of points to plot
 
-    debug_start = 4
+    debug_start = 2
     importance_sampler = ImportanceSampler()
     mh_gibbs_sampler = MHGibbsSampler()
     hmc_sampler = HMCSampler(T=10, epsilon=0.1)

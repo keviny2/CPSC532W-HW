@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  4 NOV 2021 09:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  4 NOV 2021 15:17
 entering extended mode
 **./hw4.tex
 (hw4.tex
@@ -916,236 +916,297 @@ ignments/tree/main/FOPPL
  []
 
 LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/b/n' will be
-(Font)              scaled to size 17.28pt on input line 16.
-<figures/BBVI_program_1.png, id=23, 578.16pt x 433.62pt>
-File: figures/BBVI_program_1.png Graphic file (type png)
-<use figures/BBVI_program_1.png>
-Package pdftex.def Info: figures/BBVI_program_1.png  used on input line 18.
-(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-<figures/elbo_program_1.png, id=25, 462.528pt x 346.896pt>
-File: figures/elbo_program_1.png Graphic file (type png)
-<use figures/elbo_program_1.png>
-Package pdftex.def Info: figures/elbo_program_1.png  used on input line 25.
-(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
-
-Overfull \hbox (27.42926pt too wide) in paragraph at lines 25--26
- [][] 
- []
-
-LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 12.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 8.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
-(Font)              scaled to size 6.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 12.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 8.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
-(Font)              scaled to size 6.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 12.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 8.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
-(Font)              scaled to size 6.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 12.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 8.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
-(Font)              scaled to size 6.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 12.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 8.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
-(Font)              scaled to size 6.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 12.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 8.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
-(Font)              scaled to size 6.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 12.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 8.0pt on input line 26.
-LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
-(Font)              scaled to size 6.0pt on input line 26.
-<figures/program1_time.png, id=26, 210.7875pt x 68.6565pt>
-File: figures/program1_time.png Graphic file (type png)
-<use figures/program1_time.png>
-Package pdftex.def Info: figures/program1_time.png  used on input line 29.
-(pdftex.def)             Requested size: 168.63022pt x 54.92525pt.
+(Font)              scaled to size 17.28pt on input line 15.
+<figures/bbvi.png, id=31, 728.12025pt x 478.1865pt>
+File: figures/bbvi.png Graphic file (type png)
+<use figures/bbvi.png>
+Package pdftex.def Info: figures/bbvi.png  used on input line 18.
+(pdftex.def)             Requested size: 364.05923pt x 239.09265pt.
 [1
 
-{C:/Users/kevin/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./figures/BBVI_
-program_1.png> <./figures/elbo_program_1.png> <./figures/program1_time.png>]
-<figures/BBVI_program_2.png, id=37, 578.16pt x 433.62pt>
+{C:/Users/kevin/AppData/Local/MiKTeX/pdftex/config/pdftex.map} <./figures/bbvi.
+png>]
+<figures/elbo_gradients_1.png, id=41, 732.93825pt x 402.303pt>
+File: figures/elbo_gradients_1.png Graphic file (type png)
+<use figures/elbo_gradients_1.png>
+Package pdftex.def Info: figures/elbo_gradients_1.png  used on input line 24.
+(pdftex.def)             Requested size: 366.46823pt x 201.151pt.
+<figures/elbo_gradients_2.png, id=42, 729.32475pt x 389.0535pt>
+File: figures/elbo_gradients_2.png Graphic file (type png)
+<use figures/elbo_gradients_2.png>
+Package pdftex.def Info: figures/elbo_gradients_2.png  used on input line 25.
+(pdftex.def)             Requested size: 364.66148pt x 194.52626pt.
+<figures/optimizer_step.png, id=43, 729.32475pt x 316.7835pt>
+File: figures/optimizer_step.png Graphic file (type png)
+<use figures/optimizer_step.png>
+Package pdftex.def Info: figures/optimizer_step.png  used on input line 26.
+(pdftex.def)             Requested size: 364.66148pt x 158.39136pt.
+<figures/BBVI_program_1.png, id=44, 578.16pt x 433.62pt>
+File: figures/BBVI_program_1.png Graphic file (type png)
+<use figures/BBVI_program_1.png>
+Package pdftex.def Info: figures/BBVI_program_1.png  used on input line 32.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+<figures/BBVI_program_1_trace.png, id=45, 578.16pt x 433.62pt>
+File: figures/BBVI_program_1_trace.png Graphic file (type png)
+<use figures/BBVI_program_1_trace.png>
+Package pdftex.def Info: figures/BBVI_program_1_trace.png  used on input line 3
+3.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+ [2 <./figures/elbo_gradients_1.png> <./figures/elbo_gradients_2.png> <./figure
+s/optimizer_step.png>]
+<figures/elbo_program_1.png, id=53, 462.528pt x 346.896pt>
+File: figures/elbo_program_1.png Graphic file (type png)
+<use figures/elbo_program_1.png>
+Package pdftex.def Info: figures/elbo_program_1.png  used on input line 40.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+
+Overfull \hbox (27.42926pt too wide) in paragraph at lines 40--41
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
+(Font)              scaled to size 12.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
+(Font)              scaled to size 8.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/m/n' will be
+(Font)              scaled to size 6.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
+(Font)              scaled to size 12.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
+(Font)              scaled to size 8.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/m/it' will be
+(Font)              scaled to size 6.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
+(Font)              scaled to size 12.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
+(Font)              scaled to size 8.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS2/libertinust1mathsym/m/n' will be
+(Font)              scaled to size 6.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
+(Font)              scaled to size 12.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
+(Font)              scaled to size 8.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS2/libertinust1mathex/m/n' will be
+(Font)              scaled to size 6.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
+(Font)              scaled to size 12.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
+(Font)              scaled to size 8.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1mathbb/m/n' will be
+(Font)              scaled to size 6.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
+(Font)              scaled to size 12.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
+(Font)              scaled to size 8.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/n' will be
+(Font)              scaled to size 6.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
+(Font)              scaled to size 12.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
+(Font)              scaled to size 8.0pt on input line 41.
+LaTeX Font Info:    Font shape `LS1/libertinust1math/b/it' will be
+(Font)              scaled to size 6.0pt on input line 41.
+<figures/program1_time.png, id=54, 267.399pt x 85.5195pt>
+File: figures/program1_time.png Graphic file (type png)
+<use figures/program1_time.png>
+Package pdftex.def Info: figures/program1_time.png  used on input line 44.
+(pdftex.def)             Requested size: 213.91948pt x 68.41566pt.
+
+Overfull \hbox (10.08531pt too wide) in paragraph at lines 44--45
+ [][] 
+ []
+
+[3 <./figures/BBVI_program_1.png> <./figures/BBVI_program_1_trace.png> <./figur
+es/elbo_program_1.png> <./figures/program1_time.png>]
+<figures/BBVI_program_2.png, id=63, 578.16pt x 433.62pt>
 File: figures/BBVI_program_2.png Graphic file (type png)
 <use figures/BBVI_program_2.png>
-Package pdftex.def Info: figures/BBVI_program_2.png  used on input line 39.
+Package pdftex.def Info: figures/BBVI_program_2.png  used on input line 54.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-<figures/elbo_program_2.png, id=38, 462.528pt x 346.896pt>
+<figures/elbo_program_2.png, id=64, 462.528pt x 346.896pt>
 File: figures/elbo_program_2.png Graphic file (type png)
 <use figures/elbo_program_2.png>
-Package pdftex.def Info: figures/elbo_program_2.png  used on input line 46.
+Package pdftex.def Info: figures/elbo_program_2.png  used on input line 61.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
 
-Overfull \hbox (27.42926pt too wide) in paragraph at lines 46--47
+Overfull \hbox (27.42926pt too wide) in paragraph at lines 61--62
  [][] 
  []
 
-<figures/program2_time.png, id=39, 214.401pt x 80.7015pt>
+<figures/program2_time.png, id=65, 214.401pt x 80.7015pt>
 File: figures/program2_time.png Graphic file (type png)
 <use figures/program2_time.png>
-Package pdftex.def Info: figures/program2_time.png  used on input line 50.
+Package pdftex.def Info: figures/program2_time.png  used on input line 65.
 (pdftex.def)             Requested size: 171.52103pt x 64.56128pt.
-<figures/BBVI_program_3.png, id=40, 578.16pt x 433.62pt>
+<figures/BBVI_program_3.png, id=66, 578.16pt x 433.62pt>
 File: figures/BBVI_program_3.png Graphic file (type png)
 <use figures/BBVI_program_3.png>
-Package pdftex.def Info: figures/BBVI_program_3.png  used on input line 59.
+Package pdftex.def Info: figures/BBVI_program_3.png  used on input line 74.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-[2 <./figures/BBVI_program_2.png> <./figures/elbo_program_2.png> <./figures/pro
+[4 <./figures/BBVI_program_2.png> <./figures/elbo_program_2.png> <./figures/pro
 gram2_time.png>]
-<figures/elbo_program_3.png, id=48, 462.528pt x 346.896pt>
+<figures/elbo_program_3.png, id=74, 462.528pt x 346.896pt>
 File: figures/elbo_program_3.png Graphic file (type png)
 <use figures/elbo_program_3.png>
-Package pdftex.def Info: figures/elbo_program_3.png  used on input line 66.
+Package pdftex.def Info: figures/elbo_program_3.png  used on input line 81.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
 
-Overfull \hbox (27.42926pt too wide) in paragraph at lines 66--67
+Overfull \hbox (27.42926pt too wide) in paragraph at lines 81--82
  [][] 
  []
 
-<figures/program3_time.png, id=49, 244.5135pt x 28.908pt>
+<figures/program3_time.png, id=75, 305.34074pt x 51.19125pt>
 File: figures/program3_time.png Graphic file (type png)
 <use figures/program3_time.png>
-Package pdftex.def Info: figures/program3_time.png  used on input line 70.
-(pdftex.def)             Requested size: 195.61105pt x 23.1264pt.
-<figures/heatmap_exp_W_0.png, id=50, 578.16pt x 433.62pt>
+Package pdftex.def Info: figures/program3_time.png  used on input line 85.
+(pdftex.def)             Requested size: 244.27292pt x 40.95305pt.
+
+Overfull \hbox (40.43875pt too wide) in paragraph at lines 85--86
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/LibertinusSerif-TLF/m/it' will be
+(Font)              scaled to size 17.28pt on input line 89.
+<figures/heatmap_exp_W_0.png, id=76, 578.16pt x 433.62pt>
 File: figures/heatmap_exp_W_0.png Graphic file (type png)
 <use figures/heatmap_exp_W_0.png>
-Package pdftex.def Info: figures/heatmap_exp_W_0.png  used on input line 83.
-(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 83--84
- [][] 
- []
-
-<figures/heatmap_exp_b_0.png, id=51, 578.16pt x 433.62pt>
-File: figures/heatmap_exp_b_0.png Graphic file (type png)
-<use figures/heatmap_exp_b_0.png>
-Package pdftex.def Info: figures/heatmap_exp_b_0.png  used on input line 87.
-(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 87--88
- [][] 
- []
-
-<figures/heatmap_exp_W_1.png, id=52, 578.16pt x 433.62pt>
-File: figures/heatmap_exp_W_1.png Graphic file (type png)
-<use figures/heatmap_exp_W_1.png>
-Package pdftex.def Info: figures/heatmap_exp_W_1.png  used on input line 95.
-(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 95--96
- [][] 
- []
-
-<figures/heatmap_exp_b_1.png, id=53, 578.16pt x 433.62pt>
-File: figures/heatmap_exp_b_1.png Graphic file (type png)
-<use figures/heatmap_exp_b_1.png>
-Package pdftex.def Info: figures/heatmap_exp_b_1.png  used on input line 99.
+Package pdftex.def Info: figures/heatmap_exp_W_0.png  used on input line 99.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
 Overfull \hbox (85.24512pt too wide) in paragraph at lines 99--100
  [][] 
  []
 
-<figures/heatmap_var_W_0.png, id=54, 578.16pt x 433.62pt>
-File: figures/heatmap_var_W_0.png Graphic file (type png)
-<use figures/heatmap_var_W_0.png>
-Package pdftex.def Info: figures/heatmap_var_W_0.png  used on input line 107.
+<figures/heatmap_exp_b_0.png, id=77, 578.16pt x 433.62pt>
+File: figures/heatmap_exp_b_0.png Graphic file (type png)
+<use figures/heatmap_exp_b_0.png>
+Package pdftex.def Info: figures/heatmap_exp_b_0.png  used on input line 103.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 107--108
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 103--104
  [][] 
  []
 
-<figures/heatmap_var_b_0.png, id=55, 578.16pt x 433.62pt>
-File: figures/heatmap_var_b_0.png Graphic file (type png)
-<use figures/heatmap_var_b_0.png>
-Package pdftex.def Info: figures/heatmap_var_b_0.png  used on input line 111.
+[5 <./figures/BBVI_program_3.png> <./figures/elbo_program_3.png> <./figures/pro
+gram3_time.png>]
+<figures/heatmap_exp_W_1.png, id=86, 578.16pt x 433.62pt>
+File: figures/heatmap_exp_W_1.png Graphic file (type png)
+<use figures/heatmap_exp_W_1.png>
+Package pdftex.def Info: figures/heatmap_exp_W_1.png  used on input line 111.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
 Overfull \hbox (85.24512pt too wide) in paragraph at lines 111--112
  [][] 
  []
 
-<figures/heatmap_var_W_1.png, id=56, 578.16pt x 433.62pt>
+<figures/heatmap_exp_b_1.png, id=87, 578.16pt x 433.62pt>
+File: figures/heatmap_exp_b_1.png Graphic file (type png)
+<use figures/heatmap_exp_b_1.png>
+Package pdftex.def Info: figures/heatmap_exp_b_1.png  used on input line 115.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 115--116
+ [][] 
+ []
+
+[6 <./figures/heatmap_exp_W_0.png> <./figures/heatmap_exp_b_0.png> <./figures/h
+eatmap_exp_W_1.png> <./figures/heatmap_exp_b_1.png>]
+<figures/heatmap_var_W_0.png, id=96, 578.16pt x 433.62pt>
+File: figures/heatmap_var_W_0.png Graphic file (type png)
+<use figures/heatmap_var_W_0.png>
+Package pdftex.def Info: figures/heatmap_var_W_0.png  used on input line 125.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 125--126
+ [][] 
+ []
+
+<figures/heatmap_var_b_0.png, id=97, 578.16pt x 433.62pt>
+File: figures/heatmap_var_b_0.png Graphic file (type png)
+<use figures/heatmap_var_b_0.png>
+Package pdftex.def Info: figures/heatmap_var_b_0.png  used on input line 129.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 129--130
+ [][] 
+ []
+
+<figures/heatmap_var_W_1.png, id=98, 578.16pt x 433.62pt>
 File: figures/heatmap_var_W_1.png Graphic file (type png)
 <use figures/heatmap_var_W_1.png>
-Package pdftex.def Info: figures/heatmap_var_W_1.png  used on input line 119.
+Package pdftex.def Info: figures/heatmap_var_W_1.png  used on input line 137.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 119--120
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 137--138
  [][] 
  []
 
-<figures/heatmap_var_b_1.png, id=57, 578.16pt x 433.62pt>
+<figures/heatmap_var_b_1.png, id=99, 578.16pt x 433.62pt>
 File: figures/heatmap_var_b_1.png Graphic file (type png)
 <use figures/heatmap_var_b_1.png>
-Package pdftex.def Info: figures/heatmap_var_b_1.png  used on input line 123.
+Package pdftex.def Info: figures/heatmap_var_b_1.png  used on input line 141.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 123--124
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 141--142
  [][] 
  []
 
-<figures/elbo_program_4.png, id=58, 462.528pt x 346.896pt>
+<figures/elbo_program_4.png, id=100, 462.528pt x 346.896pt>
 File: figures/elbo_program_4.png Graphic file (type png)
 <use figures/elbo_program_4.png>
-Package pdftex.def Info: figures/elbo_program_4.png  used on input line 131.
+Package pdftex.def Info: figures/elbo_program_4.png  used on input line 149.
 (pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
 
-Overfull \hbox (27.42926pt too wide) in paragraph at lines 131--132
+Overfull \hbox (27.42926pt too wide) in paragraph at lines 149--150
  [][] 
  []
 
-<figures/program4_time.png, id=59, 202.356pt x 15.6585pt>
+<figures/program4_time.png, id=101, 198.7425pt x 14.454pt>
 File: figures/program4_time.png Graphic file (type png)
 <use figures/program4_time.png>
-Package pdftex.def Info: figures/program4_time.png  used on input line 135.
-(pdftex.def)             Requested size: 161.88501pt x 12.52678pt.
-[3 <./figures/BBVI_program_3.png> <./figures/elbo_program_3.png> <./figures/pro
-gram3_time.png>] [4 <./figures/heatmap_exp_W_0.png> <./figures/heatmap_exp_b_0.
-png> <./figures/heatmap_exp_W_1.png> <./figures/heatmap_exp_b_1.png> <./figures
-/heatmap_var_W_0.png> <./figures/heatmap_var_b_0.png>] [5 <./figures/heatmap_va
-r_W_1.png> <./figures/heatmap_var_b_1.png> <./figures/elbo_program_4.png> <./fi
-gures/program4_time.png>] [6] (hw4.aux)
+Package pdftex.def Info: figures/program4_time.png  used on input line 153.
+(pdftex.def)             Requested size: 158.9942pt x 11.56319pt.
+[7 <./figures/heatmap_var_W_0.png> <./figures/heatmap_var_b_0.png> <./figures/h
+eatmap_var_W_1.png> <./figures/heatmap_var_b_1.png> <./figures/elbo_program_4.p
+ng> <./figures/program4_time.png>]
+<figures/elbo_program_5.png, id=113, 462.528pt x 346.896pt>
+File: figures/elbo_program_5.png Graphic file (type png)
+<use figures/elbo_program_5.png>
+Package pdftex.def Info: figures/elbo_program_5.png  used on input line 171.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+
+Overfull \hbox (4.77948pt too wide) in paragraph at lines 171--172
+ [][] 
+ []
+
+<figures/program5_time.png, id=114, 267.399pt x 40.35075pt>
+File: figures/program5_time.png Graphic file (type png)
+<use figures/program5_time.png>
+Package pdftex.def Info: figures/program5_time.png  used on input line 175.
+(pdftex.def)             Requested size: 213.91948pt x 32.28064pt.
+[8 <./figures/elbo_program_5.png> <./figures/program5_time.png>] (hw4.aux)
 Package rerunfilecheck Info: File `hw4.out' has not changed.
-(rerunfilecheck)             Checksum: 26B2ADBFE80818BCF12EA55405FC9ADD;455.
+(rerunfilecheck)             Checksum: 98D9FB43CCDC32B6F12298DE4BFE7EBB;639.
  ) 
 Here is how much of TeX's memory you used:
- 14959 strings out of 478868
- 238357 string characters out of 2848809
- 567522 words of memory out of 3000000
- 32533 multiletter control sequences out of 15000+600000
- 480778 words of font info for 128 fonts, out of 8000000 for 9000
+ 15040 strings out of 478868
+ 240727 string characters out of 2848809
+ 565522 words of memory out of 3000000
+ 32580 multiletter control sequences out of 15000+600000
+ 488107 words of font info for 143 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,9n,94p,499b,448s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,9n,94p,694b,448s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinus-type
-1/lbts_sfissr.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips
-/libertinus-type1/lbts_75t36g.enc}<C:/Users/kevin/AppData/Local/Programs/MiKTeX
-/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><C:/Users/kevin/A
-ppData/Local/Programs/MiKTeX/fonts/type1/public/libertinus-type1/LibertinusSeri
-f-Regular.pfb>
-Output written on hw4.pdf (6 pages, 536466 bytes).
+1/lbts_nufysp.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips
+/libertinus-type1/lbts_sfissr.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX
+/fonts/enc/dvips/libertinus-type1/lbts_75t36g.enc}<C:/Users/kevin/AppData/Local
+/Programs/MiKTeX/fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><
+C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertinus-type
+1/LibertinusSerif-Italic.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/font
+s/type1/public/libertinus-type1/LibertinusSerif-Regular.pfb>
+Output written on hw4.pdf (8 pages, 1021752 bytes).
 PDF statistics:
- 105 PDF objects out of 1000 (max. 8388607)
- 12 named destinations out of 1000 (max. 500000)
- 24712 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 144 PDF objects out of 1000 (max. 8388607)
+ 16 named destinations out of 1000 (max. 500000)
+ 28859 words of extra memory for PDF output out of 29859 (max. 10000000)
 

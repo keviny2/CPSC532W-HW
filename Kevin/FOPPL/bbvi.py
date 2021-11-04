@@ -79,8 +79,7 @@ class BBVI(Sampler):
             G_one_to_L_v = torch.empty(0)
             for l in range(L):
                 if v in list(G[l].keys()):
-                    # BUG: dirichlet parameters become very sparse (e.g. [1, 0, 0])....
-                    F_l_v = G[l][v] * logW[l]  # TODO: I think the textbook has a typo on this one
+                    F_l_v = G[l][v] * logW[l]
                 else:
                     F_l_v, G[l][v] = torch.zeros(num_params), torch.zeros(num_params)
                 # saving each F_l_v and G[l][v] for future computations
