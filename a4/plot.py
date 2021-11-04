@@ -1,14 +1,17 @@
 from matplotlib import pyplot as plt
 import os
 from graph_based_sampling import evaluate, deterministic_eval
+import seaborn as sns
+import numpy as np
 
 
-def plot_trace(sample, title, ylabel, type, file_name):
+def plot_trace(sample, i, ylabel, file_name):
     fig, ax = plt.subplots(figsize = (8,6))
     ax.plot(sample)
-    ax.set_title(title)
+    max = np.max(sample)
+    ax.set_title("BBVI loss for {i}.daphne\n Max: {max}".format(i = i, max = max))
     ax.set(ylabel = ylabel, xlabel = "Num_iterations")
-    fname = os.path.join("figs", type, file_name)
+    fname = os.path.join("figs", file_name)
     plt.savefig(fname)
     print("\nFigure saved as '%s'" % fname)
 
@@ -30,12 +33,12 @@ def plot_histogram(sample, title, xlabel, type, file_name):
     plt.savefig(fname)
     print("\nFigure saved as '%s'" % fname)
 
-def plot_histogram_IS(sample, weights, title, xlabel, type, file_name):
+def plot_histogram_bbvi(sample, weights, title, xlabel, file_name):
     fig, ax = plt.subplots(figsize = (8,6))
-    ax.hist(sample, weights = weights, bins = 100)
+    ax.hist(sample.numpy(), weights = weights.numpy())
     ax.set_title(title)
     ax.set(ylabel="Frequency", xlabel=xlabel)
-    fname = os.path.join("figs", type, file_name)
+    fname = os.path.join("figs", file_name)
     plt.savefig(fname)
     print("\nFigure saved as '%s'" % fname)
 
@@ -45,3 +48,12 @@ def joint_log_likelihood(vertices, links, variables_dict):
         logP += deterministic_eval(evaluate(links[vertex][1], variables_dict)).log_prob(variables_dict[vertex])
 
     return logP
+
+
+def plot_heatmap(sample, title, file_name):
+    fig, ax = plt.subplots(figsize = (8, 6))
+    sns.heatmap(sample, annot = True)
+    plt.title(title)
+    fname = os.path.join("figs", file_name)
+    plt.savefig(fname)
+    print("\nFigure saved as '%s'" % fname)

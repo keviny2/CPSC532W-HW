@@ -15,6 +15,7 @@ env = {'normal': distributions.Normal,
        'beta': dist.Beta,
        'exponential': dist.Exponential,
        'uniform': dist.Uniform,
+       'uniform-continuous': dist.Uniform,
        'discrete': distributions.Categorical,
        'gamma': distributions.Gamma,
        'flip': distributions.Bernoulli,
@@ -40,7 +41,8 @@ env = {'normal': distributions.Normal,
        'mat-transpose': primitives.mat_transpose,
        'mat-tanh': primitives.mat_tanh,
        'mat-mul': primitives.mat_mul,
-       'mad-add': primitives.mat_add,
+       'mat-add': primitives.mat_add,
+       'mat-repmat': primitives.mat_repmat,
        'if': primitives.iff,
        'and': primitives.func_and,
        'or': primitives.func_or
@@ -133,37 +135,35 @@ def sample_from_joint_with_sorted(graph, topological_orderings, x, sigma):
     for vertex in topological_orderings:
         link = links[vertex]
         if link[0] == 'sample*':
-
-            # record = evaluate(link[1], variables_dict)
-            # dist = deterministic_eval(record)
-            # value = dist.sample()
-
             v = 'v_{}'.format(x)
             link.insert(1, v)
             record = evaluate(link[2], variables_dict)
             p = deterministic_eval(record)
             if v not in sigma['Q']:
                 sigma['Q'][v] = p.make_copy_with_grads()
+                sigma['lambda'][v] = sigma['optimizer'](sigma['Q'][v].Parameters(), lr = 1e-4)
 
             c = sigma['Q'][v].sample()
             variables_dict[vertex] = c
             logP = sigma['Q'][v].log_prob(c)
             logP.backward()
             params = sigma['Q'][v].Parameters()
-            grads = torch.zeros(len(params))
-            i = 0
-            for param in params:
-                grads[i] = param.grad
-                i += 1
+            try:
+                l = len(params[0])
+                grads = params[0].grad.clone().detach()
+            except:
+                grads = torch.zeros(len(params))
+                i = 0
+                for param in params:
+                    grads[i] = param.grad.clone().detach()
+                    i += 1
             sigma['G'][v] = grads
+            sigma['lambda'][v].zero_grad()
             logW_v = p.log_prob(c) - sigma['Q'][v].log_prob(c)
             sigma['logW'] += logW_v
             x += 1
 
         elif link[0] == 'observe*':
-            # record = evaluate(link[2], variables_dict)
-            # value = deterministic_eval(record)
-            # variables_dict[vertex] = value
 
             d = deterministic_eval(evaluate(link[1], variables_dict))
             c = deterministic_eval(evaluate(link[2], variables_dict))
@@ -202,63 +202,3 @@ def get_stream(graph):
 
 
 
-
-#Testing:
-
-# def run_deterministic_tests():
-#
-#     # for i in range(1,13):
-#     #     #note: this path should be with respect to the daphne path!
-#     #     graph = daphne(['graph','-i',
-#     #                     '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a3/programs/tests/deterministic/test_{}.daphne'.format(i)])
-#     #     truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
-#     #     ret = deterministic_eval(graph[-1])
-#     #     try:
-#     #         assert(is_tol(ret, truth))
-#     #     except AssertionError:
-#     #         raise AssertionError('return value {} is not equal to truth {} for graph {}'.format(ret,truth,graph))
-#     #
-#     #     print('Test passed')
-#
-#     print('All deterministic tests passed')
-    
-
-
-# def run_probabilistic_tests():
-#
-#     # num_samples = 1
-#     # max_p_value = 1e-4
-#     #
-#     # for i in range(1,7):
-#     #     graph = daphne(['graph', '-i',
-#     #                     '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a3/programs/tests/probabilistic/test_{}.daphne'.format(i)])
-#     #     truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
-#     #
-#     #     stream = get_stream(graph)
-#     #
-#     #     p_val = run_prob_test(stream, truth, num_samples)
-#     #
-#     #     print('p value', p_val)
-#     #     assert(p_val > max_p_value)
-#     #
-#     print('All probabilistic tests passed')
-
-
-        
-        
-# if __name__ == '__main__':
-#
-#
-#     run_deterministic_tests()
-#     run_probabilistic_tests()
-
-    # for i in range(1,5):
-    #     i = 3
-    #     graph = daphne(['graph','-i',
-    #                     '/Users/xiaoxuanliang/Desktop/CPSC 532W/HW/a3/programs/{}.daphne'.format(i)])
-    #     print(graph)
-    #     print('\n\n\nSample of prior of program {}:'.format(i))
-    #
-    #     print(sample_from_joint(graph))
-
-    

@@ -1,17 +1,20 @@
 import torch
 import torch.distributions as dist
 
+
 class Normal(dist.Normal):
     
-    def __init__(self, loc, scale):
+    def __init__(self, loc, scale, copy=False):
         
-        if scale > 20.:
-            self.optim_scale = scale.clone().detach().requires_grad_()
+        if not copy: 
+            if scale > 20.:
+                self.optim_scale = scale.clone().detach().requires_grad_()
+            else:
+                self.optim_scale = torch.log(torch.exp(scale) - 1).clone().detach().requires_grad_()
         else:
-            self.optim_scale = torch.log(torch.exp(scale) - 1).clone().detach().requires_grad_()
-        
-        
+            self.optim_scale = scale
 
+        
         super().__init__(loc, torch.nn.functional.softplus(self.optim_scale))
     
     def Parameters(self):
@@ -25,14 +28,18 @@ class Normal(dist.Normal):
         
         ps = [p.clone().detach().requires_grad_() for p in self.Parameters()]
          
-        return Normal(*ps)
+        return Normal(*ps, copy=True)
     
     def log_prob(self, x):
         
         self.scale = torch.nn.functional.softplus(self.optim_scale)
         
         return super().log_prob(x)
-        
+    
+    def sample(self):
+        return super().sample()
+
+
 class Bernoulli(dist.Bernoulli):
     
     def __init__(self, probs=None, logits=None):
@@ -57,6 +64,9 @@ class Bernoulli(dist.Bernoulli):
         logits = [p.clone().detach().requires_grad_() for p in self.Parameters()][0]
         
         return Bernoulli(logits = logits)
+    
+    def sample(self):
+        return super().sample()
     
 class Categorical(dist.Categorical):
     
@@ -91,8 +101,12 @@ class Categorical(dist.Categorical):
         
         logits = [p.clone().detach().requires_grad_() for p in self.Parameters()][0]
         
-        return Categorical(logits = logits)    
+        return Categorical(logits = logits) 
+    
+    def sample(self):
+        return super().sample()
 
+    
 class Dirichlet(dist.Dirichlet):
     
     def __init__(self, concentration):
@@ -111,14 +125,22 @@ class Dirichlet(dist.Dirichlet):
         concentration = [p.clone().detach().requires_grad_() for p in self.Parameters()][0]
         
         return Dirichlet(concentration)
+    
+    def sample(self):
+        return super().sample()
+
 
 class Gamma(dist.Gamma):
     
-    def __init__(self, concentration, rate):
-        if rate > 20.:
-            self.optim_rate = rate.clone().detach().requires_grad_()
+    def __init__(self, concentration, rate, copy=False):
+        
+        if not copy:
+            if rate > 20.:
+                self.optim_rate = rate.clone().detach().requires_grad_()
+            else:
+                self.optim_rate = torch.log(torch.exp(rate) - 1).clone().detach().requires_grad_()
         else:
-            self.optim_rate = torch.log(torch.exp(rate) - 1).clone().detach().requires_grad_()
+            self.optim_rate = rate
         
         
         super().__init__(concentration, torch.nn.functional.softplus(self.optim_rate))
@@ -134,7 +156,7 @@ class Gamma(dist.Gamma):
         
         concentration,rate = [p.clone().detach().requires_grad_() for p in self.Parameters()]
         
-        return Gamma(concentration, rate)
+        return Gamma(concentration, rate, copy=True)
 
     def log_prob(self, x):
         
@@ -142,7 +164,8 @@ class Gamma(dist.Gamma):
         
         return super().log_prob(x)
 
-
+    def sample(self):
+        return super().sample()
 
 
 if __name__ == '__main__':
@@ -163,7 +186,6 @@ if __name__ == '__main__':
     
     #the function .Parameters() returns a list of parameters that you can pass to an optimizer
     optimizer = torch.optim.Adam(dg.Parameters(), lr=1e-2)
-    print(optimizer)
     
     #do the optimization. Here we're maximizing the log_prob of some data at 2.0
     #the scale should move to 2.0 as well,
@@ -174,10 +196,10 @@ if __name__ == '__main__':
         nlp.backward()
         optimizer.step()
         optimizer.zero_grad()
-        print(dg.Parameters())
     
     #check the result is correct:
     print(dg.Parameters())
+    #print (dg.grad.data)
     
     
     #note: Parameters() returns a list of tensors that parametrize the distributions
