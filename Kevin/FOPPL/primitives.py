@@ -1,6 +1,6 @@
 import torch
 
-primitives_list = ['+', '-', '*', '/', 'sqrt', '<', '<=', '>', '>=', '=', 'and', 'or',
+primitives_list = ['+', '-', '*', '/', 'sqrt', 'abs', '<', '<=', '>', '>=', '=', 'and', 'or',
                    'vector', 'hash-map', 'get', 'put', 'first', 'second', 'rest', 'last', 'append',
                    'mat-transpose', 'mat-tanh', 'mat-mul', 'mat-add', 'mat-repmat'
                    ]
@@ -139,6 +139,8 @@ def evaluate_primitive(ast):
         return ast[1] / ast[2]
     elif ast[0] == 'sqrt':
         return torch.sqrt(ast[1])
+    elif ast[0] == 'abs':
+        return torch.abs(ast[1])
     elif ast[0] == '<':
         return ast[1] < ast[2]
     elif ast[0] == '>':

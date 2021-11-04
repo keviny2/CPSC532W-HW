@@ -8,7 +8,7 @@ from utils import nth
 
 if __name__ == "__main__":
     daphne_input_nums = [1, 2, 5, 4, 8]
-    num_samples = int(4e3)
+    num_samples = int(1500)
     num_points = 10000  # number of points to plot
 
     debug_start = 3
@@ -16,7 +16,7 @@ if __name__ == "__main__":
     mh_gibbs_sampler = MHGibbsSampler()
     hmc_sampler = HMCSampler(T=10, epsilon=0.1)
     bbvi = BBVI()
-    for idx, num in enumerate(daphne_input_nums[debug_start:], 1):
+    for idx, num in enumerate(daphne_input_nums[debug_start:], 1 + debug_start):
         print()
 
         start = time.time()
@@ -25,7 +25,7 @@ if __name__ == "__main__":
         print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, idx))
 
         bbvi.summary(num, samples)
-        bbvi.plot(num, samples, num_points, save_plot=True, program_num=idx)
+        bbvi.plot(num, samples, num_points, save_plot=True, program_num=idx, trace=True)
         bbvi.plot_elbo(bbvi_loss, idx)
 
         # ================================HW3=========================================

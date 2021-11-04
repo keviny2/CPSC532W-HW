@@ -3,6 +3,7 @@ from sampler import Sampler
 from utils import load_ast, create_fresh_variables, clone, save_ast
 import numpy as np
 import matplotlib.pyplot as plt
+from daphne import daphne
 
 import torch
 
@@ -43,7 +44,10 @@ class BBVI(Sampler):
         for v in list(g_hat.keys()):
             parameters = sig['Q'][v].Parameters()
             for idx, param in enumerate(parameters):
-                param.grad = torch.FloatTensor([-g_hat[v][idx]])
+                if len(param) > 1:
+                    param.grad = torch.FloatTensor(-g_hat[v])
+                else:
+                    param.grad = torch.FloatTensor([-g_hat[v][idx]])
 
             sig['O'][v].step()
             sig['O'][v].zero_grad()
@@ -58,8 +62,7 @@ class BBVI(Sampler):
         :return: dictionary g_hat that contains gradient components for each variable v
         """
 
-        L = len(G)
-        num_params = len(list(G[0].values())[0])  # get number of parameters
+        L = len(G)  # get number of parameters
 
         # obtain the union of all gradient maps
         union = []
@@ -70,6 +73,7 @@ class BBVI(Sampler):
         # dictionary containing our gradient estimates for each variable v
         g_hat = {}
         for v in union:
+            num_params = len(G[0][v])
             # tensors for computing b_hat afterwards
             F_one_to_L_v = torch.empty(0)
             G_one_to_L_v = torch.empty(0)
@@ -93,7 +97,7 @@ class BBVI(Sampler):
                 F_v_d = F_one_to_L_v[:, d]
                 G_v_d = G_one_to_L_v[:, d]
                 cov_F_G = np.cov(F_v_d.numpy(), G_v_d.numpy())
-                b_hat = torch.cat((b_hat, torch.FloatTensor([cov_F_G[0, 1] / cov_F_G[1, 1]])), 0)
+                b_hat = torch.nan_to_num(torch.cat((b_hat, torch.FloatTensor([cov_F_G[0, 1] / cov_F_G[1, 1]])), 0), 1)
 
             g_hat[v] = torch.sum(F_one_to_L_v - b_hat * G_one_to_L_v, dim=0) / L
         return g_hat
@@ -119,8 +123,6 @@ class BBVI(Sampler):
             'optimizer': self.optimizer,  # optimizer type (e.g. Adam)
             'lr': self.lr
         }
-
-        torch.autograd.set_detect_anomaly(True)
 
         samples = []
         bbvi_loss = []
@@ -148,6 +150,10 @@ class BBVI(Sampler):
                 r_tl, sig_tl = evaluate_program(ast, sig, self.method)
 
                 G_tl = clone(sig_tl['G'])
+
+                # cause all of a sudden we want to keep track of sigma now too in hw4...
+                if num == 1:
+                    r_tl = torch.FloatTensor([r_tl, next(iter(sig['Q'].values())).scale.clone().detach()])
 
                 # add to return list
                 samples.append([r_tl, sig_tl['logW'].clone().detach()])

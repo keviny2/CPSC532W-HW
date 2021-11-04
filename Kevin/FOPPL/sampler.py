@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import re
 import torch
+import seaborn as sns
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -123,7 +124,7 @@ class Sampler(ABC):
             print('Posterior Variance {}:'.format(parameter_names[i]), posterior_var)
 
 
-    def plot_values(self, samples, parameter_names, num_points, save_plot, num, program_num):
+    def plot_values(self, samples, parameter_names, num_points, save_plot, num, program_num, trace):
         """
         method to construct likelihood plots and histograms of the posterior
 
@@ -132,7 +133,7 @@ class Sampler(ABC):
         :return:
         """
         if self.method in ['IS', 'BBVI']:
-            self.plot_values_weights(samples, parameter_names, num_points, save_plot, num, program_num)
+            self.plot_values_weights(samples, parameter_names, num_points, save_plot, num, program_num, trace)
         elif self.method in ['MH', 'HMC']:
             self.plot_values_trace(samples, parameter_names, num_points, save_plot, num, program_num)
         else:
@@ -221,7 +222,7 @@ class Sampler(ABC):
             if save_plot:
                 plt.savefig('report/HW3/figures/log_joint_{0}_program_{1}'.format(self.method, num))
 
-    def plot_values_weights(self, samples, parameter_names, num_points, save_plot, num, program_num):
+    def plot_values_weights(self, samples, parameter_names, num_points, save_plot, num, program_num, trace):
 
         # separate parameter observations and weights from samples
         temp = [elem[0] for elem in samples]
@@ -256,12 +257,19 @@ class Sampler(ABC):
             else:
                 bin_size = 2
 
-            axs[i].hist(obs.numpy().flatten(),
-                        weights=torch.exp(weights).numpy().flatten(),
-                        bins=bin_size * math.ceil(np.max(obs.numpy().flatten()) - np.min(obs.numpy().flatten())))
-            axs[i].set(ylabel='frequency', xlabel=parameter_names[i])
+            if trace:
+                axs[i].plot(obs.numpy().flatten())
+                axs[i].set(ylabel=parameter_names[i], xlabel='iterations')
+            else:
+                axs[i].hist(obs.numpy().flatten(),
+                            weights=torch.exp(weights).numpy().flatten(),
+                            bins=bin_size * math.ceil(np.max(obs.numpy().flatten()) - np.min(obs.numpy().flatten())))
+                axs[i].set(ylabel='frequency', xlabel=parameter_names[i])
 
-        plt.suptitle('Histogram for Program {0} using {1}'.format(program_num, self.method))
+        if trace:
+            plt.suptitle('Trace plots for Program {0} using {1}'.format(program_num, self.method))
+        else:
+            plt.suptitle('Histogram for Program {0} using {1}'.format(program_num, self.method))
         plt.tight_layout()
 
         if save_plot:
@@ -276,7 +284,7 @@ class Sampler(ABC):
         """
 
         if num == 1:
-            self.compute_statistics(samples, ['mu'])
+            self.compute_statistics(samples, ['mu', 'sigma'])
 
         if num == 2:
             self.compute_statistics(samples, ['slope', 'bias'])
@@ -290,7 +298,7 @@ class Sampler(ABC):
         if num == 7:
             self.compute_statistics(samples, ['x', 'y'])
 
-    def plot(self, num, samples, num_points, save_plot, program_num):
+    def plot(self, num, samples, num_points, save_plot, program_num, trace=False):
         """
         constructs plots
 
@@ -300,10 +308,19 @@ class Sampler(ABC):
         :param save_plot: True if we save the plot
         """
         if num == 1:
-            self.plot_values(samples, ['mu'], num_points, save_plot, num, program_num)
+            self.plot_values(samples, ['mu', 'sigma'], num_points, save_plot, num, program_num, trace)
 
         if num == 2:
-            self.plot_values(samples, ['slope', 'bias'], num_points, save_plot, num, program_num)
+            self.plot_values(samples, ['slope', 'bias'], num_points, save_plot, num, program_num, trace)
+
+        if num == 4:
+            temp = [elem[0] for elem in samples]
+            processed_samples = []
+            for obs in temp:
+                processed_sample = [torch.squeeze(param) for param in obs]
+                processed_samples.append(processed_sample)
+
+            self.plot_heatmap(processed_samples, ['W_0', 'b_0', 'W_1', 'b_1'], save_plot, program_num)
 
         if num == 5:
             self.plot_values(samples,
@@ -311,13 +328,46 @@ class Sampler(ABC):
                              num_points,
                              save_plot,
                              num,
-                             program_num)
+                             program_num,
+                             trace)
 
         if num == 6:
             self.plot_values(samples, ['is-raining'], num_points, save_plot, num, program_num)
 
         if num == 7:
             self.plot_values(samples, ['x', 'y'], num_points, save_plot, num, program_num)
+
+    def plot_heatmap(self, samples, parameter_names, save_plot, program_num):
+
+        parameter_dict = {}
+        for idx, parameter_name in enumerate(parameter_names):
+            parameter_dict[parameter_name] = np.array([param[idx].numpy() for param in samples])
+
+        # ========= EXPECTATION ==========
+        for i, param in enumerate(list(parameter_dict.keys())):
+            fig, ax = plt.subplots(figsize=(8, 6))
+            plt.title('Heatmap for {} posterior expectation'.format(param))
+
+            if param == 'W_1':
+                sns.heatmap(np.sum(parameter_dict[param], axis=0), robust=True)
+            else:
+                sns.heatmap(np.sum(parameter_dict[param], axis=0, keepdims=True), robust=True)
+
+            if save_plot:
+                plt.savefig('report/HW4/figures/heatmap_exp_{}'.format(param))
+
+        # ========= VARIANCE ==========
+        for i, param in enumerate(list(parameter_dict.keys())):
+            fig, ax = plt.subplots(figsize=(8, 6))
+            plt.title('Heatmap for {} posterior variance'.format(param))
+
+            if param == 'W_1':
+                sns.heatmap(np.var(parameter_dict[param], axis=0), robust=True)
+            else:
+                sns.heatmap(np.var(parameter_dict[param], axis=0, keepdims=True), robust=True)
+
+            if save_plot:
+                plt.savefig('report/HW4/figures/heatmap_var_{}'.format(param))
 
     @staticmethod
     def compute_log_density(samples, num, ignore=None):

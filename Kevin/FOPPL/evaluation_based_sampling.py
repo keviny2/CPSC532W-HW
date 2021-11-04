@@ -112,6 +112,18 @@ def evaluate_program_helper(ast, sig, variable_bindings):
                 d, sig = evaluate_program_helper(ast[1], sig, variable_bindings)
                 return d.sample(), sig
         if ast[0] == 'let':
+
+            if ast[1][0] == 'm':
+                flag = True
+                while flag:
+                    # evaluate the expression that the variable will be bound to
+                    binding_obj, sig = evaluate_program_helper(ast[1][1], sig, variable_bindings)
+
+                    flag = ~(torch.abs(binding_obj) > 0.01)
+
+                variable_bindings[ast[1][0]] = binding_obj
+                return evaluate_program_helper(ast[2], sig, variable_bindings)
+
             # evaluate the expression that the variable will be bound to
             binding_obj, sig = evaluate_program_helper(ast[1][1], sig, variable_bindings)
 

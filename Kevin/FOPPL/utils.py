@@ -2,11 +2,11 @@ import pickle
 import torch
 import random
 import string
-from torch.distributions import normal, beta, exponential, uniform, categorical, bernoulli, gamma, dirichlet
-from distributions import Normal, Bernoulli, Gamma, Dirichlet, Categorical
+from torch.distributions import beta, exponential
+from distributions import Normal, Bernoulli, Gamma, Dirichlet, Categorical, UniformContinuous
 from dirac import Dirac
 
-distributions = ['normal', 'beta', 'exponential', 'uniform', 'discrete', 'flip', 'gamma', 'dirichlet', 'dirac']
+distributions = ['normal', 'beta', 'exponential', 'uniform-continuous', 'discrete', 'flip', 'gamma', 'dirichlet', 'dirac']
 
 tasks = ['Gaussian unknown mean problem',
          'Bayesian linear regression',
@@ -113,8 +113,8 @@ def get_distribution(dist_type, parameters):
         return beta.Beta(params[0], params[1])
     if dist_type == 'exponential':
         return exponential.Exponential(params[0])
-    if dist_type == 'uniform':
-        return uniform.Uniform(params[0], params[1])
+    if dist_type == 'uniform-continuous':
+        return UniformContinuous(torch.FloatTensor([params[0]]), torch.FloatTensor([params[1]]))
     if dist_type == 'discrete':
         return Categorical(probs=torch.FloatTensor(params[0]))
     if dist_type == 'flip':
@@ -125,6 +125,8 @@ def get_distribution(dist_type, parameters):
         return Dirichlet(torch.FloatTensor(params[0]))
     if dist_type == 'dirac':
         return Dirac(params[0])
+
+    raise RuntimeError('{} is not a valid distribution'.format(ast))
 
 
 def save_ast(file_name, my_ast):
