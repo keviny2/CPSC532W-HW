@@ -115,8 +115,6 @@ def evaluate_program_helper(ast, sig, variable_bindings):
             # evaluate the expression that the variable will be bound to
             binding_obj, sig = evaluate_program_helper(ast[1][1], sig, variable_bindings)
 
-            # the variable name is found in let_ast[1][0]
-            # update variable_bindings dictionary
             variable_bindings[ast[1][0]] = binding_obj
 
             # evaluate the return expression
@@ -218,7 +216,7 @@ if __name__ == '__main__':
 
     # run_probabilistic_tests()
 
-    debug_start = 3
+    debug_start = 4
     for i in range(debug_start,5):
         # ast = daphne(['desugar', '-i', '../CPSC532W-HW/Kevin/FOPPL/programs/{}.daphne'.format(i)])
 
