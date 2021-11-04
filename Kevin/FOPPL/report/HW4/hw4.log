@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  4 NOV 2021 01:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  4 NOV 2021 09:03
 entering extended mode
 **./hw4.tex
 (hw4.tex
@@ -1003,127 +1003,149 @@ File: figures/program2_time.png Graphic file (type png)
 <use figures/program2_time.png>
 Package pdftex.def Info: figures/program2_time.png  used on input line 50.
 (pdftex.def)             Requested size: 171.52103pt x 64.56128pt.
-<figures/heatmap_exp_W_0.png, id=40, 578.16pt x 433.62pt>
+<figures/BBVI_program_3.png, id=40, 578.16pt x 433.62pt>
+File: figures/BBVI_program_3.png Graphic file (type png)
+<use figures/BBVI_program_3.png>
+Package pdftex.def Info: figures/BBVI_program_3.png  used on input line 59.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+[2 <./figures/BBVI_program_2.png> <./figures/elbo_program_2.png> <./figures/pro
+gram2_time.png>]
+<figures/elbo_program_3.png, id=48, 462.528pt x 346.896pt>
+File: figures/elbo_program_3.png Graphic file (type png)
+<use figures/elbo_program_3.png>
+Package pdftex.def Info: figures/elbo_program_3.png  used on input line 66.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+
+Overfull \hbox (27.42926pt too wide) in paragraph at lines 66--67
+ [][] 
+ []
+
+<figures/program3_time.png, id=49, 244.5135pt x 28.908pt>
+File: figures/program3_time.png Graphic file (type png)
+<use figures/program3_time.png>
+Package pdftex.def Info: figures/program3_time.png  used on input line 70.
+(pdftex.def)             Requested size: 195.61105pt x 23.1264pt.
+<figures/heatmap_exp_W_0.png, id=50, 578.16pt x 433.62pt>
 File: figures/heatmap_exp_W_0.png Graphic file (type png)
 <use figures/heatmap_exp_W_0.png>
-Package pdftex.def Info: figures/heatmap_exp_W_0.png  used on input line 67.
-(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 67--68
- [][] 
- []
-
-<figures/heatmap_exp_b_0.png, id=41, 578.16pt x 433.62pt>
-File: figures/heatmap_exp_b_0.png Graphic file (type png)
-<use figures/heatmap_exp_b_0.png>
-Package pdftex.def Info: figures/heatmap_exp_b_0.png  used on input line 71.
-(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 71--72
- [][] 
- []
-
-<figures/heatmap_exp_W_1.png, id=42, 578.16pt x 433.62pt>
-File: figures/heatmap_exp_W_1.png Graphic file (type png)
-<use figures/heatmap_exp_W_1.png>
-Package pdftex.def Info: figures/heatmap_exp_W_1.png  used on input line 79.
-(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
-
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 79--80
- [][] 
- []
-
-<figures/heatmap_exp_b_1.png, id=43, 578.16pt x 433.62pt>
-File: figures/heatmap_exp_b_1.png Graphic file (type png)
-<use figures/heatmap_exp_b_1.png>
-Package pdftex.def Info: figures/heatmap_exp_b_1.png  used on input line 83.
+Package pdftex.def Info: figures/heatmap_exp_W_0.png  used on input line 83.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
 Overfull \hbox (85.24512pt too wide) in paragraph at lines 83--84
  [][] 
  []
 
-<figures/heatmap_var_W_0.png, id=44, 578.16pt x 433.62pt>
-File: figures/heatmap_var_W_0.png Graphic file (type png)
-<use figures/heatmap_var_W_0.png>
-Package pdftex.def Info: figures/heatmap_var_W_0.png  used on input line 91.
+<figures/heatmap_exp_b_0.png, id=51, 578.16pt x 433.62pt>
+File: figures/heatmap_exp_b_0.png Graphic file (type png)
+<use figures/heatmap_exp_b_0.png>
+Package pdftex.def Info: figures/heatmap_exp_b_0.png  used on input line 87.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 91--92
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 87--88
  [][] 
  []
 
-<figures/heatmap_var_b_0.png, id=45, 578.16pt x 433.62pt>
-File: figures/heatmap_var_b_0.png Graphic file (type png)
-<use figures/heatmap_var_b_0.png>
-Package pdftex.def Info: figures/heatmap_var_b_0.png  used on input line 95.
+<figures/heatmap_exp_W_1.png, id=52, 578.16pt x 433.62pt>
+File: figures/heatmap_exp_W_1.png Graphic file (type png)
+<use figures/heatmap_exp_W_1.png>
+Package pdftex.def Info: figures/heatmap_exp_W_1.png  used on input line 95.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
 Overfull \hbox (85.24512pt too wide) in paragraph at lines 95--96
  [][] 
  []
 
-<figures/heatmap_var_W_1.png, id=46, 578.16pt x 433.62pt>
-File: figures/heatmap_var_W_1.png Graphic file (type png)
-<use figures/heatmap_var_W_1.png>
-Package pdftex.def Info: figures/heatmap_var_W_1.png  used on input line 103.
+<figures/heatmap_exp_b_1.png, id=53, 578.16pt x 433.62pt>
+File: figures/heatmap_exp_b_1.png Graphic file (type png)
+<use figures/heatmap_exp_b_1.png>
+Package pdftex.def Info: figures/heatmap_exp_b_1.png  used on input line 99.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-Overfull \hbox (85.24512pt too wide) in paragraph at lines 103--104
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 99--100
  [][] 
  []
 
-<figures/heatmap_var_b_1.png, id=47, 578.16pt x 433.62pt>
-File: figures/heatmap_var_b_1.png Graphic file (type png)
-<use figures/heatmap_var_b_1.png>
-Package pdftex.def Info: figures/heatmap_var_b_1.png  used on input line 107.
+<figures/heatmap_var_W_0.png, id=54, 578.16pt x 433.62pt>
+File: figures/heatmap_var_W_0.png Graphic file (type png)
+<use figures/heatmap_var_W_0.png>
+Package pdftex.def Info: figures/heatmap_var_W_0.png  used on input line 107.
 (pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
 Overfull \hbox (85.24512pt too wide) in paragraph at lines 107--108
  [][] 
  []
 
-<figures/elbo_program_4.png, id=48, 462.528pt x 346.896pt>
-File: figures/elbo_program_4.png Graphic file (type png)
-<use figures/elbo_program_4.png>
-Package pdftex.def Info: figures/elbo_program_4.png  used on input line 115.
-(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+<figures/heatmap_var_b_0.png, id=55, 578.16pt x 433.62pt>
+File: figures/heatmap_var_b_0.png Graphic file (type png)
+<use figures/heatmap_var_b_0.png>
+Package pdftex.def Info: figures/heatmap_var_b_0.png  used on input line 111.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
 
-Overfull \hbox (27.42926pt too wide) in paragraph at lines 115--116
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 111--112
  [][] 
  []
 
-<figures/program4_time.png, id=49, 202.356pt x 15.6585pt>
+<figures/heatmap_var_W_1.png, id=56, 578.16pt x 433.62pt>
+File: figures/heatmap_var_W_1.png Graphic file (type png)
+<use figures/heatmap_var_W_1.png>
+Package pdftex.def Info: figures/heatmap_var_W_1.png  used on input line 119.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 119--120
+ [][] 
+ []
+
+<figures/heatmap_var_b_1.png, id=57, 578.16pt x 433.62pt>
+File: figures/heatmap_var_b_1.png Graphic file (type png)
+<use figures/heatmap_var_b_1.png>
+Package pdftex.def Info: figures/heatmap_var_b_1.png  used on input line 123.
+(pdftex.def)             Requested size: 289.07928pt x 216.80946pt.
+
+Overfull \hbox (85.24512pt too wide) in paragraph at lines 123--124
+ [][] 
+ []
+
+<figures/elbo_program_4.png, id=58, 462.528pt x 346.896pt>
+File: figures/elbo_program_4.png Graphic file (type png)
+<use figures/elbo_program_4.png>
+Package pdftex.def Info: figures/elbo_program_4.png  used on input line 131.
+(pdftex.def)             Requested size: 231.26343pt x 173.44757pt.
+
+Overfull \hbox (27.42926pt too wide) in paragraph at lines 131--132
+ [][] 
+ []
+
+<figures/program4_time.png, id=59, 202.356pt x 15.6585pt>
 File: figures/program4_time.png Graphic file (type png)
 <use figures/program4_time.png>
-Package pdftex.def Info: figures/program4_time.png  used on input line 119.
+Package pdftex.def Info: figures/program4_time.png  used on input line 135.
 (pdftex.def)             Requested size: 161.88501pt x 12.52678pt.
-[2 <./figures/BBVI_program_2.png> <./figures/elbo_program_2.png> <./figures/pro
-gram2_time.png>] [3 <./figures/heatmap_exp_W_0.png> <./figures/heatmap_exp_b_0.
+[3 <./figures/BBVI_program_3.png> <./figures/elbo_program_3.png> <./figures/pro
+gram3_time.png>] [4 <./figures/heatmap_exp_W_0.png> <./figures/heatmap_exp_b_0.
 png> <./figures/heatmap_exp_W_1.png> <./figures/heatmap_exp_b_1.png> <./figures
-/heatmap_var_W_0.png> <./figures/heatmap_var_b_0.png>] [4 <./figures/heatmap_va
+/heatmap_var_W_0.png> <./figures/heatmap_var_b_0.png>] [5 <./figures/heatmap_va
 r_W_1.png> <./figures/heatmap_var_b_1.png> <./figures/elbo_program_4.png> <./fi
-gures/program4_time.png>] [5] (hw4.aux)
+gures/program4_time.png>] [6] (hw4.aux)
 Package rerunfilecheck Info: File `hw4.out' has not changed.
 (rerunfilecheck)             Checksum: 26B2ADBFE80818BCF12EA55405FC9ADD;455.
  ) 
 Here is how much of TeX's memory you used:
- 14937 strings out of 478868
- 237743 string characters out of 2848809
+ 14959 strings out of 478868
+ 238357 string characters out of 2848809
  567522 words of memory out of 3000000
- 32515 multiletter control sequences out of 15000+600000
+ 32533 multiletter control sequences out of 15000+600000
  480778 words of font info for 128 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 86i,9n,94p,499b,380s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,9n,94p,499b,448s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertinus-type
 1/lbts_sfissr.enc}{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips
 /libertinus-type1/lbts_75t36g.enc}<C:/Users/kevin/AppData/Local/Programs/MiKTeX
 /fonts/type1/public/libertinus-type1/LibertinusSerif-Bold.pfb><C:/Users/kevin/A
 ppData/Local/Programs/MiKTeX/fonts/type1/public/libertinus-type1/LibertinusSeri
 f-Regular.pfb>
-Output written on hw4.pdf (5 pages, 646143 bytes).
+Output written on hw4.pdf (6 pages, 536466 bytes).
 PDF statistics:
- 95 PDF objects out of 1000 (max. 8388607)
- 11 named destinations out of 1000 (max. 500000)
- 24697 words of extra memory for PDF output out of 24883 (max. 10000000)
+ 105 PDF objects out of 1000 (max. 8388607)
+ 12 named destinations out of 1000 (max. 500000)
+ 24712 words of extra memory for PDF output out of 24883 (max. 10000000)
 

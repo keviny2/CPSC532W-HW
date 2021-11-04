@@ -114,7 +114,7 @@ def get_distribution(dist_type, parameters):
     if dist_type == 'exponential':
         return exponential.Exponential(params[0])
     if dist_type == 'uniform-continuous':
-        return UniformContinuous(torch.FloatTensor([params[0]]), torch.FloatTensor([params[1]]))
+        return UniformContinuous(low=torch.FloatTensor([params[0]]), high=torch.FloatTensor([params[1]]))
     if dist_type == 'discrete':
         return Categorical(probs=torch.FloatTensor(params[0]))
     if dist_type == 'flip':

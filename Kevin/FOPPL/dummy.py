@@ -8,10 +8,10 @@ from utils import nth
 
 if __name__ == "__main__":
     daphne_input_nums = [1, 2, 5, 4, 8]
-    num_samples = int(1e4)
+    num_samples = int(4000)
     num_points = 10000  # number of points to plot
 
-    debug_start = 2
+    debug_start = 4
     importance_sampler = ImportanceSampler()
     mh_gibbs_sampler = MHGibbsSampler()
     hmc_sampler = HMCSampler(T=10, epsilon=0.1)
@@ -20,7 +20,7 @@ if __name__ == "__main__":
         print()
 
         start = time.time()
-        samples, bbvi_loss = bbvi.sample(T=num_samples, L=int(1e1), num=num)
+        samples, bbvi_loss = bbvi.sample(T=num_samples, L=int(1e2), num=num)
         end = time.time()
         print('Took {0:.2f} seconds to finish Program {1}'.format(end - start, idx))
 

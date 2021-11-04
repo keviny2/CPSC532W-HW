@@ -268,12 +268,17 @@ class Sampler(ABC):
 
         if trace:
             plt.suptitle('Trace plots for Program {0} using {1}'.format(program_num, self.method))
+            plt.tight_layout()
+            if save_plot:
+                plt.savefig('report/HW4/figures/{0}_program_{1}_trace'.format(self.method, program_num))
         else:
             plt.suptitle('Histogram for Program {0} using {1}'.format(program_num, self.method))
-        plt.tight_layout()
+            plt.tight_layout()
+            if save_plot:
+                plt.savefig('report/HW4/figures/{0}_program_{1}'.format(self.method, program_num))
 
-        if save_plot:
-            plt.savefig('report/HW4/figures/{0}_program_{1}'.format(self.method, program_num))
+
+
 
     def summary(self, num, samples):
         """
@@ -309,6 +314,7 @@ class Sampler(ABC):
         """
         if num == 1:
             self.plot_values(samples, ['mu', 'sigma'], num_points, save_plot, num, program_num, trace)
+            self.plot_values(samples, ['mu', 'sigma'], num_points, save_plot, num, program_num, ~trace)
 
         if num == 2:
             self.plot_values(samples, ['slope', 'bias'], num_points, save_plot, num, program_num, trace)
@@ -349,9 +355,9 @@ class Sampler(ABC):
             plt.title('Heatmap for {} posterior expectation'.format(param))
 
             if param == 'W_1':
-                sns.heatmap(np.sum(parameter_dict[param], axis=0), robust=True)
+                sns.heatmap(np.mean(parameter_dict[param], axis=0), annot=True, robust=True)
             else:
-                sns.heatmap(np.sum(parameter_dict[param], axis=0, keepdims=True), robust=True)
+                sns.heatmap(np.mean(parameter_dict[param], axis=0, keepdims=True), annot=True, robust=True)
 
             if save_plot:
                 plt.savefig('report/HW4/figures/heatmap_exp_{}'.format(param))
@@ -362,9 +368,9 @@ class Sampler(ABC):
             plt.title('Heatmap for {} posterior variance'.format(param))
 
             if param == 'W_1':
-                sns.heatmap(np.var(parameter_dict[param], axis=0), robust=True)
+                sns.heatmap(np.var(parameter_dict[param], axis=0), annot=True, robust=True)
             else:
-                sns.heatmap(np.var(parameter_dict[param], axis=0, keepdims=True), robust=True)
+                sns.heatmap(np.var(parameter_dict[param], axis=0, keepdims=True), annot=True, robust=True)
 
             if save_plot:
                 plt.savefig('report/HW4/figures/heatmap_var_{}'.format(param))
