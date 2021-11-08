@@ -5,6 +5,8 @@ from tests import is_tol, run_prob_test,load_truth
 from utils import save_ast, load_ast
 from pyrsistent import pmap, plist, PClass, field
 import torch
+import sys
+sys.setrecursionlimit(10000)
 
 
 class Env(PClass):
@@ -21,9 +23,10 @@ class Procedure(PClass):
     parms = field()
     body = field()
     env = field()
+    sig = field()
 
     def __call__(self, *args):
-        return evaluate(self.body, Env(local_map=pmap(dict(zip(self.parms, args))), outer=self.env))
+        return evaluate(self.body, Env(local_map=pmap(dict(zip(self.parms, args))), outer=self.env), self.sig)
 
 
 def standard_env():
@@ -37,44 +40,50 @@ def evaluate(exp, env=None, sig=None): #TODO: add sigma, or something
     # evaluate the wrapper fn
     if env is None:
         env = standard_env()
-        proc = evaluate(exp, env)
+        proc, sig = evaluate(exp, env, sig)
         return proc('')  # list with an empty string for pmap constructor for __call__ function in Procedure class
 
     # simply return constants and variables
     if isinstance(exp, str):         # variable reference
         try:
-            return env.find(exp)[exp]
+            return env.find(exp)[exp], sig
         except AttributeError:  # not found in environment, so just be a string primitive
-            return exp
+            return exp, sig
     elif not isinstance(exp, list):  # constant
-        return torch.tensor(exp)
+        return torch.tensor(exp), sig
 
     op, *args = exp
     if op == 'sample':
-        # TODO: maybe use sigma to pass around sample and observe stuff
-        pass
+        d, sig = evaluate(args[1], env, sig)
+        return d.sample(), sig
     if op == 'observe':
-        pass
+        print('I am observing')
+        raise NotImplementedError('Did not implement observe yet!')
     if op == 'if':             # conditional
         (test, conseq, alt) = args
-        exp = (conseq if evaluate(test, env) else alt)
-        return evaluate(exp, env)
+        exp = (conseq if evaluate(test, env, sig)[0] else alt)
+        return evaluate(exp, env, sig)
     elif op == 'define':         # definition
         (symbol, exp) = args
-        env[symbol] = evaluate(exp, env)
+        env[symbol] = evaluate(exp, env, sig)[0]
     elif op == 'fn':             # procedure
         (parms, body) = args
-        return Procedure(parms=parms[1:], body=body, env=env)  # the first element will be the address which we can ignore?
+        return Procedure(parms=parms[1:], body=body, env=env, sig=sig), sig  # the first element will be the address which we can ignore?
     else:                        # procedure call
-        proc = evaluate(op, env, sig)
-        vals = [evaluate(arg, env) for arg in args[1:]]  # NOTE: I think we can skip the address here b/c we'll catch
+        proc, sig = evaluate(op, env, sig)
+        vals = [evaluate(arg, env, sig)[0] for arg in args[1:]]  # NOTE: I think we can skip the address here b/c we'll catch
                                                             # the sample and observe case earlier
-        return proc(*vals)
+
+        # if proc is a Procedure, we do not need to return the sig b/c it implicitly calls evaluate
+        if isinstance(type(proc), type(Procedure)):
+            return proc(*vals)
+        else:
+            return proc(*vals), sig
 
 
 def get_stream(exp):
     while True:
-        yield evaluate(exp)
+        yield evaluate(exp)[0]
 
 
 def run_deterministic_tests():
@@ -85,7 +94,7 @@ def run_deterministic_tests():
         exp = load_ast('programs/saved_tests/deterministic/test_{}.daphne'.format(i))
 
         truth = load_truth('programs/tests/deterministic/test_{}.truth'.format(i))
-        ret = evaluate(exp)
+        ret, sig = evaluate(exp)
         try:
             assert(is_tol(ret, truth))
         except:
@@ -99,7 +108,7 @@ def run_deterministic_tests():
         exp = load_ast('programs/saved_tests/hoppl-deterministic/test_{}.daphne'.format(i))
 
         truth = load_truth('programs/tests/hoppl-deterministic/test_{}.truth'.format(i))
-        ret = evaluate(exp)
+        ret, sig = evaluate(exp)
         try:
             assert(is_tol(ret, truth))
         except:
@@ -127,7 +136,8 @@ def run_probabilistic_tests():
         
         print('p value', p_val)
         assert(p_val > max_p_value)
-    
+        print('Probabilistic Test {} passed'.format(i))
+
     print('All probabilistic tests passed')    
 
 
@@ -135,7 +145,7 @@ def run_probabilistic_tests():
 if __name__ == '__main__':
     
     # run_deterministic_tests()  # TODO: still need to finish test 12; get more information about conj first
-    run_probabilistic_tests()
+    # run_probabilistic_tests()
     
 
     for i in range(1,4):

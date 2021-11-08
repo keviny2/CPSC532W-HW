@@ -1,38 +1,6 @@
 import torch
-import torch.distributions as dist
+from distributions import Normal, Bernoulli, Gamma, Dirichlet, Categorical, Beta, Exponential, UniformContinuous
 
-
-class Normal(dist.Normal):
-    
-    def __init__(self, alpha, loc, scale):
-        
-        if scale > 20.:
-            self.optim_scale = scale.clone().detach().requires_grad_()
-        else:
-            self.optim_scale = torch.log(torch.exp(scale) - 1).clone().detach().requires_grad_()
-        
-        
-        super().__init__(loc, torch.nn.functional.softplus(self.optim_scale))
-    
-    def Parameters(self):
-        """Return a list of parameters for the distribution"""
-        return [self.loc, self.optim_scale]
-        
-    def make_copy_with_grads(self):
-        """
-        Return a copy  of the distribution, with parameters that require_grad
-        """
-        
-        ps = [p.clone().detach().requires_grad_() for p in self.Parameters()]
-         
-        return Normal(*ps)
-    
-    def log_prob(self, x):
-        
-        self.scale = torch.nn.functional.softplus(self.optim_scale)
-        
-        return super().log_prob(x)
-        
 
 def push_addr(alpha, value):
     return alpha + value
@@ -114,9 +82,17 @@ def empty(*args):
 env = {
     'alpha': '',
     'normal': Normal,
+    'gamma': Gamma,
+    'dirichlet': Dirichlet,
+    'discrete': Categorical,
+    'beta': Beta,
+    'exponential': Exponential,
+    'flip': Bernoulli,
+    'uniform-continuous': UniformContinuous,
     'push-address': push_addr,
     '+': torch.add, '-': torch.sub, '*': torch.mul, '/': torch.div,
     '>': torch.gt, '<': torch.lt, '>=': torch.ge, '<=': torch.le, '=': torch.eq,
+    'log': torch.log,
     'sqrt': torch.sqrt,
     'abs': torch.abs,
     'and': torch.logical_and,
