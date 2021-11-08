@@ -170,12 +170,12 @@ def run_probabilistic_tests():
 
 if __name__ == '__main__':
 
-    # run_deterministic_tests()
+    run_deterministic_tests()
     run_probabilistic_tests()
 
-    # for i in range(1, 4):
-    #     print(i)
-    #     exp = daphne(['desugar-hoppl', '-i', '../CPSC532W-HW/Kevin/HOPPL/programs/{}.daphne'.format(i)])
-    #     save_ast('programs/{}.daphne'.format(i), exp)
-        # print('\n\n\nSample of prior of program {}:'.format(i))
-        # print(evaluate(exp))
+    for i in range(1, 4):
+        print(i)
+        # exp = daphne(['desugar-hoppl', '-i', '../CPSC532W-HW/Kevin/HOPPL/programs/{}.daphne'.format(i)])
+        exp = load_ast('programs/saved_tests/{}.daphne'.format(i))
+        print('\n\n\nSample of prior of program {}:'.format(i))
+        print(evaluate(exp))
