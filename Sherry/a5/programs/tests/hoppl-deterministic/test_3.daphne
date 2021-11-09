@@ -1,3 +1,0 @@
-;; vector lookup in fn
-(let [f (fn [col i] (get col i))]
-  (f [5 6] 1))

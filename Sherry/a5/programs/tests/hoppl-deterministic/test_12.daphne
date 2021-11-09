@@ -1,6 +1,0 @@
-;; map
-(defn map [f values]
-   (if (empty? values)
-       []
-       (conj (map f (rest values)) (f (first values)))))
-(map (fn [y] (+ 1 y)) [1 2 3])
