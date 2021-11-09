@@ -35,7 +35,7 @@ def standard_env():
     return env
 
 
-def evaluate(exp, env=None, sig=None): #TODO: add sigma, or something
+def evaluate(exp, env=None, sig=None):
 
     # evaluate the wrapper fn
     if env is None:
@@ -50,15 +50,16 @@ def evaluate(exp, env=None, sig=None): #TODO: add sigma, or something
         except AttributeError:  # not found in environment, so just be a string primitive
             return exp, sig
     elif not isinstance(exp, list):  # constant
-        return torch.tensor(exp), sig
+        return torch.tensor(float(exp)), sig
 
     op, *args = exp
     if op == 'sample':
         d, sig = evaluate(args[1], env, sig)
         return d.sample(), sig
     if op == 'observe':
-        print('I am observing')
-        raise NotImplementedError('Did not implement observe yet!')
+        # sample from prior for now
+        d, sig = evaluate(args[1], env, sig)
+        return d.sample(), sig
     if op == 'if':             # conditional
         (test, conseq, alt) = args
         exp = (conseq if evaluate(test, env, sig)[0] else alt)
@@ -68,11 +69,10 @@ def evaluate(exp, env=None, sig=None): #TODO: add sigma, or something
         env[symbol] = evaluate(exp, env, sig)[0]
     elif op == 'fn':             # procedure
         (parms, body) = args
-        return Procedure(parms=parms[1:], body=body, env=env, sig=sig), sig  # the first element will be the address which we can ignore?
+        return Procedure(parms=parms[1:], body=body, env=env, sig=sig), sig
     else:                        # procedure call
         proc, sig = evaluate(op, env, sig)
-        vals = [evaluate(arg, env, sig)[0] for arg in args[1:]]  # NOTE: I think we can skip the address here b/c we'll catch
-                                                            # the sample and observe case earlier
+        vals = [evaluate(arg, env, sig)[0] for arg in args[1:]]
 
         # if proc is a Procedure, we do not need to return the sig b/c it implicitly calls evaluate
         if isinstance(type(proc), type(Procedure)):
@@ -144,13 +144,13 @@ def run_probabilistic_tests():
 
 if __name__ == '__main__':
     
-    # run_deterministic_tests()  # TODO: still need to finish test 12; get more information about conj first
-    # run_probabilistic_tests()
-    
+    run_deterministic_tests()
+    run_probabilistic_tests()
 
     for i in range(1,4):
         print(i)
         # exp = daphne(['desugar-hoppl', '-i', '../../HW5/programs/{}.daphne'.format(i)])
         exp = load_ast('programs/saved_tests/{}.daphne'.format(i))
         print('\n\n\nSample of prior of program {}:'.format(i))
-        print(evaluate(exp))        
+
+        print(evaluate(exp))

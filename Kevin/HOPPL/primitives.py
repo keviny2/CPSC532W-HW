@@ -7,6 +7,8 @@ def push_addr(alpha, value):
 
 
 def vector(*args):
+    if not args:  # if args is empty, return empty tensor
+        return torch.empty(0)
     try:
         return torch.stack(args)
     except:
@@ -25,17 +27,29 @@ def hash_map(*args):
 
 
 def append(*args):
-    try:
-        return torch.cat((args[0], args[1]))
-    except:
-        return torch.cat((args[0], torch.unsqueeze(args[1], 0)))
+    # if tensor to append is empty, just return first argument
+    if args[1].numel() == 0:
+        return args[0]
+
+    # do some reshaping for scalar tensors
+    if args[0].numel() == 1:
+        vec1 = args[0].reshape(1)
+    else:
+        vec1 = args[0]
+
+    if args[1].numel() == 1:
+        vec2 = args[1].reshape(1)
+    else:
+        vec2 = args[1]
+
+    return torch.cat((vec1, vec2))
 
 
 def get(*args):
     if type(args[1]) is str:
         return args[0][args[1]]
     else:
-        return args[0][args[1].item()]
+        return args[0][int(args[1].item())]
 
 
 def put(*args):
@@ -47,7 +61,7 @@ def put(*args):
             ret[args[1].item()] = args[2]
     else:  # assuming args[0] will be a torch tensor
         ret = torch.clone(args[0])
-        ret[args[1].item()] = args[2]
+        ret[int(args[1].item())] = args[2]
     return ret
 
 
@@ -70,6 +84,10 @@ def last(*args):
 
 def rest(*args):
     return args[0][1:]
+
+
+def peek(*args):
+    return args[0][0]
 
 
 def mat_repmat(*args):
@@ -108,6 +126,8 @@ env = {
     'last': last,
     'rest': rest,
     'append': append,
+    'conj': append,
+    'peek': peek,
     'mat-mul': torch.matmul,
     'mat-add': torch.add,
     'mat-repmat': mat_repmat,
