@@ -73,7 +73,8 @@ def evaluate(exp, env=None):
             d = evaluate(args[1], env=env)
             s = d.sample()
             k = evaluate(args[2], env=env)
-            sigma = {'type' : 'sample'
+            sigma = {'type': 'sample',
+                     'addr': alpha
                      #TODO: put any other stuff you need here
                      }
             return k, [s], sigma
@@ -82,7 +83,9 @@ def evaluate(exp, env=None):
             d = evaluate(args[1], env=env)
             c = evaluate(args[2], env=env)
             k = evaluate(args[3], env=env)
-            sigma = {'type' : 'observe'
+            sigma = {'type': 'observe',
+                     'logW': d.log_prob(c),
+                     'addr': alpha
                      #TODO: put any other stuff you need here
                      }
             return k, [c], sigma
@@ -98,7 +101,7 @@ def evaluate(exp, env=None):
         else: #func eval
             proc = evaluate(op, env=env)
             values = [evaluate(e, env=env) for e in args]
-            sigma = {'type' : 'proc'
+            sigma = {'type': 'proc'
                      #TODO: put any other stuff you need here
                      }
             return proc, values, sigma
@@ -130,7 +133,7 @@ def get_stream(exp):
         yield sample_from_prior(exp)
 
 
-def run_deterministic_tests(use_cache=True, cache='programs/saved_tests/'):
+def run_deterministic_tests(use_cache=True, cache='programs/tests/'):
 
     for i in range(1,15):
         if use_cache:
@@ -155,7 +158,7 @@ def run_deterministic_tests(use_cache=True, cache='programs/saved_tests/'):
             with open(cache + 'hoppl-deterministic/test_{}.daphne'.format(i),'r') as f:
                 exp = json.load(f)
         else:
-            exp = daphne(['desugar-hoppl-cps', '-i', '../../HW6/programs/tests/hoppl-deterministic/test_{}.daphne'.format(i)])
+            exp = daphne(['desugar-hoppl-cps', '-i', '../CPSC532W-HW/Kevin/HOPPL/SMC/programs/tests/hoppl-deterministic/test_{}.daphne'.format(i)])
             with open(cache + 'hoppl-deterministic/test_{}.json'.format(i),'w') as f:
                 json.dump(exp, f)
 
@@ -183,7 +186,7 @@ def run_probabilistic_tests(use_cache=True, cache='programs/tests/'):
             with open(cache + 'probabilistic/test_{}.daphne'.format(i),'r') as f:
                 exp = json.load(f)
         else:
-            exp = daphne(['desugar-hoppl-cps', '-i', '../../HW6/programs/tests/probabilistic/test_{}.daphne'.format(i)])
+            exp = daphne(['desugar-hoppl-cps', '-i', '../CPSC532W-HW/Kevin/HOPPL/SMC/programs/tests/probabilistic/test_{}.daphne'.format(i)])
             with open(cache + 'probabilistic/test_{}.json'.format(i),'w') as f:
                 json.dump(exp, f)
         truth = load_truth('programs/tests/probabilistic/test_{}.truth'.format(i))
@@ -201,10 +204,10 @@ def run_probabilistic_tests(use_cache=True, cache='programs/tests/'):
 if __name__ == '__main__':
     # run the tests, if you wish:  
     run_deterministic_tests(use_cache=False)
-    # run_probabilistic_tests(use_cache=False)
+    run_probabilistic_tests(use_cache=False)
 
     #load your precompiled json's here:
-    with open('programs/saved_tests/{}.json'.format(4),'r') as f:
+    with open('programs/{}.json'.format(4),'r') as f:
         exp = json.load(f)
 
     #this should run a sample from the prior

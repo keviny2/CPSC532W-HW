@@ -1,7 +1,8 @@
-from evaluator import evaluate
+from evaluator import evaluate, sample_from_prior
 import torch
 import numpy as np
 import json
+from daphne import daphne
 import sys
 
 
@@ -11,13 +12,23 @@ def get_IS_sample(exp):
     output = lambda x: x
     res =  evaluate(exp, env=None)('addr_start', output)
     #TODO : hint, "get_sample_from_prior" as a basis for your solution
+    # logWs = []
+    while type(res) is tuple:
+        cont, args, sigma = res
+        res = cont(*args)
     return logW, res
 
 if __name__ == '__main__':
-
+    use_cache = True
     for i in range(1,5):
-        with open('programs/{}.json'.format(i),'r') as f:
-            exp = json.load(f)
+        if not use_cache:
+            exp = daphne(['desugar-hoppl-cps', '-i',
+                          '../CPSC532W-HW/Kevin/HOPPL/SMC/programs/{}.daphne'.format(i)])
+            with open('programs/{}.json'.format(i), 'w') as f:
+                json.dump(exp, f)
+        else:
+            with open('programs/{}.json'.format(i),'r') as f:
+                exp = json.load(f)
         print('\n\n\nSample of prior of program {}:'.format(i))
         log_weights = []
         values = []
@@ -35,6 +46,6 @@ if __name__ == '__main__':
         log_norm_weights = log_weights - log_Z
         weights = torch.exp(log_norm_weights).detach().numpy()
         weighted_samples = (torch.exp(log_norm_weights).reshape((-1,1))*values.float()).detach().numpy()
-    
-        print('covariance: ', np.cov(values.float().detach().numpy(),rowvar=False, aweights=weights))    
+
+        print('covariance: ', np.cov(values.float().detach().numpy(),rowvar=False, aweights=weights))
         print('posterior mean:', weighted_samples.mean(axis=0))
