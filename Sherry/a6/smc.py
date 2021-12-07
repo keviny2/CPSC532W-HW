@@ -21,7 +21,7 @@ def run_until_observe_or_end(res):
 
 def resample_particles(particles, log_weights):
     new_particles = []
-    weights = torch.exp(log_weights)
+    weights = torch.exp(torch.FloatTensor(log_weights))
     normalization_weights = weights / torch.sum(weights)
     samples = torch.multinomial(normalization_weights, len(particles), True)
     for sample in samples:
@@ -70,14 +70,15 @@ def SMC(n_particles, exp):
                         raise RuntimeError('Failed SMC, finished one calculation before the other')
             else:
                 #TODO: check particle addresses, and get weights and continuations
+                particles[i] = res
                 if i == 0:
                     address = res[2]['addr']
                 else:
                     test_address = res[2]['addr']
                     if test_address != address:
                         raise RuntimeError("Failed SMC, different addresses")
-
-                weights[i] += res[2]['logW']
+                logW = res[2]['logW']
+                weights[i] = logW
 
         if not done:
             #resample and keep track of logZs
